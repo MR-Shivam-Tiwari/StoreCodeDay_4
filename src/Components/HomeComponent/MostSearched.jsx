@@ -38,6 +38,18 @@ function MostSearched() {
       "linear-gradient(120deg, #e9d2ef 0%, #c067bc 50%, #669fec 100%)",
     borderImageSlice: "1",
   };
+  const borderStyle2 = {
+    width: "25%",
+    height: "5%",
+    padding: "2px",
+    overflow: "hidden",
+    marginBottom:"-70px",
+    border: `3px solid transparent`,
+    backgroundColor:"white",
+    borderImage:
+      "linear-gradient(120deg, #e9d2ef 0%, #c067bc 50%, #669fec 100%)",
+    borderImageSlice: "1",
+  };
   const textStyle = {
     fontSize: "10px",
   };
@@ -80,16 +92,16 @@ function MostSearched() {
           </div>
           <div
             className="d-flex align-items-center justify-content-center "
-            style={{ gap: "70px" }}
+            style={{ gap: "70px",position: "relative" }}
           >
-            <div className="text-center me-1" style={borderStyle}>
+            <div className="text-center me-1" style={borderStyle2}>
               <div style={{ position: "relative" }}>
                 <img
                   src="https://images.unsplash.com/photo-1541260894924-7ff059b93d54?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHByb2R1Y3QlMjBtYW58ZW58MHx8MHx8fDA%3D"
                   alt="logo"
                   style={{
                     width: "100%",
-                    height: "90px",
+                    height: "100%",
                     objectFit: "cover",
                   }}
                 />
@@ -126,14 +138,14 @@ function MostSearched() {
               </span>
             </div>
 
-            <div className="text-center me-1  " style={borderStyle}>
+            <div className="text-center me-1  " style={borderStyle2}>
               <div style={{ position: "relative" }}>
                 <img
-                  src="https://img.freepik.com/premium-photo/asian-man-being-ready-his-vacation_8087-2633.jpg"
+                  src="https://plus.unsplash.com/premium_photo-1683318596886-3ba591e65918?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHRyYXZlbCUyMG1hbnxlbnwwfHwwfHx8MA%3D%3D"
                   alt="logo"
                   style={{
                     width: "100%",
-                    height: "90px",
+                    height: "100%",
                     objectFit: "cover",
                   }}
                 />
