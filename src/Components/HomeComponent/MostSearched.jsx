@@ -85,11 +85,11 @@ function MostSearched() {
             <div className="text-center me-1" style={borderStyle}>
               <div style={{ position: "relative" }}>
                 <img
-                  src="https://images.unsplash.com/photo-1608748010899-18f300247112?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTl8fGZhc2hpb258ZW58MHx8MHx8fDA%3D"
+                  src="https://images.unsplash.com/photo-1541260894924-7ff059b93d54?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHByb2R1Y3QlMjBtYW58ZW58MHx8MHx8fDA%3D"
                   alt="logo"
                   style={{
                     width: "100%",
-                    height: "100%",
+                    height: "90px",
                     objectFit: "cover",
                   }}
                 />
@@ -129,11 +129,11 @@ function MostSearched() {
             <div className="text-center me-1  " style={borderStyle}>
               <div style={{ position: "relative" }}>
                 <img
-                  src="https://images.unsplash.com/photo-1608748010899-18f300247112?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTl8fGZhc2hpb258ZW58MHx8MHx8fDA%3D"
+                  src="https://img.freepik.com/premium-photo/asian-man-being-ready-his-vacation_8087-2633.jpg"
                   alt="logo"
                   style={{
                     width: "100%",
-                    height: "100%",
+                    height: "90px",
                     objectFit: "cover",
                   }}
                 />
