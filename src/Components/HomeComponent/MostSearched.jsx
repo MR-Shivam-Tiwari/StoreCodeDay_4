@@ -43,13 +43,22 @@ function MostSearched() {
     height: "5%",
     padding: "2px",
     overflow: "hidden",
-    marginBottom:"-70px",
+    marginBottom: "-70px",
     border: `3px solid transparent`,
-    backgroundColor:"white",
+    backgroundColor: "white",
     borderImage:
       "linear-gradient(120deg, #e9d2ef 0%, #c067bc 50%, #669fec 100%)",
     borderImageSlice: "1",
   };
+  const textStyle2 = {
+    fontSize: "12px",
+    fontWeight: "bold",
+    color: "#670133",
+    textShadow: "3px 0 0 #670133, -3px 0 0 #670133, 0 3px 0 #670133, 0 -3px 0 #670133",
+  };
+  if (window.innerWidth >= 1200) {
+    textStyle2.fontSize = "40px";
+  }
   const textStyle = {
     fontSize: "10px",
   };
@@ -92,7 +101,7 @@ function MostSearched() {
           </div>
           <div
             className="d-flex align-items-center justify-content-center "
-            style={{ gap: "70px",position: "relative" }}
+            style={{ gap: "70px", position: "relative" }}
           >
             <div className="text-center me-1" style={borderStyle2}>
               <div style={{ position: "relative" }}>
@@ -118,7 +127,7 @@ function MostSearched() {
                     display: "inline-block",
                   }}
                 >
-                  <p className=" text-white fw-bold mb-0" style={textStyle}>
+                  <p className=" text-white fw-bold mb-0" style={textStyle2}>
                     PRODUCT
                   </p>
                 </span>
@@ -162,7 +171,7 @@ function MostSearched() {
                     display: "inline-block",
                   }}
                 >
-                  <p className=" text-white fw-bold mb-0" style={textStyle}>
+                  <p className=" text-white fw-bold mb-0" style={textStyle2}>
                     TRAVEL
                   </p>
                 </span>
