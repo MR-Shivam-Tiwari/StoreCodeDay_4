@@ -3,7 +3,7 @@ import React from "react";
 
 function TopInfluencer() {
   return (
-    <div className=" text-white container px-4 mt-4 ">
+    <div className=" text-white container px-5 mt-4 ">
       <h3 className="fw-bold mb-4">TOP INFLUENCER</h3>
       <div
         className="  d-flex align-items-center gap-3  "

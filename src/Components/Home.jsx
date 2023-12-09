@@ -6,6 +6,9 @@ import GetCode from "./HomeComponent/GetCode";
 import MostSearched from "./HomeComponent/MostSearched";
 import TopInfluencer from "./HomeComponent/TopInfluencer";
 import ExploreGuides from "./HomeComponent/ExploreGuides";
+import Benifits from "./HomeComponent/Benifits";
+import TestiMonials from "./HomeComponent/TestiMonials";
+import Footer from "./HomeComponent/Footer";
 
 function Home() {
   return (
@@ -35,6 +38,15 @@ function Home() {
       </div>
       <div className="">
         <ExploreGuides />
+      </div>
+      <div className="">
+        <Benifits />
+      </div>
+      <div className="">
+        <TestiMonials />
+      </div>
+      <div className="">
+        <Footer />
       </div>
       </div>
     </div>
