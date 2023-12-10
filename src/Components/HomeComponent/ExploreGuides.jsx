@@ -1,15 +1,17 @@
 import { Avatar } from "antd";
 import React from "react";
 
+import { useNavigate } from "react-router-dom";
 function ExploreGuides() {
+  const navigate = useNavigate();
   return (
     <div className="text-white container px-4 mt-4">
       <div
-      style={{
-        background: "linear-gradient(0deg, #670133 10%, #000000)",
-        padding: "20px",
-        boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
-      }}
+        style={{
+          background: "linear-gradient(0deg, #670133 10%, #000000)",
+          padding: "20px",
+          boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
+        }}
       >
         <h3 className="fw-bold mb-4">EXPLORE GUIDES</h3>
 
@@ -58,10 +60,12 @@ function ExploreGuides() {
                     backgroundColor: "#1960ae",
                     color: "white",
                     borderRadius: "5px",
+                    cursor: "pointer", 
                   }}
+                  onClick={() => navigate("/product-guide-page")}
                 >
                   <p
-                    className="fw-bold p-1 "
+                    className="fw-bold p-1"
                     style={{
                       fontSize: "11px",
                       marginBottom: "0px",
@@ -114,7 +118,9 @@ function ExploreGuides() {
                     backgroundColor: "#1960ae",
                     color: "white",
                     borderRadius: "5px",
+                    cursor: "pointer"
                   }}
+                  onClick={() => navigate("/travel-guide-page")}
                 >
                   <p
                     className="fw-bold p-1 "
