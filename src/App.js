@@ -5,6 +5,7 @@ import ProductExplore from "./Components/ExplorePage/ProductExplore";
 import TravelExplore from "./Components/ExplorePage/TravelExplore";
 import ProductProfile from "./Components/ExplorePage/ProductProfile";
 import TravelProfile from "./Components/ExplorePage/TravelProfile";
+import ProductViewPage from "./Components/ViewPage/ProductViewPage";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
         <Route path="/product-guide-page" element={<ProductExplore />} />
         <Route path="/travel-guide-page" element={<TravelExplore />} />
         <Route path="/product-profile" element={<ProductProfile />} />
+        <Route path="/product-uploaded-post" element={<ProductViewPage />} />
         <Route path="/travel-profile" element={<TravelProfile />} />
       </Routes>
     </Router>
