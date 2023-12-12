@@ -6,6 +6,7 @@ import TravelExplore from "./Components/ExplorePage/TravelExplore";
 import ProductProfile from "./Components/ExplorePage/ProductProfile";
 import TravelProfile from "./Components/ExplorePage/TravelProfile";
 import ProductViewPage from "./Components/ViewPage/ProductViewPage";
+import TravelViewPage from "./Components/ViewPage/TravelViewPage";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/product-profile" element={<ProductProfile />} />
         <Route path="/product-uploaded-post" element={<ProductViewPage />} />
         <Route path="/travel-profile" element={<TravelProfile />} />
+        <Route path="/travel-uploaded-post" element={<TravelViewPage />} />
       </Routes>
     </Router>
   );
