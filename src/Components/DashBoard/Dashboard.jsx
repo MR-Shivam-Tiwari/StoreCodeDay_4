@@ -67,8 +67,8 @@ function Dashboard() {
     border: `double 1px transparent`,
     borderRadius: "8px",
     backgroundImage: isFocused
-      ? "linear-gradient(white, white), linear-gradient(to right, #ff7e5f, #feb47b)" // Gradient when focused
-      : "linear-gradient(white, white),  linear-gradient(to right,  #dc1fff ,#3471e8)", // Default gradient
+      ? "linear-gradient(white, white), linear-gradient(to right,  #d475d4 ,#7399f5)" // Gradient when focused
+      : "linear-gradient(white, white),  linear-gradient(to right,  #d475d4 ,#7399f5)", // Default gradient
     backgroundOrigin: "border-box",
     backgroundClip: "padding-box, border-box",
     outline: "none", // Remove default focus outline
@@ -312,7 +312,7 @@ function Dashboard() {
                       d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
                     />
                   </svg>{" "}
-                  Add New post
+                  Add New Post
                 </button>
               </Link>
             </div>

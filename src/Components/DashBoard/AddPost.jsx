@@ -343,7 +343,7 @@ function AddPost() {
                   position: "relative",
                   marginTop:"170px",
                   fontStyle: "normal",
-                  background: "linear-gradient(to right,  #dc1fff ,#3471e8)",
+                  background: "linear-gradient(to right,  #d475d4 ,#7399f5)",
                 }}
               >
                 <div
