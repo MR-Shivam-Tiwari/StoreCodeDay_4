@@ -7,6 +7,8 @@ import ProductProfile from "./Components/ExplorePage/ProductProfile";
 import TravelProfile from "./Components/ExplorePage/TravelProfile";
 import ProductViewPage from "./Components/ViewPage/ProductViewPage";
 import TravelViewPage from "./Components/ViewPage/TravelViewPage";
+import Dashboard from "./Components/DashBoard/Dashboard";
+import AddPost from "./Components/DashBoard/AddPost";
 
 const App = () => {
   return (
@@ -20,6 +22,8 @@ const App = () => {
         <Route path="/product-uploaded-post" element={<ProductViewPage />} />
         <Route path="/travel-profile" element={<TravelProfile />} />
         <Route path="/travel-uploaded-post" element={<TravelViewPage />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/add-new-post" element={<AddPost />} />
       </Routes>
     </Router>
   );

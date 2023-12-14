@@ -54,7 +54,7 @@ function Navbar() {
               >
                 <li className="nav-item">
                   <Link
-                    className={`nav-link btn ${
+                    className={`nav-link  ${
                       location.pathname === "/" && "active"
                     }`}
                     to="/"
@@ -64,7 +64,7 @@ function Navbar() {
                 </li>
                 <li className="nav-item">
                   <Link
-                    className={`nav-link btn ${
+                    className={`nav-link  ${
                       location.pathname === "/about" && "active"
                     }`}
                     to="/about"
@@ -79,7 +79,7 @@ function Navbar() {
               <form className="d-flex align-items-center gap-2">
                 <Link
                   style={{ color: "#518EF8", fontWeight: "700" }}
-                  className={`nav-link btn ${
+                  className={`nav-link  ${
                     location.pathname === "/login" && "active"
                   }`}
                   to="/login"
@@ -88,7 +88,7 @@ function Navbar() {
                 </Link>
                 <Link
                   style={{ color: "#df439b", fontWeight: "700" }}
-                  className={`nav-link btn ${
+                  className={`nav-link  ${
                     location.pathname === "/register" && "active"
                   }`}
                   to="/register"
