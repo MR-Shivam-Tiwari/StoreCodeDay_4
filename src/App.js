@@ -9,6 +9,14 @@ import ProductViewPage from "./Components/ViewPage/ProductViewPage";
 import TravelViewPage from "./Components/ViewPage/TravelViewPage";
 import Dashboard from "./Components/DashBoard/Dashboard";
 import AddPost from "./Components/DashBoard/AddPost";
+import TravelDashboard from "./Components/DashBoard/TravelDashboard";
+import AddTravelPost from "./Components/DashBoard/AddTravelPost";
+import Login from "./Components/Auth/Login";
+import Register from "./Components/Auth/Register";
+import Otp from "./Components/Auth/Otp";
+import Forgot from "./Components/Auth/Forgot";
+import NewPassword from "./Components/Auth/NewPassword";
+import PasswordChanged from "./Components/Auth/PasswordChanged";
 
 const App = () => {
   return (
@@ -23,7 +31,18 @@ const App = () => {
         <Route path="/travel-profile" element={<TravelProfile />} />
         <Route path="/travel-uploaded-post" element={<TravelViewPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/travel-dashboard" element={<TravelDashboard />} />
         <Route path="/add-new-post" element={<AddPost />} />
+        <Route path="/add-new-travel-post" element={<AddTravelPost />} />
+
+        {/* Auth Part */}
+
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/otp" element={<Otp />} />
+        <Route path="/password-change" element={<PasswordChanged />} />
+        <Route path="/forgot-password" element={<Forgot />} />
+        <Route path="/new-password" element={<NewPassword />} />
       </Routes>
     </Router>
   );
