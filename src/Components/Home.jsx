@@ -9,6 +9,7 @@ import ExploreGuides from "./HomeComponent/ExploreGuides";
 import Benifits from "./HomeComponent/Benifits";
 import TestiMonials from "./HomeComponent/TestiMonials";
 import Footer from "./HomeComponent/Footer";
+import PopularCodes from "./HomeComponent/PopularCodes";
 
 function Home() {
   return (
@@ -27,27 +28,27 @@ function Home() {
       <div>
         <StorecodeSearchBar />
       </div>
+
+      <MostSearched />
       <div>
-        <GetCode />
+        <PopularCodes />
       </div>
-      <div className=" w-100 h-100 " style={{backgroundColor:"black"}}>
-        <MostSearched />
-     
       <div className="">
         <TopInfluencer />
       </div>
       <div className="">
         <ExploreGuides />
       </div>
-      <div className="">
-        <Benifits />
-      </div>
-      <div className="">
-        <TestiMonials />
-      </div>
-      <div className="">
-        <Footer />
-      </div>
+      <div className=" w-100 h-100 " style={{ backgroundColor: "black" }}>
+        <div className="">
+          <Benifits />
+        </div>
+        <div className="">
+          <TestiMonials />
+        </div>
+        <div className="">
+          <Footer />
+        </div>
       </div>
     </div>
   );

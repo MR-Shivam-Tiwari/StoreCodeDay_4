@@ -5,116 +5,20 @@ import ThirdImg from "./img/sales-promotion.png";
 import { useState } from "react";
 import { useEffect } from "react";
 import styled from "@emotion/styled";
-const rhombusStyle = {
-  width: "220px",
-  height: "220px",
-  backgroundColor: "#FFF",
-  transform: "rotate(45deg)",
-  margin: "50px",
-  position: "relative",
-  borderRadius: "30px",
-};
-const BlueCard = {
-  backgroundColor: "#023fac",
-  width: "50%",
-  padding: "5px 20px 0px 20px",
-  borderRadius: "20px 0px 20px 0px",
-};
-
-function FirstDiv() {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-  const BlueCard = {
-    backgroundColor: "#023fac",
-    width: "50%",
-    padding: "5px 20px 0px 20px",
-    borderRadius: "20px 0px 20px 0px",
-  };
-  if (windowWidth <= 467) {
-    BlueCard.width = "60%";
-  }
-
-  const para = {
-    marginLeft: "70px",
-    width: "65%",
-  };
-  if (windowWidth <= 467) {
-    para.width = "70%";
-    para.marginLeft = "60px";
-  }
-  return (
-    <div className="">
-      <div style={rhombusStyle}>
-        <div
-          className="card"
-          style={{
-            borderRadius: "50%",
-            width: "50px", // Adjust the size as needed
-            height: "50px", // Ensure width and height are equal
-            transform: "rotate(-45deg)",
-            backgroundColor: "#023fac",
-            margin: "50px",
-            position: "relative",
-            marginBottom: "-50px",
-            marginLeft: "-55px",
-            fontSize: "30px",
-            color: "white",
-            textAlign: "center",
-            top: "35px", // Adjust as needed to move the text down
-            left: "10px", // Adjust as needed to move the text to the right
-            fontWeight: "bold",
-          }}
-        >
-          1
-        </div>
-        <div>
-          <img
-            src={FirstImage}
-            alt=""
-            style={{
-              width: "100%",
-              transform: "rotate(-45deg)",
-              margin: "50px",
-              position: "relative",
-              marginTop: "-10px",
-              marginLeft: "-15px",
-            }}
-          />
-        </div>
-      </div>
-      <div className="text-center" style={{ marginLeft: "-20px" }}>
-        <div className="d-flex align-items-center justify-content-center">
-          <div className="text-white card  " style={BlueCard}>
-            <h6>Redirects Shoppers to Purchasing Site</h6>
-          </div>
-        </div>
-        <div className="mt-3">
-          <p className="text-white text-center" style={para}>
-            Each unique code guides buyers to the product purchase site
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 function Benifits() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     const handleResize = () => {
-      setWindowWidth(window.innerWidth);
+      const newWidth = window.innerWidth;
+      setWindowWidth(newWidth);
+
+      // Check if window width is less than or equal to 400
+      if (newWidth <= 450) {
+        // Refresh the page
+        window.location.reload();
+      }
     };
 
     window.addEventListener("resize", handleResize);
@@ -123,27 +27,101 @@ function Benifits() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  const rhombusStyle = {
+    width: "220px",
+    height: "220px",
+    backgroundColor: "#FFF",
+    transform: "rotate(45deg)",
+    margin: "50px",
+    position: "relative",
+    borderRadius: "30px",
+  };
+  if (windowWidth <= 450) {
+    rhombusStyle.width = "40px";
+    rhombusStyle.height = "40px";
+    rhombusStyle.borderRadius = "10px";
+    rhombusStyle.marginBottom = "60px";
+  }
+  const BlueCard = {
+    backgroundColor: "#023fac",
+    width: "50%",
+    padding: "5px 20px 0px 20px",
+    borderRadius: "20px 0px 20px 0px",
+  };
+  if (windowWidth <= 450) {
+    BlueCard.width = "50%";
+    BlueCard.marginTop = "-60px";
+    BlueCard.marginLeft = "25px";
+    BlueCard.borderRadius = "10px 0px 10px 0px";
+  }
+
+  const para = {
+    marginLeft: "70px",
+    width: "65%",
+  };
+  if (windowWidth <= 450) {
+    para.width = "60%";
+    para.marginLeft = "45px";
+    para.marginTop = "-28px";
+    para.fontSize = "5px";
+  }
+  const bluetext = {};
+  if (windowWidth <= 450) {
+    bluetext.fontSize = "4px";
+  }
   const containerStyle = {
     display: "flex",
     alignItems: "center",
     gap: "4px",
     color: "white",
-    overflow: "auto", // This will hide the scroll bar
     position: "relative", // Ensure position relative for positioning the invisible scrollbar overlay
   };
-
-  const scrollbarStyle = {
-    width: "0px",
-    background: "transparent",
-    border: "none",
-    position: "absolute",
-    top: "0",
-    left: "0",
-    height: "100%", // Adjust height as needed
+  if(windowWidth <= 450){
+    containerStyle.marginTop='-50px'
+  }
+  const num = {
+    borderRadius: "50%",
+    width: "50px", // Adjust the size as needed
+    height: "50px", // Ensure width and height are equal
+    transform: "rotate(-45deg)",
+    backgroundColor: "#023fac",
+    margin: "50px",
+    position: "relative",
+    marginBottom: "-50px",
+    marginLeft: "-55px",
+    fontSize: "30px",
+    color: "white",
+    textAlign: "center",
+    top: "5px", // Adjust as needed to move the text down
+    left: "10px", // Adjust as needed to move the text to the right
+    fontWeight: "bold",
   };
+  if (windowWidth <= 467) {
+    num.width = "15px";
+    num.height = "15px";
+    num.fontSize = "12px";
+    num.marginBottom = "-32px";
+    num.marginLeft = "-22px";
+  }
+
+  const imgstyle = {
+    width: "100%",
+    transform: "rotate(-45deg)",
+    margin: "50px",
+    position: "relative",
+    marginTop: "-10px",
+    marginLeft: "-15px",
+  };
+  if (windowWidth <= 467) {
+    imgstyle.width = "35px";
+    imgstyle.height = "35px";
+    imgstyle.fontSize = "12px";
+    imgstyle.marginBottom = "-55px";
+    imgstyle.marginLeft = "0px";
+  }
 
   return (
-    <div className="text-white container px-4 mt-4">
+    <div className="text-white container  mt-4">
       <div
         className="text-center card rounded-3 p-2"
         style={{ backgroundColor: "#252525" }}
@@ -153,70 +131,58 @@ function Benifits() {
           <span style={{ color: "#fe0182" }}>BENEFITS</span>
         </h3>
         <div
-          className="d-flex align-items-center gap-4  text-white"
+          className="d-flex align-items-center  justify-content-center  text-white"
           style={containerStyle}
         >
           <div>
-            <FirstDiv />
+            <div className="">
+              <div style={rhombusStyle}>
+                <div className="card" style={num}>
+                  1
+                </div>
+                <div>
+                  <img src={FirstImage} alt="" style={imgstyle} />
+                </div>
+              </div>
+              <div className="text-center" style={{ marginLeft: "-20px" }}>
+                <div className="d-flex align-items-center justify-content-center">
+                  <div className="text-white card  " style={BlueCard}>
+                    <h6 style={bluetext}>
+                      Redirects Shoppers to Purchasing Site
+                    </h6>
+                  </div>
+                </div>
+                <div className="mt-3">
+                  <p className="text-white text-center" style={para}>
+                    Each unique code guides buyers to the product purchase site
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
           <div>
             <div className="">
               <div style={rhombusStyle}>
-                <div
-                  className="card"
-                  style={{
-                    borderRadius: "50%",
-                    width: "50px", // Adjust the size as needed
-                    height: "50px", // Ensure width and height are equal
-                    transform: "rotate(-45deg)",
-                    backgroundColor: "#023fac",
-                    margin: "50px",
-                    position: "relative",
-                    marginBottom: "-50px",
-                    marginLeft: "-55px",
-                    fontSize: "30px",
-                    color: "white",
-                    textAlign: "center",
-                    top: "35px", // Adjust as needed to move the text down
-                    left: "10px", // Adjust as needed to move the text to the right
-                    fontWeight: "bold",
-                  }}
-                >
+                <div className="card" style={num}>
                   2
                 </div>
                 <div>
-                  <img
-                    src={SecondImg}
-                    alt=""
-                    style={{
-                      width: "100%",
-                      transform: "rotate(-45deg)",
-                      margin: "50px",
-                      position: "relative",
-                      marginTop: "-20px",
-                      marginLeft: "-30px",
-                    }}
-                  />
+                  <img src={SecondImg} alt="" style={imgstyle} />
                 </div>
               </div>
               <div className="text-center" style={{ marginLeft: "-25px" }}>
                 <div className="d-flex align-items-center justify-content-center">
                   <div
                     className="text-white card  "
-                    style={{
-                      backgroundColor: "#023fac",
-                      width: "50%",
-                      padding: "5px 20px 0px 20px",
-                      borderRadius: "20px 0px 20px 0px",
-                    }}
+                    style={BlueCard}
                   >
-                    <h6>Commission for Guides</h6>
+                    <h6 style={bluetext}>Commission for Guides</h6>
                   </div>
                 </div>
                 <div className="mt-3">
                   <p
                     className="text-white text-center"
-                    style={{ marginLeft: "70px", width: "65%" }}
+                    style={para}
                   >
                     Guides earn Commissions when codes are used for shopping
                   </p>
@@ -227,61 +193,26 @@ function Benifits() {
           <div>
             <div className="">
               <div style={rhombusStyle}>
-                <div
-                  className=""
-                  style={{
-                    borderRadius: "50%",
-                    width: "50px", // Adjust the size as needed
-                    height: "50px", // Ensure width and height are equal
-                    transform: "rotate(-45deg)",
-                    backgroundColor: "#023fac",
-                    margin: "50px",
-                    position: "relative",
-                    marginBottom: "-50px",
-                    marginLeft: "-55px",
-                    fontSize: "30px",
-                    color: "white",
-                    textAlign: "center",
-                    top: "35px", // Adjust as needed to move the text down
-                    left: "10px", // Adjust as needed to move the text to the right
-                    fontWeight: "bold",
-                  }}
-                >
+                <div className="" style={num}>
                   3
                 </div>
                 <div>
-                  <img
-                    src={ThirdImg}
-                    alt=""
-                    style={{
-                      width: "100%",
-                      transform: "rotate(-45deg)",
-                      margin: "50px",
-                      position: "relative",
-                      marginTop: "-20px",
-                      marginLeft: "-10px",
-                    }}
-                  />
+                  <img src={ThirdImg} alt="" style={imgstyle} />
                 </div>
               </div>
               <div className="text-center" style={{ marginLeft: "-25px" }}>
                 <div className="d-flex align-items-center justify-content-center">
                   <div
                     className="text-white card  "
-                    style={{
-                      backgroundColor: "#023fac",
-                      width: "50%",
-                      padding: "5px 20px 0px 20px",
-                      borderRadius: "20px 0px 20px 0px",
-                    }}
+                    style={BlueCard}
                   >
-                    <h6>Discounts for Buyers</h6>
+                    <h6  style={bluetext}>Discounts for Buyers</h6>
                   </div>
                 </div>
                 <div className="mt-3">
                   <p
                     className="text-white text-center"
-                    style={{ marginLeft: "70px", width: "65%" }}
+                    style={para}
                   >
                     Buyers get big discounts with Guide-assigned codes
                   </p>

@@ -54,7 +54,8 @@ function MostSearched() {
     fontSize: "12px",
     fontWeight: "bold",
     color: "#670133",
-    textShadow: "3px 0 0 #670133, -3px 0 0 #670133, 0 3px 0 #670133, 0 -3px 0 #670133",
+    textShadow:
+      "3px 0 0 #670133, -3px 0 0 #670133, 0 3px 0 #670133, 0 -3px 0 #670133",
   };
   if (window.innerWidth >= 1200) {
     textStyle2.fontSize = "40px";
@@ -292,7 +293,6 @@ function MostSearched() {
             </div>
           </div>
         </div>
-        <hr className="mt-3"></hr>
       </div>
     </div>
   );

@@ -36,6 +36,8 @@ const App = () => {
         <Route path="/add-new-travel-post" element={<AddTravelPost />} />
 
         {/* Auth Part */}
+        
+
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

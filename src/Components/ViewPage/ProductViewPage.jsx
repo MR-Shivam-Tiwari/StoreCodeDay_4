@@ -345,7 +345,7 @@ function ProductViewPage() {
                       height="16"
                       color="red"
                       fill="currentColor"
-                      class="bi bi-heart-fill"
+                      className="bi bi-heart-fill"
                       viewBox="0 0 16 16"
                     >
                       <path
@@ -420,7 +420,7 @@ function ProductViewPage() {
                       height="16"
                       color="red"
                       fill="currentColor"
-                      class="bi bi-heart-fill"
+                      className="bi bi-heart-fill"
                       viewBox="0 0 16 16"
                     >
                       <path
@@ -495,7 +495,7 @@ function ProductViewPage() {
                       height="16"
                       color="red"
                       fill="currentColor"
-                      class="bi bi-heart-fill"
+                      className="bi bi-heart-fill"
                       viewBox="0 0 16 16"
                     >
                       <path
@@ -576,7 +576,7 @@ function ProductViewPage() {
                       height="16"
                       color="red"
                       fill="currentColor"
-                      class="bi bi-heart-fill"
+                      className="bi bi-heart-fill"
                       viewBox="0 0 16 16"
                     >
                       <path
@@ -651,7 +651,7 @@ function ProductViewPage() {
                       height="16"
                       color="red"
                       fill="currentColor"
-                      class="bi bi-heart-fill"
+                      className="bi bi-heart-fill"
                       viewBox="0 0 16 16"
                     >
                       <path
