@@ -12,7 +12,7 @@ function StorecodeSearchBar() {
   const handleSearch = async () => {
     try {
       const response = await axios.post(
-        "https://storecode.onrender.com/api/generate-link",
+        "/api/generate-link",
         {
           code: searchCode,
         }
@@ -34,7 +34,7 @@ function StorecodeSearchBar() {
   };
   const generateCode = async () => {
     try {
-      const response = await axios.post("https://storecode.onrender.com/api/generate", {
+      const response = await axios.post("/api/generate", {
         link,
       });
       setGeneratedCode(response.data.code);
