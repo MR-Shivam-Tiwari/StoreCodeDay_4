@@ -210,7 +210,7 @@ function AddPost() {
                       className="me-1 "
                       color="gray"
                       fill="currentColor"
-                      className="bi bi-plus-lg"
+                      class="bi bi-plus-lg"
                       viewBox="0 0 16 16"
                     >
                       <path
@@ -284,7 +284,7 @@ function AddPost() {
                     className="me-1 "
                     color="gray"
                     fill="currentColor"
-                    className="bi bi-plus-lg"
+                    class="bi bi-plus-lg"
                     viewBox="0 0 16 16"
                   >
                     <path
