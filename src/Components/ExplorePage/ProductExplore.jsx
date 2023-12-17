@@ -521,7 +521,7 @@ function ProductExplore() {
                     <div>
                       <img
                         className="rounded-4"
-                        src="https://img.freepik.com/free-photo/portrait-handsome-smiling-stylish-young-man-model-dressed-jeans-clothes-fashion-man-wearing-sunglasses_158538-5022.jpg?size=626&ext=jpg&ga=GA1.1.1744357875.1693396610&semt=ais"
+                        src="https://plus.unsplash.com/premium_photo-1672907031715-fa4214fc3803?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bWVuJTIwc3R5bGlzaHxlbnwwfHwwfHx8MA%3D%3D"
                         alt=""
                         style={img}
                       />
@@ -706,7 +706,7 @@ function ProductExplore() {
                     <div>
                       <img
                         className="rounded-4"
-                        src="https://img.freepik.com/free-photo/high-fashion-look-glamor-stylish-sexy-smiling-beautiful-young-woman-model-summer-black-hipster-dress_158538-12433.jpg?size=626&ext=jpg&ga=GA1.1.1744357875.1693396610&semt=ais"
+                        src="https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bWVuJTIwc3R5bGlzaHxlbnwwfHwwfHx8MA%3D%3D"
                         alt=""
                         style={img}
                       />
