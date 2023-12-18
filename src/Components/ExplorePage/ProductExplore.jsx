@@ -334,7 +334,7 @@ function ProductExplore() {
                     <div>
                       <img
                         className="rounded-4"
-                        src="https://s3-alpha-sig.figma.com/img/2f9a/93c7/dd11017f19c07cc74ab2f13989c88710?Expires=1702857600&Signature=b2ezd8Slf-O0qWcMNbTkXio0hfWdYye~n3WVihG69lAAlTr4a51ABKLTF5wglF5g-YLAh-YtpyhLnXvh5Y7lOR0-ne~Tq3BbFMHniFB92U95m~05qw0hsZ2FUupNywWrmU~E9DEj8AfQb1oD5~e2brWci9UA9X-BF2GGgNSmNnoxAxBtAoYJ3Ji4lpRC3o4b3zTY1G1TUbSxXoVThBQLfWVdl8v7KleOK3yr0PUBjIqM4WaR~xjJ7~iWOt1wazguBiNmswA4m~zhQxnHqJ0IsyYQfxmW-TIjV0o2n5geASk5yB69M~05wvWb5uXWDijYuxtZklPce~yihM1FEgSafg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
+                        src="https://www.stfrock.com.au/cdn/shop/products/210201_stfrock_strickland_house_adr1115-2a-sf_blush_0086_1.jpg?v=1645554520"
                         alt=""
                         style={img}
                       />
