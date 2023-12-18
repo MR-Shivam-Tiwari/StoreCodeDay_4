@@ -17,6 +17,7 @@ import Otp from "./Components/Auth/Otp";
 import Forgot from "./Components/Auth/Forgot";
 import NewPassword from "./Components/Auth/NewPassword";
 import PasswordChanged from "./Components/Auth/PasswordChanged";
+import ProductGuideProfile from "./Components/ExplorePage/ProductGuideProfile";
 
 const App = () => {
   return (
@@ -26,7 +27,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/product-guide-page" element={<ProductExplore />} />
         <Route path="/travel-guide-page" element={<TravelExplore />} />
-        <Route path="/product-profile" element={<ProductProfile />} />
+        <Route path="/product-profile" element={<ProductGuideProfile />} />
         <Route path="/product-uploaded-post" element={<ProductViewPage />} />
         <Route path="/travel-profile" element={<TravelProfile />} />
         <Route path="/travel-uploaded-post" element={<TravelViewPage />} />

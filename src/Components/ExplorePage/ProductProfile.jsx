@@ -7,7 +7,7 @@ function ProductProfile() {
 
   useEffect(() => {
     const handleResize = () => {
-      const newWidth = window.innerWidth;
+      const newWidth = window.innerWidth; 
       setWindowWidth(newWidth);
 
       // Check if window width is less than or equal to 400
