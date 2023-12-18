@@ -18,6 +18,7 @@ import Forgot from "./Components/Auth/Forgot";
 import NewPassword from "./Components/Auth/NewPassword";
 import PasswordChanged from "./Components/Auth/PasswordChanged";
 import ProductGuideProfile from "./Components/ExplorePage/ProductGuideProfile";
+import TravelGuideProfile from "./Components/ExplorePage/TravelGuideProfile";
 
 const App = () => {
   return (
@@ -29,7 +30,7 @@ const App = () => {
         <Route path="/travel-guide-page" element={<TravelExplore />} />
         <Route path="/product-profile" element={<ProductGuideProfile />} />
         <Route path="/product-uploaded-post" element={<ProductViewPage />} />
-        <Route path="/travel-profile" element={<TravelProfile />} />
+        <Route path="/travel-profile" element={<TravelGuideProfile />} />
         <Route path="/travel-uploaded-post" element={<TravelViewPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/travel-dashboard" element={<TravelDashboard />} />

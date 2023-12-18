@@ -9,17 +9,9 @@ import {
   Input,
   Typography,
 } from "@mui/joy";
-const imageSrc =
-  "https://img.freepik.com/premium-photo/portrait-beautiful-indian-woman-traditional-clothing-jewelry_947073-11022.jpg?size=626&ext=jpg&ga=GA1.1.1744357875.1693396610&semt=sph";
-const imageSrc2 =
-  "https://img.freepik.com/free-photo/woman-with-his-hands-hair_1163-269.jpg?size=626&ext=jpg&ga=GA1.1.1744357875.1693396610&semt=ais";
-const imageSrc3 =
-  "https://img.freepik.com/free-photo/young-cute-woman-cap-glasses-posing-outside-showing-thumbs-up-high-quality-photo_114579-91847.jpg?size=626&ext=jpg&ga=GA1.1.1744357875.1693396610&semt=sph";
-const imageSrc4 =
-  "https://img.freepik.com/premium-photo/cute-young-girl-portrait-garden-wearing-des-dress-fashion-photoshoot_658768-286.jpg?size=626&ext=jpg&ga=GA1.1.1744357875.1693396610&semt=sph";
 
-function ProductGuideProfile() {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+function TravelGuideProfile() {
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const backButton = () => {
     window.history.back();
@@ -55,45 +47,12 @@ function ProductGuideProfile() {
     Cropimg.height = "28px";
     Cropimg.borderRadius = "4px";
   }
-  const Cropimg2 = {
-    width: "50px",
-    height: "50px",
-    background: `url(${imageSrc2})`,
-    backgroundSize: "cover",
-    backgroundPosition: "start",
-    borderRadius: "10px",
-  };
-  if (windowWidth <= 467) {
-    Cropimg2.width = "30px";
-    Cropimg2.height = "30px";
-    Cropimg2.borderRadius = "2px";
-  }
-  const Cropimg3 = {
-    width: "50px",
-    height: "50px",
-    background: `url(${imageSrc3})`,
-    backgroundSize: "cover",
-    backgroundPosition: "start",
-    borderRadius: "10px",
-  };
-  if (windowWidth <= 467) {
-    Cropimg3.width = "30px";
-    Cropimg3.height = "30px";
-    Cropimg3.borderRadius = "2px";
-  }
-  const Cropimg4 = {
-    width: "50px",
-    height: "50px",
-    background: `url(${imageSrc4})`,
-    backgroundSize: "cover",
-    backgroundPosition: "start",
-    borderRadius: "10px",
-  };
-  if (windowWidth <= 467) {
-    Cropimg4.width = "30px";
-    Cropimg4.height = "30px";
-    Cropimg4.borderRadius = "2px";
-  }
+ 
+
+
+ 
+ 
+  
 
   const img = {
     height: "100%",
@@ -180,7 +139,6 @@ function ProductGuideProfile() {
     borderWidth: "7px 0 7px 10px", // Adjust the size of the arrowhead
     borderColor: "transparent transparent transparent white", // Adjust the color
   };
-
   return (
     <div>
       <div style={{ backgroundColor: "rgb(3 23 55)" }}>
@@ -253,7 +211,7 @@ function ProductGuideProfile() {
                   <div>
                     <Avatar
                       alt="Remy Sharp"
-                      src="https://celebrityramp.com/wp-content/uploads/2022/11/Bhuvan-Bam-Profile.jpg"
+                      src="https://images.unsplash.com/photo-1616394585067-d3e824140aa1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dHJhdmVsJTIwZ2lybHxlbnwwfHwwfHx8MA%3D%3D"
                       sx={{ width: 85, height: 85, border: "4px solid white" }}
                     />
                   </div>
@@ -292,9 +250,9 @@ function ProductGuideProfile() {
                 </div>
                 <div>
                   <div className="text-start" style={{ lineHeight: "1px" }}>
-                    <h4 className="text-white fw-bold">Bhuvan Bam</h4>
+                    <h4 className="text-white fw-bold">Ayesha Varma</h4>
                     <p className="text-white" style={{ fontSize: "10px" }}>
-                      @bhuvan.bam22
+                      @ayesha.v20
                     </p>
                     <p
                       className="text-white"
@@ -304,8 +262,9 @@ function ProductGuideProfile() {
                         fontFamily: "unset",
                       }}
                     >
-                      I'm Your go-to for the latest products and fashion
-                    </p>
+                        Your shortcut to the latest travel hotspots and tips
+                     </p>
+
                   </div>
                   <div
                     className="d-flex align-items-center gap-2 "
@@ -425,7 +384,7 @@ function ProductGuideProfile() {
                       lineHeight: "-0.3px",
                     }}
                   >
-                    Festive
+                    Luxury
                   </span>{" "}
                 </div>
                 <div
@@ -441,7 +400,7 @@ function ProductGuideProfile() {
                       lineHeight: "-0.3px",
                     }}
                   >
-                    Casual
+                    Nature
                   </span>{" "}
                 </div>
                 <div
@@ -456,7 +415,7 @@ function ProductGuideProfile() {
                       lineHeight: "-0.3px",
                     }}
                   >
-                    Party
+                    Adventure
                   </span>{" "}
                 </div>
                 <div
@@ -472,7 +431,7 @@ function ProductGuideProfile() {
                       lineHeight: "-0.3px",
                     }}
                   >
-                    Summer
+                    Hill
                   </span>{" "}
                 </div>
                 <div
@@ -521,10 +480,10 @@ function ProductGuideProfile() {
                           autoPlay
                           loop
                           muted
-                          poster="https://i.giphy.com/Z6FcYfppmULPq0HtUo.mp4"
+                          poster="https://i.giphy.com/r0WlTx3h28qMpPiqUf.webp"
                         >
                           <source
-                            src="https://i.giphy.com/Z6FcYfppmULPq0HtUo.mp4"
+                            src="https://i.giphy.com/r0WlTx3h28qMpPiqUf.webp"
                             type="video/mp4"
                           />
                         </video>
@@ -574,7 +533,7 @@ function ProductGuideProfile() {
                       className="card text-center py-2 text-white fw-bold mt-2"
                       style={videocard2}
                     >
-                      <p>#GETTHISPRODUCT</p>
+                      <p>#PLANTHISTRIP</p>
                       <p style={{ marginTop: "-3px" }}>@ ₹599/-</p>
                     </div>
                   </div>
@@ -585,10 +544,10 @@ function ProductGuideProfile() {
                           autoPlay
                           loop
                           muted
-                          poster="https://i.giphy.com/QroF2vIlzaTb1cxVQf.webp"
+                          poster="https://i.giphy.com/1ncx1ypcalsEE.webp"
                         >
                           <source
-                            src="https://i.giphy.com/QroF2vIlzaTb1cxVQf.webp"
+                            src="https://i.giphy.com/1ncx1ypcalsEE.webp"
                             type="video/mp4"
                           />
                         </video>
@@ -638,7 +597,7 @@ function ProductGuideProfile() {
                       className="card text-center py-2 text-white fw-bold mt-2"
                       style={videocard2}
                     >
-                      <p>#GETTHISPRODUCT</p>
+                      <p>#PLANTHISTRIP</p>
                       <p style={{ marginTop: "-3px" }}>@ ₹599/-</p>
                     </div>
                   </div>
@@ -649,10 +608,10 @@ function ProductGuideProfile() {
                           autoPlay
                           loop
                           muted
-                          poster="https://i.giphy.com/arWeCDLhAc5YJ4emGS.webp"
+                          poster="https://i.giphy.com/bc7Ae3mL7ZAEo.webp"
                         >
                           <source
-                            src="https://i.giphy.com/arWeCDLhAc5YJ4emGS.webp"
+                            src="https://i.giphy.com/bc7Ae3mL7ZAEo.webp"
                             type="video/mp4"
                           />
                         </video>
@@ -702,7 +661,7 @@ function ProductGuideProfile() {
                       className="card text-center py-2 text-white fw-bold mt-2"
                       style={videocard2}
                     >
-                      <p>#GETTHISPRODUCT</p>
+                      <p>#PLANTHISTRIP</p>
                       <p style={{ marginTop: "-3px" }}>@ ₹599/-</p>
                     </div>
                   </div>
@@ -718,10 +677,10 @@ function ProductGuideProfile() {
                           autoPlay
                           loop
                           muted
-                          poster="https://i.giphy.com/DkfYVdHU8q0wJmQM6c.webp"
+                          poster="https://i.giphy.com/T8Ghwu2I5JyDu.webp"
                         >
                           <source
-                            src="https://i.giphy.com/DkfYVdHU8q0wJmQM6c.webp"
+                            src="https://i.giphy.com/T8Ghwu2I5JyDu.webp"
                             type="video/mp4"
                           />
                         </video>
@@ -771,7 +730,7 @@ function ProductGuideProfile() {
                       className="card text-center py-2 text-white fw-bold mt-2"
                       style={videocard2}
                     >
-                      <p>#GETTHISPRODUCT</p>
+                      <p>#PLANTHISTRIP</p>
                       <p style={{ marginTop: "-3px" }}>@ ₹599/-</p>
                     </div>
                   </div>
@@ -782,10 +741,10 @@ function ProductGuideProfile() {
                           autoPlay
                           loop
                           muted
-                          poster="https://i.giphy.com/HC8QbzmTwA64RUkiSh.webp"
+                          poster="https://i.giphy.com/1ncx1ypcalsEE.webp"
                         >
                           <source
-                            src="https://i.giphy.com/HC8QbzmTwA64RUkiSh.webp"
+                            src="https://i.giphy.com/1ncx1ypcalsEE.webp"
                             type="video/mp4"
                           />
                         </video>
@@ -835,7 +794,7 @@ function ProductGuideProfile() {
                       className="card text-center py-2 text-white fw-bold mt-2"
                       style={videocard2}
                     >
-                      <p>#GETTHISPRODUCT</p>
+                      <p>#PLANTHISTRIP</p>
                       <p style={{ marginTop: "-3px" }}>@ ₹599/-</p>
                     </div>
                   </div>
@@ -899,7 +858,7 @@ function ProductGuideProfile() {
                       className="card text-center py-2 text-white fw-bold mt-2"
                       style={videocard2}
                     >
-                      <p>#GETTHISPRODUCT</p>
+                      <p>#PLANTHISTRIP</p>
                       <p style={{ marginTop: "-3px" }}>@ ₹599/-</p>
                     </div>
                   </div>
@@ -915,10 +874,10 @@ function ProductGuideProfile() {
                           autoPlay
                           loop
                           muted
-                          poster="https://i.giphy.com/Ji177DxhpYiaeuJDES.webp"
+                          poster="https://i.giphy.com/1ncx1ypcalsEE.webp"
                         >
                           <source
-                            src="https://i.giphy.com/Ji177DxhpYiaeuJDES.webp"
+                            src="https://i.giphy.com/1ncx1ypcalsEE.webp"
                             type="video/mp4"
                           />
                         </video>
@@ -968,7 +927,7 @@ function ProductGuideProfile() {
                       className="card text-center py-2 text-white fw-bold mt-2"
                       style={videocard2}
                     >
-                      <p>#GETTHISPRODUCT</p>
+                      <p>#PLANTHISTRIP</p>
                       <p style={{ marginTop: "-3px" }}>@ ₹599/-</p>
                     </div>
                   </div>
@@ -979,10 +938,10 @@ function ProductGuideProfile() {
                           autoPlay
                           loop
                           muted
-                          poster="https://i.giphy.com/9K5qVG5JyiVKrr8TeB.webp"
+                          poster="https://i.giphy.com/bc7Ae3mL7ZAEo.webp"
                         >
                           <source
-                            src="https://i.giphy.com/9K5qVG5JyiVKrr8TeB.webp"
+                            src="https://i.giphy.com/bc7Ae3mL7ZAEo.webp"
                             type="video/mp4"
                           />
                         </video>
@@ -1032,7 +991,7 @@ function ProductGuideProfile() {
                       className="card text-center py-2 text-white fw-bold mt-2"
                       style={videocard2}
                     >
-                      <p>#GETTHISPRODUCT</p>
+                      <p>#PLANTHISTRIP</p>
                       <p style={{ marginTop: "-3px" }}>@ ₹599/-</p>
                     </div>
                   </div>
@@ -1043,10 +1002,10 @@ function ProductGuideProfile() {
                           autoPlay
                           loop
                           muted
-                          poster="https://i.giphy.com/3z157gzEbRIsKkNYzF.webp"
+                          poster="https://i.giphy.com/r0WlTx3h28qMpPiqUf.webp"
                         >
                           <source
-                            src="https://i.giphy.com/3z157gzEbRIsKkNYzF.webp"
+                            src="https://i.giphy.com/r0WlTx3h28qMpPiqUf.webp"
                             type="video/mp4"
                           />
                         </video>
@@ -1096,20 +1055,20 @@ function ProductGuideProfile() {
                       className="card text-center py-2 text-white fw-bold mt-2"
                       style={videocard2}
                     >
-                      <p>#GETTHISPRODUCT</p>
+                      <p>#PLANTHISTRIP</p>
                       <p style={{ marginTop: "-3px" }}>@ ₹599/-</p>
                     </div>
                   </div>
                 </div>
               </div>
-              <h6 className="fw-bold p-3 text-white ">@SHOPWITHSTORECODE</h6>
+              <h6 className="fw-bold p-3 text-white ">@TRAVELWITHSTORECODE</h6>
             </div>
             <div className="">&nbsp;</div>
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default ProductGuideProfile;
+export default TravelGuideProfile
