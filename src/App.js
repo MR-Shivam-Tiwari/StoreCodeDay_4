@@ -19,6 +19,7 @@ import NewPassword from "./Components/Auth/NewPassword";
 import PasswordChanged from "./Components/Auth/PasswordChanged";
 import ProductGuideProfile from "./Components/ExplorePage/ProductGuideProfile";
 import TravelGuideProfile from "./Components/ExplorePage/TravelGuideProfile";
+import TravelGuidePostPage from "./Components/ViewPage/TravelGuidePostPage";
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
         <Route path="/product-uploaded-post" element={<ProductViewPage />} />
         <Route path="/travel-profile" element={<TravelGuideProfile />} />
         <Route path="/travel-uploaded-post" element={<TravelViewPage />} />
+        <Route path="/travel-guide-post-page" element={<TravelGuidePostPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/travel-dashboard" element={<TravelDashboard />} />
         <Route path="/add-new-post" element={<AddPost />} />
