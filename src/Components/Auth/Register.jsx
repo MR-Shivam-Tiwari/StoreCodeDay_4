@@ -1,10 +1,59 @@
 import { KeyboardArrowDown } from "@mui/icons-material";
 import { Button, Input, Option, Stack } from "@mui/joy";
 import Select, { selectClasses } from "@mui/joy/Select";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 function Register() {
+  const navigate = useNavigate();
+  const [state, setState] = useState(false);
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [details, setDetails] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "", // Add this line
+    contact: "",
+  });
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    // Check if passwords match
+    if (details.password !== details.confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+  
+    try {
+      const response = await fetch("http://localhost:3002/api/newuser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(details),
+      });
+  
+      const json = await response.json();
+      console.log(json);
+  
+      if (json.success) {
+        navigate("/login");
+      } else {
+        alert("Enter Valid Credentials");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      // Handle error as needed
+    }
+  };
+  
+
+  const handleChange = (event, fieldName) => {
+    setDetails({ ...details, [fieldName]: event.target.value });
+  };
+
   const handleButtonClick = () => {
     window.history.back();
   };
@@ -50,14 +99,44 @@ function Register() {
         </span>
       </div>
 
-      <div className="">
-        <Input size="lg" placeholder="Name" className="mb-3" />
-        <Input size="lg" placeholder="Email Id" className="mb-3" />
-        <Input size="lg" placeholder="Contact" className="mb-3" />
-        <Input size="lg" placeholder="Password" className="mb-3" />
-        <Input size="lg" placeholder="Confirm Password" className="mb-3" />
+      <form onSubmit={handleSubmit} className="">
+        <Input
+          size="lg"
+          placeholder="Name"
+          className="mb-3"
+          value={details.name}
+          onChange={(e) => handleChange(e, "name")}
+        />
+        <Input
+          size="lg"
+          placeholder="Email Id"
+          className="mb-3"
+          value={details.email}
+          onChange={(e) => handleChange(e, "email")}
+        />
+        <Input
+          size="lg"
+          placeholder="Contact"
+          className="mb-3"
+          value={details.contact}
+          onChange={(e) => handleChange(e, "contact")}
+        />
+        <Input
+          size="lg"
+          placeholder="Password"
+          className="mb-3"
+          value={details.password}
+          onChange={(e) => handleChange(e, "password")}
+        />
+        <Input
+          size="lg"
+          placeholder="Confirm Password"
+          className="mb-3"
+          value={details.confirmPassword}
+          onChange={(e) => handleChange(e, "confirmPassword")}
+        />
         <Select
-          placeholder="Select a pet…"
+          placeholder="Select Category"
           fullWidth
           className="mb-4"
           IconComponent={KeyboardArrowDown} // Use IconComponent to specify the custom indicator
@@ -78,14 +157,14 @@ function Register() {
             },
           }}
         >
-          <Option value="dog">Dog</Option>
-          <Option value="cat">Cat</Option>
-          <Option value="fish">Fish</Option>
-          <Option value="bird">Bird</Option>
+          <Option value="Product">Product</Option>
+          <Option value="Travel">Travel</Option>
+        
         </Select>
-      </div>
+    
       <div className="mb-2">
         <Button
+        type="submit"
           style={{
             position: "relative",
             fontStyle: "normal",
@@ -106,6 +185,7 @@ function Register() {
           </div>
         </Button>
       </div>
+      </form>
       <div className="d-flex align-items-center justify-content-between">
         <hr className="col"></hr>
         <div className="col text-center" style={{ fontSize: "14px" }}>

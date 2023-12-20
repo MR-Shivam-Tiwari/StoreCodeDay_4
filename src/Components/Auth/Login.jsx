@@ -1,11 +1,60 @@
 import { KeyboardArrowDown } from "@mui/icons-material";
 import { Button, Input, Option, Stack } from "@mui/joy";
 import Select, { selectClasses } from "@mui/joy/Select";
-import { Link } from "react-router-dom";
-import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 
 function Login() {
+  const navigate = useNavigate();
 
+  const [details, setDetails] = useState({
+    email: "",
+    password: "",
+  });
+  
+  const handleChange = (e) => {
+    setDetails({
+      ...details,
+      [e.target.name]: e.target.value,
+    });
+  };
+  
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+  
+    try {
+      const response = await fetch("http://localhost:3002/api/loginuser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: details.email,
+          password: details.password,
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const json = await response.json();
+  
+      if (json.success) {
+        // Store the user information in localStorage
+        localStorage.setItem("user", JSON.stringify(json.user));
+        localStorage.setItem("authToken", json.authToken);
+      
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      alert(`Login failed: ${error.message || "An error occurred. Please try again."}`);
+    }
+  }
+  
+  
 
   const handleButtonClick = () => {
     window.history.back();
@@ -57,10 +106,20 @@ function Login() {
           </span>
         </div>
 
-        <div className="">
-          <Input size="lg" placeholder="Enter your email id" className="mb-3" />
+        <form onSubmit={handleSubmit} className="">
           <Input
             size="lg"
+            placeholder="Enter your email id"
+            className="mb-3"
+            type="email"
+            name="email"  
+            value={details.email}
+            onChange={handleChange}
+          />
+          <Input
+            size="lg"
+            type="password"
+            name="password" 
             placeholder="Enter your password"
             endDecorator={
               <svg
@@ -89,45 +148,49 @@ function Login() {
                 </defs>
               </svg>
             }
+            value={details.password}
+            onChange={handleChange}
             className="mb-2"
           />
-        </div>
-        <Link to="/forgot-password" style={{ textDecoration: "none" }}>
-          <div
-            className="mb-4"
-            style={{
-              textAlign: "right",
-              fontSize: "13px",
-              fontWeight: "600",
-              color: "#6A707C",
-            }}
-          >
-            Forgot Password?
-          </div>
-        </Link>
-        <div className="mb-4">
-          <Button
-            size="lg"
-            style={{
-              position: "relative",
-              fontStyle: "normal",
-              lineHeight: "-0.3px",
-              background:
-                "linear-gradient(90deg, #C63AC0 0%, #518EF8 70%, #2F6CE5 100%)",
-            }}
-            fullWidth
-          >
+
+          <Link to="/forgot-password" style={{ textDecoration: "none" }}>
             <div
+              className="mb-4"
               style={{
-                color: "white",
-                WebkitBackgroundClip: "text",
-                display: "inline-block",
+                textAlign: "right",
+                fontSize: "13px",
+                fontWeight: "600",
+                color: "#6A707C",
               }}
             >
-              Login
+              Forgot Password?
             </div>
-          </Button>
-        </div>
+          </Link>
+          <div className="mb-4">
+            <Button
+              type="submit"
+              size="lg"
+              style={{
+                position: "relative",
+                fontStyle: "normal",
+                lineHeight: "-0.3px",
+                background:
+                  "linear-gradient(90deg, #C63AC0 0%, #518EF8 70%, #2F6CE5 100%)",
+              }}
+              fullWidth
+            >
+              <div
+                style={{
+                  color: "white",
+                  WebkitBackgroundClip: "text",
+                  display: "inline-block",
+                }}
+              >
+                Login
+              </div>
+            </Button>
+          </div>
+        </form>
         <div className=" mb-2 d-flex align-items-center justify-content-between">
           <hr className="col"></hr>
           <div className="col text-center" style={{ fontSize: "14px" }}>
