@@ -27,7 +27,7 @@ function TravelDashboard() {
   useEffect(() => {
     // Fetch existing user profile data when the component mounts
     axios
-      .get("http://localhost:3002/api/user/profile")
+      .get("https://storecode.onrender.com/api/user/profile")
       .then((response) => {
         setProfileData(response.data);
       })
@@ -55,7 +55,7 @@ function TravelDashboard() {
     // Make a PUT request to update the user profile
     // Inside the success block of your PUT request
     axios
-      .put("http://localhost:3002/api/user/profile", formData)
+      .put("https://storecode.onrender.com/api/user/profile", formData)
       .then((response) => {
         console.log(response.data);
 
