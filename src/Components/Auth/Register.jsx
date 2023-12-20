@@ -27,7 +27,7 @@ function Register() {
     }
   
     try {
-      const response = await fetch("http://localhost:3002/api/newuser", {
+      const response = await fetch("https://storecode.onrender.com/api/newuser", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
