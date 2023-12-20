@@ -34,7 +34,7 @@ function ProductGuideProfile() {
     const fetchProfileData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3002/api/user/profile"
+          "https://storecode.onrender.com/api/user/profile"
         );
         setProfileData(response.data || {});
       } catch (error) {
