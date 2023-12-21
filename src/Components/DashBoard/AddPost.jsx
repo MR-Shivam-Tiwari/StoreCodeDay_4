@@ -3,19 +3,53 @@ import React, { useEffect, useState } from "react";
 import "./Dahboard.css";
 import Select, { selectClasses } from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
-
+import { useNavigate } from 'react-router-dom';
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
-
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 function AddPost() {
+  const navigate = useNavigate();
   const [showFooter, setShowFooter] = useState(true);
   const [isFocused, setIsFocused] = useState(false);
   const [showInputs1, setShowInputs1] = useState(false);
   const [showInputs2, setShowInputs2] = useState(false);
+
+
+  const [postData, setPostData] = useState({
+    category: "", // Add any default value if needed
+    postName: "",
+    videoLink: "",
+    tagProducts: "",
+    startingPrice: "",
+  });
+
+  const handleInputChange = (event, fieldName) => {
+    const value = event.target.value;
+    setPostData((prevData) => ({
+      ...prevData,
+      [fieldName]: value,
+    }));
+  };
+
+  const handleUpload = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3002/api/posts/upload",
+        postData
+      );
+
+      console.log(response.data);
+
+      navigate('/product-profile');
+    } catch (error) {
+      console.error("Error uploading post:", error);
+    }
+  };
+
   const handleBackClick = () => {
     window.history.back();
   };
-
 
   const handleButtonClick1 = () => {
     setShowInputs1(!showInputs1);
@@ -25,14 +59,6 @@ function AddPost() {
   const handleButtonClick2 = () => {
     setShowInputs2(!showInputs2);
     setShowInputs1(false);
-  };
-
-  const handleFocus = () => {
-    setIsFocused(true);
-  };
-
-  const handleBlur = () => {
-    setIsFocused(false);
   };
 
   // Toggle function to show/hide inputs
@@ -132,11 +158,13 @@ function AddPost() {
               </div>
             </div>
             <div>
+              <Link to='/product-profile'>
               <Avatar
                 alt="Remy Sharp"
                 src="https://img.freepik.com/free-photo/cheerful-girl-cashmere-sweater-laughs-against-backdrop-blossoming-sakura-portrait-woman-yellow-hoodie-city-spring_197531-17886.jpg?size=626&ext=jpg&ga=GA1.1.1744357875.1693396610&semt=sph"
                 size="lg"
-              />
+                />
+                </Link>
             </div>
           </div>
           <hr style={{ marginTop: "-6px" }}></hr>
@@ -144,49 +172,92 @@ function AddPost() {
         {/* Center Content Goes Here */}
         <div className="d-flex align-items-center justify-content-center">
           <div className="px-3 mt-3">
-            <div className="mb-3">
-              <Select
-                fullwidth
-                placeholder="Select Category"
-                indicator={<KeyboardArrowDown />}
-                style={inputStyles}
-                sx={{
-                  height: "60px",
-                  width: "340px",
-                  [`& .${selectClasses.indicator}`]: {
-                    transition: "0.2s",
-                    [`&.${selectClasses.expanded}`]: {
-                      transform: "rotate(-180deg)",
+            <div className="">
+              <div className="mb-3">
+                <select
+                  name="category"
+                  value={postData.category}
+                  onChange={(e) => handleInputChange(e, "category")}
+                  className="form-select custom-select"
+                  style={{
+                    height: "60px",
+                    width: "340px",
+                    border: "1px solid #dc1fff",
+                  }}
+                >
+                  <option value="">Select Category</option>
+                  <option value="casual">casual</option>
+                  <option value="festive">Festive</option>
+                  <option value="party">Party</option>
+                  <option value="occasional">Occasional</option>
+                </select>
+                {/* <Select
+                  fullwidth
+                  name="anotherCategory"
+                  value={postData.anotherCategory}
+                  onChange={(e) => handleInputChange(e, "anotherCategory")}
+                  placeholder="Select Another Category"
+                  indicator={<KeyboardArrowDown />}
+                  style={inputStyles}
+                  sx={{
+                    height: "60px",
+                    width: "340px",
+                    [`& .${selectClasses.indicator}`]: {
+                      transition: "0.2s",
+                      [`&.${selectClasses.expanded}`]: {
+                        transform: "rotate(-180deg)",
+                      },
                     },
-                  },
-                }}
-              >
-                <Option value="dog">casual</Option>
-                <Option value="cat">Festive</Option>
-                <Option value="fish">Party</Option>
-                <Option value="bird">Occasional</Option>
-              </Select>
-            </div>
-            <div className="mb-3">
-              <Input
-                style={{ ...inputStyles, height: "60px" }}
-                placeholder="Post Name"
-                variant="outlined"
-              />
-            </div>
-            <div className="mb-3">
-              <Input
-                style={{ ...inputStyles, height: "60px" }}
-                placeholder="Associated Video Link"
-                variant="outlined"
-              />
-            </div>
-            <div className="mb-3">
-              <Input
-                style={{ ...inputStyles, height: "60px" }}
-                placeholder="Tag Products"
-                variant="outlined"
-              />
+                  }}
+                >
+                  <Option value="option1">Option 1</Option>
+                  <Option value="option2">Option 2</Option>
+                  <Option value="option3">Option 3</Option>
+                 
+                </Select> */}
+              </div>
+              <div className="mb-3">
+                <Input
+                  name="postName"
+                  type="text"
+                  value={postData.postName}
+                  onChange={(e) => handleInputChange(e, "postName")}
+                  style={{ ...inputStyles, height: "60px" }}
+                  placeholder="Post Name"
+                  variant="outlined"
+                />
+              </div>
+              <div className="mb-3">
+                <Input
+                  type="url"
+                  name="videoLink"
+                  value={postData.videoLink}
+                  onChange={(e) => handleInputChange(e, "videoLink")}
+                  style={{ ...inputStyles, height: "60px" }}
+                  placeholder="Associated Video Link"
+                  variant="outlined"
+                />
+              </div>
+              <div className="mb-3">
+                <Input
+                  name="tagProducts"
+                  value={postData.tagProducts}
+                  onChange={(e) => handleInputChange(e, "tagProducts")}
+                  style={{ ...inputStyles, height: "60px" }}
+                  placeholder="Tag Products"
+                  variant="outlined"
+                />
+              </div>
+              <div className="mb-3">
+                <Input
+                  name="startingPrice"
+                  value={postData.startingPrice}
+                  onChange={(e) => handleInputChange(e, "startingPrice")}
+                  style={{ ...inputStyles, height: "60px" }}
+                  placeholder="Starting Price"
+                  variant="outlined"
+                />
+              </div>
             </div>
             <div>
               <div className="animated-form-container mb-3">
@@ -227,7 +298,7 @@ function AddPost() {
                       style={{
                         padding: "0.5rem",
                         border: `double 1px transparent`,
-                        borderRadius:" 0px 0px 10px 10px",
+                        borderRadius: " 0px 0px 10px 10px",
                         backgroundImage: isFocused
                           ? "linear-gradient(white, white), linear-gradient(to right, #ff7e5f, #feb47b)" // Gradient when focused
                           : "linear-gradient(white, white),  linear-gradient(to right,  #dc1fff ,#3471e8)", // Default gradient
@@ -301,7 +372,7 @@ function AddPost() {
                     style={{
                       padding: "0.5rem",
                       border: `double 1px transparent`,
-                      borderRadius:" 0px 0px 10px 10px",
+                      borderRadius: " 0px 0px 10px 10px",
                       backgroundImage: isFocused
                         ? "linear-gradient(white, white), linear-gradient(to right, #ff7e5f, #feb47b)" // Gradient when focused
                         : "linear-gradient(white, white),  linear-gradient(to right,  #dc1fff ,#3471e8)", // Default gradient
@@ -337,11 +408,12 @@ function AddPost() {
             <div>
               <Button
                 className="rounded-3 mb-5"
+                onClick={handleUpload}
                 style={{
                   width: "340px",
                   height: "70px",
                   position: "relative",
-                  marginTop:"170px",
+                  marginTop: "170px",
                   fontStyle: "normal",
                   background: "linear-gradient(to right,  #d475d4 ,#7399f5)",
                 }}

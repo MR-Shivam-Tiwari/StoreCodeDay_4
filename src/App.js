@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Components/Home";
 import ProductExplore from "./Components/ExplorePage/ProductExplore";
@@ -20,37 +20,46 @@ import PasswordChanged from "./Components/Auth/PasswordChanged";
 import ProductGuideProfile from "./Components/ExplorePage/ProductGuideProfile";
 import TravelGuideProfile from "./Components/ExplorePage/TravelGuideProfile";
 import TravelGuidePostPage from "./Components/ViewPage/TravelGuidePostPage";
+import { DataProvider } from "./Components/DataContext";
 
 const App = () => {
+  const [fetchedData, setFetchedData] = useState([]);
   return (
-    <Router>
-      <Routes>
-        {/* Define your routes */}
-        <Route path="/" element={<Home />} />
-        <Route path="/product-guide-page" element={<ProductExplore />} />
-        <Route path="/travel-guide-page" element={<TravelExplore />} />
-        <Route path="/product-profile" element={<ProductGuideProfile />} />
-        <Route path="/product-uploaded-post" element={<ProductViewPage />} />
-        <Route path="/travel-profile" element={<TravelGuideProfile />} />
-        <Route path="/travel-uploaded-post" element={<TravelViewPage />} />
-        <Route path="/travel-guide-post-page" element={<TravelGuidePostPage />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/travel-dashboard" element={<TravelDashboard />} />
-        <Route path="/add-new-post" element={<AddPost />} />
-        <Route path="/add-new-travel-post" element={<AddTravelPost />} />
+    <DataProvider>
+      <Router>
+        <Routes>
+          {/* Define your routes */}
+          <Route path="/" element={<Home />} />
+          <Route path="/product-guide-page" element={<ProductExplore />} />
+          <Route path="/travel-guide-page" element={<TravelExplore />} />
+          <Route path="/product-profile" element={<ProductGuideProfile />} />
+          <Route
+            path="/product-uploaded-post/:id"
+            element={<ProductViewPage />}
+          />
 
-        {/* Auth Part */}
-        
+          <Route path="/travel-profile" element={<TravelGuideProfile />} />
+          <Route path="/travel-uploaded-post" element={<TravelViewPage />} />
+          <Route
+            path="/travel-guide-post-page"
+            element={<TravelGuidePostPage />}
+          />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/travel-dashboard" element={<TravelDashboard />} />
+          <Route path="/add-new-post" element={<AddPost />} />
+          <Route path="/add-new-travel-post" element={<AddTravelPost />} />
 
+          {/* Auth Part */}
 
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/otp" element={<Otp />} />
-        <Route path="/password-change" element={<PasswordChanged />} />
-        <Route path="/forgot-password" element={<Forgot />} />
-        <Route path="/new-password" element={<NewPassword />} />
-      </Routes>
-    </Router>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/otp" element={<Otp />} />
+          <Route path="/password-change" element={<PasswordChanged />} />
+          <Route path="/forgot-password" element={<Forgot />} />
+          <Route path="/new-password" element={<NewPassword />} />
+        </Routes>
+      </Router>
+    </DataProvider>
   );
 };
 

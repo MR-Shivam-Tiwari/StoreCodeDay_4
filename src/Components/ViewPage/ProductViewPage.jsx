@@ -11,20 +11,22 @@ import Chip from "@mui/joy/Chip";
 import Link from "@mui/joy/Link";
 import Typography from "@mui/joy/Typography";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
+import { useLocation, useParams } from "react-router-dom";
+import { useDataContext } from "../DataContext";
 
 function ProductViewPage() {
+  const { id } = useParams();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const { data, loading } = useDataContext();
+
+  // Check if data exists before destructuring
+  const { videoLink = '', tagProducts = '', startingPrice = '' } = data || {};
+  
+  // Render loading message if data is not available
 
   useEffect(() => {
     const handleResize = () => {
-      const newWidth = window.innerWidth;
-      setWindowWidth(newWidth);
-
-      // Check if window width is less than or equal to 400
-      if (newWidth <= 400) {
-        // Refresh the page
-        window.location.reload();
-      }
+      setWindowWidth(window.innerWidth);
     };
 
     window.addEventListener("resize", handleResize);
@@ -47,7 +49,7 @@ function ProductViewPage() {
   const cardStyle = {
     position: "relative",
     width: "100%",
-    marginTop: "-70px",
+    marginTop: "-30px",
     borderRadius: "25px",
     border: "4px solid white ",
     boxShadow: "0 0 20px rgba(0, 0, 0, 0.5)",
@@ -94,13 +96,13 @@ function ProductViewPage() {
   }
   const smallCardStyle = {
     position: "absolute",
-    top: "25%   ",
-    width: "35%",
-    left: "100px",
-    backgroundColor: "black",
+    top: "75%   ",
+    left: "105px",
     borderRadius: "15px",
+    backgroundColor:"gray",
+    lineHeight:"5px",
     padding: "10px",
-    border: "4px solid white ",
+    border: "2px solid white ",
   };
   if (windowWidth <= 467) {
     smallCardStyle.height = "11%";
@@ -142,7 +144,7 @@ function ProductViewPage() {
   const cardw = {
     width: "400px",
     maxWidth: "100%",
-    
+
     borderRadius: "30px",
     backgroundColor: "rgb(241 240 240)",
   };
@@ -230,17 +232,17 @@ function ProductViewPage() {
     buttonCard.marginTop = "-37px ";
   }
   const gap = {
-    gap:"100px"
-  }
-  if(windowWidth <= 467){
-    gap.gap="20px"
+    gap: "100px",
+  };
+  if (windowWidth <= 467) {
+    gap.gap = "20px";
   }
 
+  if (loading) {
+    return <div>Loading...</div>; // Show a loading indicator
+  }
   return (
-    <div
-      className="container "
-     
-    >
+    <div className="container ">
       <div style={div1}>
         <div
           style={{
@@ -251,7 +253,7 @@ function ProductViewPage() {
         >
           <div style={cardStyle}>
             <img
-              src="https://img.freepik.com/free-photo/portrait-woman-recording-video_23-2148586389.jpg?size=626&ext=jpg&ga=GA1.1.1744357875.1693396610&semt=ais"
+              src={videoLink}
               alt="mage"
               style={imageStyle}
             />
@@ -269,37 +271,24 @@ function ProductViewPage() {
               </svg>
             </div>
           </div>
-          <div className="shadow-lg" style={smallCardStyle}>
-            <div
-              className="d-flex align-items-center justify-content-between "
-              style={paddingsmall}
-            >
-              <Avatar
-                alt="Remy Sharp"
-                src="/static/images/avatar/1.jpg"
-                style={avtaR}
-              />
-
-              <Rating
-                name="half-rating-read"
-                defaultValue={4.5}
-                precision={0.5}
-                readOnly
-                size="small"
-              />
+          <div className="shadow-lg text-center" style={smallCardStyle}>
+            <div>
+              <h4 className="fw-bold">{tagProducts.toUpperCase()}</h4>
             </div>
-
-            <p style={bluetext}>$/214325776/-</p>
-            <p className="  " style={para}>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Optio?
-              Lorem ipsum dolor sit
-            </p>
+            <div>
+              <p className="fw-bold">
+              @ ₹{startingPrice}/-
+              </p>
+            </div>
           </div>
         </div>
       </div>
 
       <div className="mb-5">
-        <div className="d-flex align-items-center justify-content-center p-3 " style={gap}> 
+        <div
+          className="d-flex align-items-center justify-content-center p-3 "
+          style={gap}
+        >
           <div className="mt-3">
             {" "}
             <Card className="mb-5" sx={cardw}>
