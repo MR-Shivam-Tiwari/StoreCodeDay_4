@@ -13,16 +13,37 @@ import Typography from "@mui/joy/Typography";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import { useLocation, useParams } from "react-router-dom";
 import { useDataContext } from "../DataContext";
+import axios from "axios";
 
 function ProductViewPage() {
   const { id } = useParams();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
   const { data, loading } = useDataContext();
 
   // Check if data exists before destructuring
-  const { videoLink = '', tagProducts = '', startingPrice = '' } = data || {};
-  
-  // Render loading message if data is not available
+  const { videoLink = "", tagProducts = "", startingPrice = "" } = data || {};
+
+  const [fetchedData, setFetchedData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:3002/api/getproducts");
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setFetchedData(data.products || []); // Update this line
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        // Handle the error, e.g., display an error message to the user
+      }
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -99,8 +120,8 @@ function ProductViewPage() {
     top: "75%   ",
     left: "105px",
     borderRadius: "15px",
-    backgroundColor:"gray",
-    lineHeight:"5px",
+    backgroundColor: "gray",
+    lineHeight: "5px",
     padding: "10px",
     border: "2px solid white ",
   };
@@ -252,11 +273,7 @@ function ProductViewPage() {
           }}
         >
           <div style={cardStyle}>
-            <img
-              src={videoLink}
-              alt="mage"
-              style={imageStyle}
-            />
+            <img src={videoLink} alt="mage" style={imageStyle} />
             <div style={overlayStyle}></div>
             <div style={centerContentStyle}>
               <svg
@@ -276,9 +293,7 @@ function ProductViewPage() {
               <h4 className="fw-bold">{tagProducts.toUpperCase()}</h4>
             </div>
             <div>
-              <p className="fw-bold">
-              @ ₹{startingPrice}/-
-              </p>
+              <p className="fw-bold">@ ₹{startingPrice}/-</p>
             </div>
           </div>
         </div>
@@ -291,387 +306,98 @@ function ProductViewPage() {
         >
           <div className="mt-3">
             {" "}
-            <Card className="mb-5" sx={cardw}>
-              <CardOverflow className="p-2" sx={cardImg}>
-                <img
-                  src="https://img.freepik.com/free-photo/indian-picture-woman-hands-mehendi-tradition-decoration_155003-3325.jpg?size=626&ext=jpg&ga=GA1.1.1744357875.1693396610&semt=ais"
-                  loading="lazy"
-                  alt=""
-                  style={imgCard2}
-                />
-                <div className="py-0 " style={offper}>
-                  <p
-                    className="text-white fw-bold"
-                    style={{ margin: 0, fontSize: "10px" }}
-                  >
-                    10% off
-                  </p>
-                </div>
-              </CardOverflow>
-
-              <CardContent>
-                <div className="d-flex align-items-center justify-content-between">
-                  <div>
-                    <h4
-                      className="fw-bold"
-                      href="#product-card"
-                      fontWeight="md"
-                      color="neutral"
-                      textColor="text.primary"
-                      overlay
-                      style={cardName}
-                    >
-                      Product A400
-                    </h4>
-                    <p className="fw-bold " style={{ color: "gray" }}>
-                      $50.00
-                    </p>
-                  </div>
-                  <div className="card  shadow-sm rounded-5" style={heart}>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      color="red"
-                      fill="currentColor"
-                      className="bi bi-heart-fill"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"
+            {fetchedData.length > 0 ? (
+              fetchedData.map((item) => (
+                <div className="col mt-5" key={item.id}>
+                  <Card className="mb-5" sx={cardw}>
+                    <CardOverflow className="p-2" sx={cardImg}>
+                      <img
+                        loading="lazy"
+                        src={item.productImageLink}
+                        alt=""
+                        style={imgCard2}
                       />
-                    </svg>
-                  </div>
-                </div>
-              </CardContent>
-              <div
-                className="d-flex align-items-center justify-content-center"
-                style={{ marginBottom: "-42px" }}
-              >
-                <Button
-                  variant="solid"
-                  className="text-white "
-                  color=""
-                  style={buttonCard}
-                >
-                  <div
-                    style={{
-                      color: "white",
-                      display: "inline-block",
-                    }}
-                  >
-                    S1A5899
-                  </div>
-                </Button>
-              </div>
-            </Card>
-            <Card className="mb-5" sx={cardw}>
-              <CardOverflow className="p-2" sx={cardImg}>
-                <img
-                  src="https://img.freepik.com/premium-photo/beautiful-indian-woman-smiling-giving-happy-expression_54391-7264.jpg?size=626&ext=jpg&ga=GA1.1.1744357875.1693396610&semt=sph"
-                  loading="lazy"
-                  alt=""
-                  style={imgCard2}
-                />
-                <div className="py-0 " style={offper}>
-                  <p
-                    className="text-white fw-bold"
-                    style={{ margin: 0, fontSize: "10px" }}
-                  >
-                    10% off
-                  </p>
-                </div>
-              </CardOverflow>
+                      <div className="py-0 " style={offper}>
+                        <p
+                          className="text-white fw-bold"
+                          style={{ margin: 0, fontSize: "10px" }}
+                        >
+                          10% off
+                        </p>
+                      </div>
+                    </CardOverflow>
 
-              <CardContent>
-                <div className="d-flex align-items-center justify-content-between">
-                  <div>
-                    <h4
-                      className="fw-bold"
-                      href="#product-card"
-                      fontWeight="md"
-                      color="neutral"
-                      textColor="text.primary"
-                      overlay
-                      style={cardName}
+                    <CardContent>
+                      <div className="d-flex align-items-center justify-content-between">
+                        <div>
+                          <h4
+                            className="fw-bold"
+                            href="#product-card"
+                            fontWeight="md"
+                            color="neutral"
+                            textColor="text.primary"
+                            overlay
+                            style={cardName}
+                          >
+                            {item.productName}
+                          </h4>
+                          <p className="fw-bold " style={{ color: "gray" }}>
+                            Rs{item.price}.00
+                          </p>
+                        </div>
+                        <div
+                          className="card  shadow-sm rounded-5"
+                          style={heart}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            color="red"
+                            fill="currentColor"
+                            className="bi bi-heart-fill"
+                            viewBox="0 0 16 16"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </CardContent>
+                    <div
+                      className="d-flex align-items-center justify-content-center"
+                      style={{ marginBottom: "-42px" }}
                     >
-                      Product A400
-                    </h4>
-                    <p className="fw-bold " style={{ color: "gray" }}>
-                      $50.00
-                    </p>
-                  </div>
-                  <div className="card  shadow-sm rounded-5" style={heart}>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      color="red"
-                      fill="currentColor"
-                      className="bi bi-heart-fill"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"
-                      />
-                    </svg>
-                  </div>
+                      <Button
+                        variant="solid"
+                        className="text-white "
+                        color=""
+                        style={buttonCard}
+                      >
+                        <div
+                          style={{
+                            color: "white",
+                            display: "inline-block",
+                          }}
+                        >
+                          S1A5899
+                        </div>
+                      </Button>
+                    </div>
+                  </Card>
                 </div>
-              </CardContent>
-              <div
-                className="d-flex align-items-center justify-content-center"
-                style={{ marginBottom: "-42px" }}
-              >
-                <Button
-                  variant="solid"
-                  className="text-white "
-                  color=""
-                  style={buttonCard}
-                >
-                  <div
-                    style={{
-                      color: "white",
-                      display: "inline-block",
-                    }}
-                  >
-                    S1A5899
-                  </div>
-                </Button>
-              </div>
-            </Card>
-            <Card className="mb-5" sx={cardw}>
-              <CardOverflow className="p-2" sx={cardImg}>
-                <img
-                  src="https://img.freepik.com/free-photo/cheerful-traditional-indian-woman-white-background-studio-shot_1157-48206.jpg?size=626&ext=jpg&ga=GA1.1.1744357875.1693396610&semt=sph"
-                  loading="lazy"
-                  alt=""
-                  style={imgCard2}
-                />
-                <div className="py-0 " style={offper}>
-                  <p
-                    className="text-white fw-bold"
-                    style={{ margin: 0, fontSize: "10px" }}
-                  >
-                    10% off
-                  </p>
-                </div>
-              </CardOverflow>
-
-              <CardContent>
-                <div className="d-flex align-items-center justify-content-between">
-                  <div>
-                    <h4
-                      className="fw-bold"
-                      href="#product-card"
-                      fontWeight="md"
-                      color="neutral"
-                      textColor="text.primary"
-                      overlay
-                      style={cardName}
-                    >
-                      Product A400
-                    </h4>
-                    <p className="fw-bold " style={{ color: "gray" }}>
-                      $50.00
-                    </p>
-                  </div>
-                  <div className="card  shadow-sm rounded-5" style={heart}>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      color="red"
-                      fill="currentColor"
-                      className="bi bi-heart-fill"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"
-                      />
-                    </svg>
-                  </div>
-                </div>
-              </CardContent>
-              <div
-                className="d-flex align-items-center justify-content-center"
-                style={{ marginBottom: "-42px" }}
-              >
-                <Button
-                  variant="solid"
-                  className="text-white "
-                  color=""
-                  style={buttonCard}
-                >
-                  <div
-                    style={{
-                      color: "white",
-                      display: "inline-block",
-                    }}
-                  >
-                    S1A5899
-                  </div>
-                </Button>
-              </div>
-            </Card>
+              ))
+            ) : (
+              <p>Loading...</p> // Or any loading indicator
+            )}
           </div>
           <div className="mt-3">
             {" "}
             <div className="mb-5 " style={{ marginTop: "-90%" }}>
               <img src={blueCard} alt="" style={blurCard} />
             </div>
-            <Card className="mb-5" sx={cardw}>
-              <CardOverflow className="p-2" sx={cardImg}>
-                <img
-                  src="https://img.freepik.com/free-photo/cute-brunette-white-sweater-city_1157-18467.jpg?size=626&ext=jpg&ga=GA1.1.1744357875.1693396610&semt=sph"
-                  loading="lazy"
-                  alt=""
-                  style={imgCard2}
-                />
-                <div className="py-0 " style={offper}>
-                  <p
-                    className="text-white fw-bold"
-                    style={{ margin: 0, fontSize: "10px" }}
-                  >
-                    10% off
-                  </p>
-                </div>
-              </CardOverflow>
-
-              <CardContent>
-                <div className="d-flex align-items-center justify-content-between">
-                  <div>
-                    <h4
-                      className="fw-bold"
-                      href="#product-card"
-                      fontWeight="md"
-                      color="neutral"
-                      textColor="text.primary"
-                      overlay
-                      style={cardName}
-                    >
-                      Product A400
-                    </h4>
-                    <p className="fw-bold " style={{ color: "gray" }}>
-                      $50.00
-                    </p>
-                  </div>
-                  <div className="card  shadow-sm rounded-5" style={heart}>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      color="red"
-                      fill="currentColor"
-                      className="bi bi-heart-fill"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"
-                      />
-                    </svg>
-                  </div>
-                </div>
-              </CardContent>
-              <div
-                className="d-flex align-items-center justify-content-center"
-                style={{ marginBottom: "-42px" }}
-              >
-                <Button
-                  variant="solid"
-                  className="text-white "
-                  color=""
-                  style={buttonCard}
-                >
-                  <div
-                    style={{
-                      color: "white",
-                      display: "inline-block",
-                    }}
-                  >
-                    S1A5899
-                  </div>
-                </Button>
-              </div>
-            </Card>
-            <Card className="mb-5" sx={cardw}>
-              <CardOverflow className="p-2" sx={cardImg}>
-                <img
-                  src="https://img.freepik.com/free-photo/cheerful-girl-cashmere-sweater-laughs-against-backdrop-blossoming-sakura-portrait-woman-yellow-hoodie-city-spring_197531-17886.jpg?size=626&ext=jpg&ga=GA1.1.1744357875.1693396610&semt=sph"
-                  loading="lazy"
-                  alt=""
-                  style={imgCard2}
-                />
-                <div className="py-0 " style={offper}>
-                  <p
-                    className="text-white fw-bold"
-                    style={{ margin: 0, fontSize: "10px" }}
-                  >
-                    10% off
-                  </p>
-                </div>
-              </CardOverflow>
-
-              <CardContent>
-                <div className="d-flex align-items-center justify-content-between">
-                  <div>
-                    <h4
-                      className="fw-bold"
-                      href="#product-card"
-                      fontWeight="md"
-                      color="neutral"
-                      textColor="text.primary"
-                      overlay
-                      style={cardName}
-                    >
-                      Product A400
-                    </h4>
-                    <p className="fw-bold " style={{ color: "gray" }}>
-                      $50.00
-                    </p>
-                  </div>
-                  <div className="card shadow-sm rounded-5" style={heart}>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      color="red"
-                      fill="currentColor"
-                      className="bi bi-heart-fill"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"
-                      />
-                    </svg>
-                  </div>
-                </div>
-              </CardContent>
-              <div
-                className="d-flex align-items-center justify-content-center"
-                style={{ marginBottom: "-42px" }}
-              >
-                <Button
-                  variant="solid"
-                  className="text-white "
-                  color=""
-                  style={buttonCard}
-                >
-                  <div
-                    style={{
-                      color: "white",
-                      display: "inline-block",
-                    }}
-                  >
-                    S1A5899
-                  </div>
-                </Button>
-              </div>
-            </Card>
           </div>
         </div>
       </div>

@@ -39,7 +39,7 @@ const App = () => {
           />
 
           <Route path="/travel-profile" element={<TravelGuideProfile />} />
-          <Route path="/travel-uploaded-post" element={<TravelViewPage />} />
+          {/* <Route path="/travel-uploaded-post" element={<TravelViewPage />} /> */}
           <Route
             path="/travel-guide-post-page"
             element={<TravelGuidePostPage />}

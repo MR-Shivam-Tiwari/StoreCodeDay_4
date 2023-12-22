@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./Dahboard.css";
 import Select, { selectClasses } from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -15,7 +15,6 @@ function AddPost() {
   const [showInputs1, setShowInputs1] = useState(false);
   const [showInputs2, setShowInputs2] = useState(false);
 
-
   const [postData, setPostData] = useState({
     category: "", // Add any default value if needed
     postName: "",
@@ -23,10 +22,22 @@ function AddPost() {
     tagProducts: "",
     startingPrice: "",
   });
+  const [productData, setproductData] = useState({
+    productName: "", // Add any default value if needed
+    productImageLink: "",
+    price: "",
+  });
 
   const handleInputChange = (event, fieldName) => {
     const value = event.target.value;
     setPostData((prevData) => ({
+      ...prevData,
+      [fieldName]: value,
+    }));
+  };
+  const handleproductInputChange = (event, fieldName) => {
+    const value = event.target.value;
+    setproductData((prevData) => ({
       ...prevData,
       [fieldName]: value,
     }));
@@ -41,7 +52,21 @@ function AddPost() {
 
       console.log(response.data);
 
-      navigate('/product-profile');
+      navigate("/product-profile");
+    } catch (error) {
+      console.error("Error uploading post:", error);
+    }
+  };
+  const handleproductUpload = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3002/api/uploadproduct",
+        productData
+      );
+
+      console.log(response.data);
+
+      navigate("/product-profile");
     } catch (error) {
       console.error("Error uploading post:", error);
     }
@@ -158,13 +183,13 @@ function AddPost() {
               </div>
             </div>
             <div>
-              <Link to='/product-profile'>
-              <Avatar
-                alt="Remy Sharp"
-                src="https://img.freepik.com/free-photo/cheerful-girl-cashmere-sweater-laughs-against-backdrop-blossoming-sakura-portrait-woman-yellow-hoodie-city-spring_197531-17886.jpg?size=626&ext=jpg&ga=GA1.1.1744357875.1693396610&semt=sph"
-                size="lg"
+              <Link to="/product-profile">
+                <Avatar
+                  alt="Remy Sharp"
+                  src="https://img.freepik.com/free-photo/cheerful-girl-cashmere-sweater-laughs-against-backdrop-blossoming-sakura-portrait-woman-yellow-hoodie-city-spring_197531-17886.jpg?size=626&ext=jpg&ga=GA1.1.1744357875.1693396610&semt=sph"
+                  size="lg"
                 />
-                </Link>
+              </Link>
             </div>
           </div>
           <hr style={{ marginTop: "-6px" }}></hr>
@@ -294,40 +319,65 @@ function AddPost() {
 
                   {showInputs1 && (
                     <div
-                      className="slide-down-inputs w-100"
+                    className="slide-down-inputs w-100"
+                    style={{
+                      padding: "0.5rem",
+                      border: "double 1px transparent",
+                      borderRadius: "0px 0px 10px 10px",
+                      backgroundImage: isFocused
+                        ? "linear-gradient(white, white), linear-gradient(to right, #ff7e5f, #feb47b)"
+                        : "linear-gradient(white, white), linear-gradient(to right, #dc1fff ,#3471e8)",
+                      backgroundOrigin: "border-box",
+                      backgroundClip: "padding-box, border-box",
+                      outline: "none",
+                      boxShadow: isFocused ? "0 0 5px rgba(0, 0, 0, 0.5)" : "none",
+                      transition: "box-shadow 0.3s ease",
+                    }}
+                  >
+                    <input
+                      className="mt-3"
+                      style={{ ...inputStyles, width: "300px" }}
+                      type="text"
+                      name="productName"
+                      placeholder="Product Name"
+                      value={productData.productName}
+                      onChange={(e) => handleproductInputChange(e, "productName")}
+                    />
+                    <input
+                      style={{ ...inputStyles, width: "300px" }}
+                      type="text"
+                      name="productImageLink"
+                      placeholder="Product Image Link"
+                      value={productData.productImageLink}
+                      onChange={(e) => handleproductInputChange(e, "productImageLink")}
+                    />
+                    <input
+                      style={{ ...inputStyles, width: "300px" }}
+                      type="text"
+                      placeholder="Price"
+                      name="price"
+                      value={productData.price}
+                      onChange={(e) => handleproductInputChange(e, "price")}
+                    />
+                    <Button
+                      className="rounded-3 mb-5"
+                      onClick={handleproductUpload}
                       style={{
-                        padding: "0.5rem",
-                        border: `double 1px transparent`,
-                        borderRadius: " 0px 0px 10px 10px",
-                        backgroundImage: isFocused
-                          ? "linear-gradient(white, white), linear-gradient(to right, #ff7e5f, #feb47b)" // Gradient when focused
-                          : "linear-gradient(white, white),  linear-gradient(to right,  #dc1fff ,#3471e8)", // Default gradient
-                        backgroundOrigin: "border-box",
-                        backgroundClip: "padding-box, border-box",
-                        outline: "none", // Remove default focus outline
-                        boxShadow: isFocused
-                          ? "0 0 5px rgba(0, 0, 0, 0.5)"
-                          : "none", // Border color when focused
-                        transition: "box-shadow 0.3s ease", // Smooth transition
+                        background: "linear-gradient(to right, #d475d4, #7399f5)",
                       }}
                     >
-                      <input
-                        className="mt-3"
-                        style={{ ...inputStyles, width: "300px" }}
-                        type="text"
-                        placeholder="Product Name"
-                      />
-                      <input
-                        style={{ ...inputStyles, width: "300px" }}
-                        type="text"
-                        placeholder="Product Image Link"
-                      />
-                      <input
-                        style={{ ...inputStyles, width: "300px" }}
-                        type="text"
-                        placeholder="Price"
-                      />
-                    </div>
+                      <div
+                        style={{
+                          color: "white",
+                          WebkitBackgroundClip: "text",
+                          display: "inline-block",
+                        }}
+                      >
+                        Upload Product
+                      </div>
+                    </Button>
+                  </div>
+                  
                   )}
                 </div>
               </div>
@@ -413,7 +463,7 @@ function AddPost() {
                   width: "340px",
                   height: "70px",
                   position: "relative",
-                  marginTop: "170px",
+                  marginTop: "200px",
                   fontStyle: "normal",
                   background: "linear-gradient(to right,  #d475d4 ,#7399f5)",
                 }}

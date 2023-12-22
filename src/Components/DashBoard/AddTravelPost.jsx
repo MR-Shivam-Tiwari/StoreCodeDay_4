@@ -1,233 +1,319 @@
 import { Button, FormLabel, Input } from "@mui/joy";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Select, MenuItem } from "@mui/material";
 
-const Card = ({ text, isSelected, onClick }) => {
-  const cardStyle = {
-    display: "flex",
-    alignItems: "center",
-
-    justifyContent: "center",
-    padding: "10px",
-    margin: "10px",
-    border: isSelected ? "2px solid rgb(65 134 247)" : "2px solid #ddd",
-    borderRadius: "15px",
-    backgroundColor: isSelected ? "rgb(65 134 247)" : "#fff",
-    cursor: "pointer",
-    color: isSelected ? "white" : "black", // Set the text color based on isSelected
-  };
-
-  return (
-    <div style={cardStyle} onClick={onClick}>
-      <span>{text}</span>
-      {isSelected && (
-        <span style={{ marginLeft: "5px", color: "white" }}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            fill="currentColor"
-            className="bi bi-check2"
-            viewBox="0 0 16 16"
-          >
-            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
-          </svg>
-        </span>
-      )}
-    </div>
-  );
+const generateUniqueId = () => {
+  // Implement your logic to generate a unique ID here
+  // For example, you can use a library like nanoid
+  const { nanoid } = require("nanoid");
+  return nanoid();
 };
 
 function AddTravelPost() {
-  const [selectedCard, setSelectedCard] = useState(null);
+  const [itineraries, setItineraries] = useState([]);
+  const [dayCounter, setDayCounter] = useState(1);
+  const [newItinerary, setNewItinerary] = useState({
+    relatedName: "",
+    description: "",
+    time: "",
+    addImage: "",
+    googleMapLink: "",
+    price: "",
+    selectedCard: "",
+    videoLink: "",
+    fullTripPrice: "",
+    postName: "",
+  });
+  const createEmptyItineraryState = () => ({
+    relatedName: "",
+    description: "",
+    time: "",
+    addImage: "",
+    googleMapLink: "",
+    price: "",
+    selectedCard: "",
+    videoLink: "",
+    fullTripPrice: "",
+    postName: "",
+  });
 
-  const handleCardClick = (text) => {
-    setSelectedCard(text);
+  const handleCardClick = (id, selectedValue) => {
+    // Implement the logic to handle card selection
+    setItineraries((prevItineraries) =>
+      prevItineraries.map((itinerary) =>
+        itinerary._id === id
+          ? { ...itinerary, selectedCard: selectedValue }
+          : itinerary
+      )
+    );
   };
+
+  
+  const handleInputChange = (id, field, value) => {
+    setItineraries((prevItineraries) =>
+      prevItineraries.map((itinerary) =>
+        itinerary._id === id ? { ...itinerary, [field]: value } : itinerary
+      )
+    );
+  };
+  const handleAddNewItineraryClick = (day) => {
+    const updatedItinerary = {
+      ...newItinerary,
+      day,
+    };
+  
+    console.log('Updated Itinerary:', updatedItinerary);
+  
+    setItineraries((prevItineraries) => [...prevItineraries, updatedItinerary], () => {
+      // Clear the form after adding a new itinerary
+      console.log('Clearing newItinerary:', newItinerary);
+      setNewItinerary({
+        relatedName: "",
+        description: "",
+        time: "",
+        addImage: "",
+        googleMapLink: "",
+        price: "",
+        selectedCard: "",
+        videoLink: "",
+        fullTripPrice: "",
+        postName: "",
+      });
+    });
+  };
+  
+  
+  
+  
+  
+
+  const handleRemoveItinerary = (id) => {
+    setItineraries((prevItineraries) =>
+      prevItineraries.filter((itinerary) => itinerary._id !== id)
+    );
+  };
+
+  const handleAddNewDay = () => {
+    setDayCounter((prevCounter) => prevCounter + 1);
+    // Logic for adding a new day
+    setItineraries([]);
+  };
+  
+
+  // Assuming you have a function to submit the itineraries to the API
+  const handleSubmitItineraries = async () => {
+    try {
+      console.log("Submitting itineraries:", itineraries);
+  
+      const response = await fetch("http://localhost:3002/api/itinerary/saveItinerary", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ itineraryData: itineraries, day: dayCounter }),
+      });
+  
+      const responseData = await response.json();
+      console.log("Backend Response:", responseData);
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      console.log("Itineraries saved successfully!");
+      // Optionally, you can reset the component state or show a success message
+    } catch (error) {
+      console.error("Error saving itineraries:", error);
+      // Handle the error, e.g., display an error message to the user
+    }
+  };
+  
+  
 
   return (
     <div className="container">
-      <div>
-        <h6 className="mt-4 fw-bold">Select Category</h6>
-        <div>
+    <div className="mb-2 ">
+  <FormLabel className="mb-2">Post Name</FormLabel>
+  <Input
+    placeholder="Post Name"
+    variant="outlined"
+    value={newItinerary.postName}
+    onChange={(e) =>
+      setNewItinerary((prev) => ({
+        ...prev,
+        postName: e.target.value,
+      }))
+    }
+  />
+</div>
+<div className="mb-2 ">
+  <FormLabel className="mb-2">Full Trip Price</FormLabel>
+  <Input
+    placeholder=" Enter Full Trip Price"
+    variant="outlined"
+    value={newItinerary.fullTripPrice}
+    onChange={(e) =>
+      setNewItinerary((prev) => ({
+        ...prev,
+        fullTripPrice: e.target.value,
+      }))
+    }
+  ></Input>
+</div>
+<div className="mb-2 ">
+  <FormLabel className="mb-2">Video Link </FormLabel>
+  <Input
+    placeholder="https://icons.getbootstrap.com/icons/check2/"
+    variant="outlined"
+    value={newItinerary.videoLink}
+    onChange={(e) =>
+      setNewItinerary((prev) => ({
+        ...prev,
+        videoLink: e.target.value,
+      }))
+    }
+  ></Input>
+</div>
+
+      {[...Array(dayCounter)].map((_, index) => (
+        <div key={`day-${index + 1}`}>
+          <h6 className=" mt-4  fw-bold">{`Day-${index + 1}`}</h6>
+
           <div>
-            <div className="d-flex">
-              <Card
-                text="Domestic"
-                isSelected={selectedCard === "Domestic"}
-                onClick={() => handleCardClick("Domestic")}
-              />
-              <Card
-                text="InterNational"
-                isSelected={selectedCard === "InterNational"}
-                onClick={() => handleCardClick("InterNational")}
-              />
-            </div>
+            {itineraries
+              .filter((itinerary) => itinerary.day === index + 1)
+              .map((itinerary) => (
+                <div key={itinerary._id}>
+                  <div className="d-flex align-items-center">
+                    <select
+                      value={itinerary.selectedCard || ""}
+                      onChange={(e) =>
+                        handleCardClick(itinerary._id, e.target.value)
+                      }
+                    >
+                      <option value="Book Journey">Book Journey</option>
+                      <option value="Accommodation">Accommodation</option>
+                      <option value="Culinary">Culinary</option>
+                      <option value="Explore Attractions">
+                        Explore Attractions
+                      </option>
+                      <option value="Return Journey">Return Journey</option>
+                    </select>
+                  </div>
+
+                  <div className="mb-2">
+                    <Input
+                      placeholder="Related Name"
+                      variant="outlined"
+                      value={itinerary.relatedName}
+                      onChange={(e) =>
+                        handleInputChange(
+                          itinerary.id,
+                          "relatedName",
+                          e.target.value
+                        )
+                      }
+                    />
+                  </div>
+                  <div className="mb-2">
+                    <Input
+                      placeholder="Description"
+                      variant="outlined"
+                      value={itinerary.description}
+                      onChange={(e) =>
+                        handleInputChange(
+                          itinerary.id,
+                          "description",
+                          e.target.value
+                        )
+                      }
+                    />
+                  </div>
+                  <div className="mb-2">
+                    <Input
+                      placeholder="Time"
+                      variant="outlined"
+                      value={itinerary.time}
+                      onChange={(e) =>
+                        handleInputChange(itinerary.id, "time", e.target.value)
+                      }
+                    />
+                  </div>
+                  <div className="mb-2">
+                    <Input
+                      placeholder="Add Image"
+                      variant="outlined"
+                      value={itinerary.addImage}
+                      onChange={(e) =>
+                        handleInputChange(
+                          itinerary.id,
+                          "addImage",
+                          e.target.value
+                        )
+                      }
+                    />
+                  </div>
+                  <div className="mb-2">
+                    <Input
+                      placeholder="Google Map Link"
+                      variant="outlined"
+                      value={itinerary.googleMapLink}
+                      onChange={(e) =>
+                        handleInputChange(
+                          itinerary.id,
+                          "googleMapLink",
+                          e.target.value
+                        )
+                      }
+                    />
+                  </div>
+                  <div className="mb-2">
+                    <Input
+                      placeholder="Price"
+                      variant="outlined"
+                      value={itinerary.price}
+                      onChange={(e) =>
+                        handleInputChange(itinerary.id, "price", e.target.value)
+                      }
+                    />
+                  </div>
+                  <Button
+                    onClick={() => handleRemoveItinerary(itinerary.id)}
+                    variant="outlined"
+                    color="error"
+                  >
+                    Remove Itinerary
+                  </Button>
+                </div>
+              ))}
           </div>
-        </div>
-        <div className="mb-2 ">
-          <FormLabel className="mb-2">Post Name</FormLabel>
-          <Input placeholder="Manali Trip" variant="outlined"></Input>
-        </div>
-        <div className="mb-2 ">
-          <FormLabel className="mb-2">Full Trip Price</FormLabel>
-          <Input
-            placeholder=" Enter Full Trip Price"
-            variant="outlined"
-          ></Input>
-        </div>
-        <div className="mb-2 ">
-          <FormLabel className="mb-2">Video Link </FormLabel>
-          <Input
-            placeholder="https://icons.getbootstrap.com/icons/check2/"
-            variant="outlined"
-          ></Input>
-        </div>
-      </div>
-      <div>
-        <h6 className=" mt-4  fw-bold">Day-1</h6>
-        <div>
-          <div>
-            <div
-              className="d-flex align-items-center"
+
+          <div className="d-flex align-items-center justify-content-center gap-2 mb-3 mt-3">
+            <Button
+              fullWidth
+              className="px-4 rounded-4"
               style={{
-                overflow: "auto",
+                height: "65px",
+                fontSize: "20px",
+                backgroundColor: "#4186f7",
               }}
+              onClick={() => handleAddNewItineraryClick(index + 1)}
             >
-              <div>
-                <Card
-                  text="BookJourney"
-                  isSelected={selectedCard === "Book Journey"}
-                  onClick={() => handleCardClick("Book Journey")}
-                />
-              </div>
-              <div>
-                <Card
-                  text="Accommodation"
-                  isSelected={selectedCard === "Accommodation"}
-                  onClick={() => handleCardClick("Accommodation")}
-                />
-              </div>
-              <div>
-                <Card
-                  text="Culinary"
-                  isSelected={selectedCard === "Culinary"}
-                  onClick={() => handleCardClick("Culinary")}
-                />
-              </div>
-              <style>
-                {`
-          /* Hide the scrollbar for Chrome, Safari, and Edge */
-          ::-webkit-scrollbar {
-            width: 0px;
-            background: transparent;
-          }
-        `}
-              </style>
-            </div>
+              Add New Itenrary
+            </Button>
+            <Button
+              fullWidth
+              variant="outlined"
+              color="neutral"
+              onClick={handleSubmitItineraries}
+              className="px-4 border-2 rounded-4"
+              style={{ height: "65px", fontSize: "20px" }}
+            >
+              Upload Post
+            </Button>
           </div>
         </div>
-        <div className="mb-2 ">
-          <Input placeholder="Related Name" variant="outlined"></Input>
-        </div>
-        <div className="mb-2 ">
-          <Input placeholder="Description" variant="outlined"></Input>
-        </div>
-        <div className="mb-2 ">
-          <Input placeholder="Time" variant="outlined"></Input>
-        </div>
-        <div className="mb-2 ">
-          <Input placeholder="Add Image" variant="outlined"></Input>
-        </div>
-        <div className="mb-2 ">
-          <Input placeholder="Google Map Link" variant="outlined"></Input>
-        </div>
-        <div className="mb-2 ">
-          <Input placeholder="Price" variant="outlined"></Input>
-        </div>
-        <div className="d-flex align-items-center justify-content-center gap-2 mb-3 mt-3">
-          <Button
-            fullWidth
-            className="px-4 rounded-4"
-            style={{
-              height: "65px",
-              fontSize: "20px",
-              backgroundColor: "#4186f7",
-            }}
-          >
-            Add New Day
-          </Button>
-          <Button
-            fullWidth
-            variant="outlined"
-            color="neutral"
-            className="px-4 border-2 rounded-4"
-            style={{ height: "65px", fontSize: "20px" }}
-          >
-            Upload Post
-          </Button>
-        </div>
-      </div>
+      ))}
       <div>
-        <h6 className=" mt-4  fw-bold">Day-2</h6>
-        <div>
-          <div>
-            <div
-              className="d-flex align-items-center"
-              style={{
-                overflow: "auto",
-              }}
-            >
-              <div>
-                <Card
-                  text="BookJourney"
-                  isSelected={selectedCard === "Book Journey"}
-                  onClick={() => handleCardClick("Book Journey")}
-                />
-              </div>
-              <div>
-                <Card
-                  text="Accommodation"
-                  isSelected={selectedCard === "Accommodation"}
-                  onClick={() => handleCardClick("Accommodation")}
-                />
-              </div>
-              <div>
-                <Card
-                  text="Culinary"
-                  isSelected={selectedCard === "Culinary"}
-                  onClick={() => handleCardClick("Culinary")}
-                />
-              </div>
-              <style>
-                {`
-          /* Hide the scrollbar for Chrome, Safari, and Edge */
-          ::-webkit-scrollbar {
-            width: 0px;
-            background: transparent;
-          }
-        `}
-              </style>
-            </div>
-          </div>
-        </div>
-        <div className="mb-2 ">
-          <Input placeholder="Related Name" variant="outlined"></Input>
-        </div>
-        <div className="mb-2 ">
-          <Input placeholder="Description" variant="outlined"></Input>
-        </div>
-        <div className="mb-2 ">
-          <Input placeholder="Time" variant="outlined"></Input>
-        </div>
-        <div className="mb-2 ">
-          <Input placeholder="Add Image" variant="outlined"></Input>
-        </div>
-        <div className="mb-2 ">
-          <Input placeholder="Google Map Link" variant="outlined"></Input>
-        </div>
-        <div className="mb-2 ">
-          <Input placeholder="Price" variant="outlined"></Input>
-        </div>
         <div className="d-flex align-items-center justify-content-center gap-2 mb-3 mt-3">
           <Button
             fullWidth
@@ -237,17 +323,19 @@ function AddTravelPost() {
             style={{
               height: "65px",
               fontSize: "20px",
-              
             }}
+            onClick={handleAddNewDay}
           >
             Add New Day
           </Button>
           <Button
             fullWidth
-            
-            
             className="px-4 border-2 rounded-4"
-            style={{ height: "65px", fontSize: "20px",backgroundColor: "#4186f7", }}
+            style={{
+              height: "65px",
+              fontSize: "20px",
+              backgroundColor: "#4186f7",
+            }}
           >
             Upload Post
           </Button>

@@ -40,21 +40,28 @@ function ProductGuideProfile() {
     const fetchData = async () => {
       try {
         const response = await fetch("http://localhost:3002/api/posts/getpost");
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+  
         const data = await response.json();
+        console.log("Fetched data:", data);
         setFetchedData(data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-
+  
     fetchData();
   }, []);
+  
 
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
         const response = await axios.get(
-          "https://storecode.onrender.com/api/user/profile"
+          "http://localhost:3002/api/user/profile"
         );
         setProfileData(response.data || {});
       } catch (error) {

@@ -27,9 +27,6 @@ iframe#webpack-dev-server-client-overlay{display:none!important}
   transition: 200ms;
 }
 
-.animated-form-container {
-  position: relative;
-}
 
 .slide-down-inputs {
   display: flex;
@@ -83,5 +80,5 @@ iframe#webpack-dev-server-client-overlay{display:none!important}
 }
 
 .shift-down {
-  transform: translateY(170px); /* Adjust the value as needed */
+  transform: translateY(200px); /* Adjust the value as needed */
 }

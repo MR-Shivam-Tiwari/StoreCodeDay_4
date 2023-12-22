@@ -13,11 +13,32 @@ import StarIcon from "@mui/icons-material/Star";
 import StepIndicator from "@mui/joy/StepIndicator";
 import Stack from "@mui/joy/Stack";
 import { stepClasses } from "@mui/joy/Step";
+import { useDataContext } from "../DataContext";
+import { useParams } from "react-router-dom";
 
 function TravelGuidePostPage() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [selectedDay, setSelectedDay] = useState("Day1");
+  const { id } = useParams();
+  const { data, loading } = useDataContext();
+  const [fetchedData, setFetchedData] = useState([]);
+  // Check if data exists before destructuring
+  const { item = "" } = data || {};
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:3002/api/itinerary/getItineraries"
+        );
+        const data = await response.json();
+        setFetchedData(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
+    fetchData();
+  }, []);
   const handleButtonClick = (day) => {
     setSelectedDay(day);
   };
@@ -39,14 +60,13 @@ function TravelGuidePostPage() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  if (loading) {
+    return <div>Loading...</div>; // Show a loading indicator
+  }
   const div1 = { minWidth: 300, flexGrow: 1, height: "500px" };
   if (windowWidth <= 467) {
     div1.height = "200px";
   }
-  const back = {
-    width: "25px",
-    height: "25px",
-  };
 
   const price = {
     fontSize: "26px",
@@ -71,12 +91,7 @@ function TravelGuidePostPage() {
     planeCode.fontSize = "17px";
     planeCode.marginLeft = "217px";
   }
-  const chipCode = {
-    fontSize: "26px",
-  };
-  if (windowWidth <= 476) {
-    planeCode.fontSize = "17px";
-  }
+
   const cardImg = {
     minWidth: 200,
     height: "400px",
@@ -93,21 +108,6 @@ function TravelGuidePostPage() {
     arrowStyle.width = "100px";
   }
 
-  const arrowHeadStyle = {
-    position: "absolute",
-    top: "110%",
-    left: "101%",
-    transform: "translate(-100%, -50%)",
-    width: 0,
-    height: 0,
-    borderStyle: "solid",
-    borderWidth: "10px 0 10px 15px", // Adjust the size of the arrowhead
-    borderColor: "transparent transparent transparent black", // Adjust the color
-  };
-  if (windowWidth <= 467) {
-    cardImg.width = "320px";
-    cardImg.height = "130px";
-  }
   const cardw = {
     width: "100%",
     maxWidth: "100%",
@@ -300,12 +300,9 @@ function TravelGuidePostPage() {
                     autoPlay
                     loop
                     muted
-                    poster="https://assets.codepen.io/6093409/river.jpg"
+                    poster={item.videoLink}
                   >
-                    <source
-                      src="https://assets.codepen.io/6093409/river.mp4"
-                      type="video/mp4"
-                    />
+                    <source src={item.videoLink} type="video/mp4" />
                   </video>
                 </CardCover>
                 <CardContent>
@@ -414,7 +411,7 @@ function TravelGuidePostPage() {
                     Day 2
                   </div>
                 </Button>
-                <Button
+                {/* <Button
                   style={{
                     position: "relative",
                     fontStyle: "normal",
@@ -465,7 +462,7 @@ function TravelGuidePostPage() {
                   >
                     Day 4
                   </div>
-                </Button>
+                </Button> */}
               </div>
               <h6
                 className="px-1 fw-bold text-white"
@@ -493,414 +490,109 @@ function TravelGuidePostPage() {
                             },
                         }}
                       >
-                        <Step
-                          active
-                          completed
-                          orientation="vertical"
-                          indicator={
-                            <StepIndicator>
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                fill="currentColor"
-                                className="bi bi-record-circle"
-                                viewBox="0 0 16 16"
-                              >
-                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-                                <path d="M11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                              </svg>
-                            </StepIndicator>
-                          }
-                        >
-                          <Typography>
-                            <Button
-                              style={{
-                                position: "relative",
-                                fontStyle: "normal",
-                                border: "1px solid white",
-                                color: "white",
-                                background: "rgb(69 70 76)",
-                              }}
-                              size="sm"
-                              onClick={() => handleButtonClick("Day1")}
+                        {fetchedData
+                          .filter((item) => item.day === 1)
+                          .map((item) => (
+                            <Step
+                              key={item.id}
+                              active
+                              completed
+                              orientation="vertical"
+                              indicator={
+                                <StepIndicator>
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="16"
+                                    height="16"
+                                    fill="currentColor"
+                                    className="bi bi-record-circle"
+                                    viewBox="0 0 16 16"
+                                  >
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                                    <path d="M11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                                  </svg>
+                                </StepIndicator>
+                              }
                             >
-                              <div
-                                className="fw-bold"
-                                style={{
-                                  fontSize: "13px",
-                                  WebkitBackgroundClip: "text",
-                                  display: "inline-block",
-                                }}
-                              >
-                                7:00 AM
-                              </div>
-                            </Button>
-                          </Typography>
-
-                          <Stack spacing={1}>
-                            <p className="d-flex text-white  align-items-center gap-2">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                fill="currentColor"
-                                className="bi bi-airplane"
-                                viewBox="0 0 16 16"
-                              >
-                                <path d="M6.428 1.151C6.708.591 7.213 0 8 0s1.292.592 1.572 1.151C9.861 1.73 10 2.431 10 3v3.691l5.17 2.585a1.5 1.5 0 0 1 .83 1.342V12a.5.5 0 0 1-.582.493l-5.507-.918-.375 2.253 1.318 1.318A.5.5 0 0 1 10.5 16h-5a.5.5 0 0 1-.354-.854l1.319-1.318-.376-2.253-5.507.918A.5.5 0 0 1 0 12v-1.382a1.5 1.5 0 0 1 .83-1.342L6 6.691V3c0-.568.14-1.271.428-1.849m.894.448C7.111 2.02 7 2.569 7 3v4a.5.5 0 0 1-.276.447l-5.448 2.724a.5.5 0 0 0-.276.447v.792l5.418-.903a.5.5 0 0 1 .575.41l.5 3a.5.5 0 0 1-.14.437L6.708 15h2.586l-.647-.646a.5.5 0 0 1-.14-.436l.5-3a.5.5 0 0 1 .576-.411L15 11.41v-.792a.5.5 0 0 0-.276-.447L9.276 7.447A.5.5 0 0 1 9 7V3c0-.432-.11-.979-.322-1.401C8.458 1.159 8.213 1 8 1c-.213 0-.458.158-.678.599" />
-                              </svg>
-                              <strong>Book Journey</strong>to Shimla
-                            </p>
-                            <Card className="mb-5" sx={cardw}>
-                              <CardOverflow className="p-2" sx={cardImg}>
-                                <img
-                                  src="https://img.freepik.com/free-photo/place-flying-sunset-sky_1112-1132.jpg?size=626&ext=jpg&ga=GA1.1.1744357875.1693396610&semt=sph"
-                                  loading="lazy"
-                                  alt=""
-                                  style={imgCard2}
-                                />
-                              </CardOverflow>
-
-                              <CardContent>
-                                <div>
-                                  <p style={{ fontSize: "12px" }}>
-                                    Exclusive Flight offer - Unleash Your
-                                    Wanderlist with Make MyTrip. get Rs1500/-
-                                    off on flight bookings.{" "}
-                                  </p>
-                                </div>
-                                <div
-                                  className="d-flex  align-items-center justify-content-between"
-                                  style={{ marginTop: "-10px" }}
+                              <Typography>
+                                <Button
+                                  style={{
+                                    position: "relative",
+                                    fontStyle: "normal",
+                                    border: "1px solid white",
+                                    color: "white",
+                                    background: "rgb(69 70 76)",
+                                  }}
+                                  size="sm"
+                                  onClick={() => handleButtonClick("Day1")}
                                 >
-                                  <div>Rs.499780/person</div>
-                                  <div>
-                                    {" "}
-                                    <Button
-                                      style={{
-                                        position: "relative",
-                                        fontStyle: "normal",
-                                        color: "white",
-                                        background: "rgb(255 0 127)",
-                                      }}
-                                      size="sm"
-                                    >
-                                      <div
-                                        className="fw-bold px-1"
-                                        style={{
-                                          fontSize: "13px",
-                                          WebkitBackgroundClip: "text",
-                                          display: "inline-block",
-                                        }}
-                                      >
-                                        #GID8347
-                                      </div>
-                                    </Button>
+                                  <div
+                                    className="fw-bold"
+                                    style={{
+                                      fontSize: "13px",
+                                      WebkitBackgroundClip: "text",
+                                      display: "inline-block",
+                                    }}
+                                  >
+                                    {item.time}
                                   </div>
-                                </div>
-                              </CardContent>
-                            </Card>
-                          </Stack>
-                        </Step>
-                        <Step
-                          active
-                          completed
-                          orientation="vertical"
-                          indicator={
-                            <StepIndicator>
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                fill="currentColor"
-                                className="bi bi-record-circle"
-                                viewBox="0 0 16 16"
-                              >
-                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-                                <path d="M11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                              </svg>
-                            </StepIndicator>
-                          }
-                        >
-                          <Typography>
-                            <Button
-                              style={{
-                                position: "relative",
-                                fontStyle: "normal",
-                                border: "1px solid white",
-                                color: "white",
-                                background: "rgb(69 70 76)",
-                              }}
-                              size="sm"
-                              onClick={() => handleButtonClick("Day1")}
-                            >
-                              <div
-                                className="fw-bold"
-                                style={{
-                                  fontSize: "13px",
-                                  WebkitBackgroundClip: "text",
-                                  display: "inline-block",
-                                }}
-                              >
-                                2:30 PM
-                              </div>
-                            </Button>
-                          </Typography>
+                                </Button>
+                              </Typography>
 
-                          <Stack spacing={1}>
-                            <p className="d-flex text-white  align-items-center gap-2">
-                              <strong>Accommodation</strong>at Snow Valley
-                              Resort
-                            </p>
-                            <Card className="mb-5" sx={cardw}>
-                              <CardOverflow className="p-2" sx={cardImg}>
-                                <img
-                                  src="https://img.freepik.com/free-photo/sunset-pool_1203-3192.jpg?size=626&ext=jpg&ga=GA1.1.1744357875.1693396610&semt=sph"
-                                  loading="lazy"
-                                  alt=""
-                                  style={imgCard2}
-                                />
-                              </CardOverflow>
+                              <Stack spacing={1}>
+                                <p className="d-flex text-white align-items-center gap-2">
+                                  
+                                  <strong>{item.selectedCard}</strong>
+                                </p>
+                                <Card className="mb-5" sx={cardw}>
+                                  <CardOverflow className="p-2" sx={cardImg}>
+                                    <img
+                                      src={item.addImage}
+                                      loading="lazy"
+                                      alt=""
+                                      style={imgCard2}
+                                    />
+                                  </CardOverflow>
 
-                              <CardContent>
-                                <div className=" ">
-                                  <p style={{ fontSize: "13px" }}>
-                                    Discover Unique Stays with Airbnb - Unlock
-                                    20% Savings on your Next Getway
-                                  </p>
-                                </div>
-                                <div
-                                  className="d-flex  align-items-center justify-content-between"
-                                  style={{ marginTop: "-10px" }}
-                                >
-                                  <div>Rs.4997/Night</div>
-                                  <div>
-                                    {" "}
-                                    <Button
-                                      style={{
-                                        position: "relative",
-                                        fontStyle: "normal",
-                                        color: "white",
-                                        background: "rgb(255 0 127)",
-                                      }}
-                                      size="sm"
+                                  <CardContent>
+                                    <div>
+                                      <p style={{ fontSize: "12px" }}>
+                                        {item.description}
+                                      </p>
+                                    </div>
+                                    <div
+                                      className="d-flex align-items-center justify-content-between"
+                                      style={{ marginTop: "-10px" }}
                                     >
-                                      <div
-                                        className="fw-bold px-1"
-                                        style={{
-                                          fontSize: "13px",
-                                          WebkitBackgroundClip: "text",
-                                          display: "inline-block",
-                                        }}
-                                      >
-                                        #FRGI8776
+                                      <div>Rs.{item.price}/person</div>
+                                      <div>
+                                        <Button
+                                          style={{
+                                            position: "relative",
+                                            fontStyle: "normal",
+                                            color: "white",
+                                            background: "rgb(255 0 127)",
+                                          }}
+                                          size="sm"
+                                        >
+                                          <div
+                                            className="fw-bold px-1"
+                                            style={{
+                                              fontSize: "13px",
+                                              WebkitBackgroundClip: "text",
+                                              display: "inline-block",
+                                            }}
+                                          >
+                                            #GID8347
+                                          </div>
+                                        </Button>
                                       </div>
-                                    </Button>
-                                  </div>
-                                </div>
-                              </CardContent>
-                            </Card>
-                          </Stack>
-                        </Step>
-                        <Step
-                          active
-                          completed
-                          orientation="vertical"
-                          indicator={
-                            <StepIndicator>
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                fill="currentColor"
-                                className="bi bi-record-circle"
-                                viewBox="0 0 16 16"
-                              >
-                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-                                <path d="M11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                              </svg>
-                            </StepIndicator>
-                          }
-                        >
-                          <Typography>
-                            <Button
-                              style={{
-                                position: "relative",
-                                fontStyle: "normal",
-                                border: "1px solid white",
-                                color: "white",
-                                background: "rgb(69 70 76)",
-                              }}
-                              size="sm"
-                            >
-                              <div
-                                className="fw-bold"
-                                style={{
-                                  fontSize: "13px",
-                                  WebkitBackgroundClip: "text",
-                                  display: "inline-block",
-                                }}
-                              >
-                                4:00 PM
-                              </div>
-                            </Button>
-                          </Typography>
-
-                          <Stack spacing={1}>
-                            <p className="d-flex  text-white align-items-center gap-2">
-                              <strong>Explore Attraction </strong>to Shimla
-                              temple
-                            </p>
-                            <Card className="mb-5" sx={cardw}>
-                              <CardOverflow className="p-2" sx={cardImg}>
-                                <img
-                                  src="https://img.freepik.com/free-photo/backpacker-deogyusan-mountains-winter_335224-465.jpg?w=900&t=st=1702418905~exp=1702419505~hmac=f93477c92ef1952f5b81ab539273a90b51da05cd67843d6bea786f8d33d89323"
-                                  loading="lazy"
-                                  alt=""
-                                  style={imgCard2}
-                                />
-                              </CardOverflow>
-
-                              <CardContent>
-                                <div className=" ">
-                                  <p style={{ fontSize: "13px" }}>
-                                    BookMyShow Presents: Wander for free - Your
-                                    Passport to limitless Adventures.
-                                  </p>
-                                </div>
-                                <div
-                                  className="d-flex  align-items-center justify-content-between"
-                                  style={{ marginTop: "-10px" }}
-                                >
-                                  <div>Free</div>
-                                  <div>
-                                    {" "}
-                                    <Button
-                                      style={{
-                                        position: "relative",
-                                        fontStyle: "normal",
-                                        color: "white",
-                                        background: "rgb(255 0 127)",
-                                      }}
-                                      size="sm"
-                                    >
-                                      <div
-                                        className="fw-bold px-1"
-                                        style={{
-                                          fontSize: "13px",
-                                          WebkitBackgroundClip: "text",
-                                          display: "inline-block",
-                                        }}
-                                      >
-                                        #GFYW6769
-                                      </div>
-                                    </Button>
-                                  </div>
-                                </div>
-                              </CardContent>
-                            </Card>
-                          </Stack>
-                        </Step>
-                        <Step
-                          active
-                          completed
-                          orientation="vertical"
-                          indicator={
-                            <StepIndicator>
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                fill="currentColor"
-                                className="bi bi-record-circle"
-                                viewBox="0 0 16 16"
-                              >
-                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-                                <path d="M11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                              </svg>
-                            </StepIndicator>
-                          }
-                        >
-                          <Typography>
-                            <Button
-                              style={{
-                                position: "relative",
-                                fontStyle: "normal",
-                                border: "1px solid white",
-                                color: "white",
-                                background: "rgb(69 70 76)",
-                              }}
-                              size="sm"
-                            >
-                              <div
-                                className="fw-bold"
-                                style={{
-                                  fontSize: "13px",
-                                  WebkitBackgroundClip: "text",
-                                  display: "inline-block",
-                                }}
-                              >
-                                4:00 PM
-                              </div>
-                            </Button>
-                          </Typography>
-
-                          <Stack spacing={1}>
-                            <p className="d-flex text-white  align-items-center gap-2">
-                              <strong>Dinner At </strong> Himachali Rasoi
-                            </p>
-                            <Card className="mb-5" sx={cardw}>
-                              <CardOverflow className="p-2" sx={cardImg}>
-                                <img
-                                  src="https://plus.unsplash.com/premium_photo-1673108852141-e8c3c22a4a22?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjF8fGZvb2R8ZW58MHx8MHx8fDA%3D"
-                                  loading="lazy"
-                                  alt=""
-                                  style={imgCard2}
-                                />
-                              </CardOverflow>
-
-                              <CardContent>
-                                <div>
-                                  <p style={{ fontSize: "12px" }}>
-                                    MagicPin Presents: Culinary Delights Await -
-                                    Dine in Style at Your Favorite Restaurant
-                                    upto 50% off .
-                                  </p>
-                                </div>
-                                <div
-                                  className="d-flex   align-items-center justify-content-between"
-                                  style={{ marginTop: "-10px" }}
-                                >
-                                  <div>Rs.499/Person</div>
-                                  <div>
-                                    {" "}
-                                    <Button
-                                      style={{
-                                        position: "relative",
-                                        fontStyle: "normal",
-                                        color: "white",
-                                        background: "rgb(255 0 127)",
-                                      }}
-                                      size="sm"
-                                    >
-                                      <div
-                                        className="fw-bold px-1"
-                                        style={{
-                                          fontSize: "13px",
-                                          WebkitBackgroundClip: "text",
-                                          display: "inline-block",
-                                        }}
-                                      >
-                                        #HFI897654
-                                      </div>
-                                    </Button>
-                                  </div>
-                                </div>
-                              </CardContent>
-                            </Card>
-                          </Stack>
-                        </Step>
+                                    </div>
+                                  </CardContent>
+                                </Card>
+                              </Stack>
+                            </Step>
+                          ))}
                       </Stepper>
                     </div>
                   )}
@@ -922,304 +614,113 @@ function TravelGuidePostPage() {
                             },
                         }}
                       >
-                        <Step
-                          active
-                          completed
-                          orientation="vertical"
-                          indicator={
-                            <StepIndicator>
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                fill="currentColor"
-                                className="bi bi-record-circle"
-                                viewBox="0 0 16 16"
-                              >
-                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-                                <path d="M11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                              </svg>
-                            </StepIndicator>
-                          }
-                        >
-                          <Typography>
-                            <Button
-                              style={{
-                                position: "relative",
-                                fontStyle: "normal",
-                                border: "1px solid white",
-                                color: "white",
-                                background: "rgb(69 70 76)",
-                              }}
-                              size="sm"
+                       {fetchedData
+                          .filter((item) => item.day === 2)
+                          .map((item) => (
+                            <Step
+                              key={item.id}
+                              active
+                              completed
+                              orientation="vertical"
+                              indicator={
+                                <StepIndicator>
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="16"
+                                    height="16"
+                                    fill="currentColor"
+                                    className="bi bi-record-circle"
+                                    viewBox="0 0 16 16"
+                                  >
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                                    <path d="M11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                                  </svg>
+                                </StepIndicator>
+                              }
                             >
-                              <div
-                                className="fw-bold"
-                                style={{
-                                  fontSize: "13px",
-                                  WebkitBackgroundClip: "text",
-                                  display: "inline-block",
-                                }}
-                              >
-                                2:30 PM
-                              </div>
-                            </Button>
-                          </Typography>
-
-                          <Stack spacing={1}>
-                            <p className="d-flex text-white  align-items-center gap-2">
-                              <strong>Books Cabs </strong>for the entire day
-                            </p>
-                            <Card className="mb-5" sx={cardw}>
-                              <CardOverflow className="p-2" sx={cardImg}>
-                                <img
-                                  src="https://images.unsplash.com/photo-1499353965760-b85389474bef?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzl8fGNhYnxlbnwwfHwwfHx8MA%3D%3D"
-                                  loading="lazy"
-                                  alt=""
-                                  style={imgCard2}
-                                />
-                              </CardOverflow>
-
-                              <CardContent>
-                                <div>
-                                  <p style={{ fontSize: "12px" }}>
-                                    Unlock the ride of a Lifetime with Uber -
-                                    Now 10% OFF on cab Bookings.
-                                  </p>
-                                </div>
-                                <div
-                                  className="d-flex  align-items-center justify-content-between"
-                                  style={{ marginTop: "-16px" }}
+                              <Typography>
+                                <Button
+                                  style={{
+                                    position: "relative",
+                                    fontStyle: "normal",
+                                    border: "1px solid white",
+                                    color: "white",
+                                    background: "rgb(69 70 76)",
+                                  }}
+                                  size="sm"
+                                  onClick={() => handleButtonClick("Day1")}
                                 >
-                                  <div>Rs.159/ride</div>
-                                  <div>
-                                    {" "}
-                                    <Button
-                                      style={{
-                                        position: "relative",
-                                        fontStyle: "normal",
-                                        color: "white",
-                                        background: "rgb(255 0 127)",
-                                      }}
-                                      size="sm"
-                                    >
-                                      <div
-                                        className="fw-bold px-1"
-                                        style={{
-                                          fontSize: "13px",
-                                          WebkitBackgroundClip: "text",
-                                          display: "inline-block",
-                                        }}
-                                      >
-                                        #HFOP5476
-                                      </div>
-                                    </Button>
+                                  <div
+                                    className="fw-bold"
+                                    style={{
+                                      fontSize: "13px",
+                                      WebkitBackgroundClip: "text",
+                                      display: "inline-block",
+                                    }}
+                                  >
+                                    {item.time}
                                   </div>
-                                </div>
-                              </CardContent>
-                            </Card>
-                          </Stack>
-                        </Step>
-                        <Step
-                          active
-                          completed
-                          orientation="vertical"
-                          indicator={
-                            <StepIndicator>
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                fill="currentColor"
-                                className="bi bi-record-circle"
-                                viewBox="0 0 16 16"
-                              >
-                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-                                <path d="M11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                              </svg>
-                            </StepIndicator>
-                          }
-                        >
-                          <Typography>
-                            <Button
-                              style={{
-                                position: "relative",
-                                fontStyle: "normal",
-                                border: "1px solid white",
-                                color: "white",
-                                background: "rgb(69 70 76)",
-                              }}
-                              size="sm"
-                            >
-                              <div
-                                className="fw-bold"
-                                style={{
-                                  fontSize: "13px",
-                                  WebkitBackgroundClip: "text",
-                                  display: "inline-block",
-                                }}
-                              >
-                                4:00 PM
-                              </div>
-                            </Button>
-                          </Typography>
+                                </Button>
+                              </Typography>
 
-                          <Stack spacing={1}>
-                            <p className="d-flex text-white  align-items-center gap-2">
-                              Explore Himalyan Nature Park
-                            </p>
-                            <Card className="mb-5" sx={cardw}>
-                              <CardOverflow className="p-2" sx={cardImg}>
-                                <img
-                                  src="https://images.unsplash.com/photo-1476610182048-b716b8518aae?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aGltYWx5YW4lMjBuYXR1cmUlMjBwYXJrfGVufDB8fDB8fHww"
-                                  loading="lazy"
-                                  alt=""
-                                  style={imgCard2}
-                                />
-                              </CardOverflow>
+                              <Stack spacing={1}>
+                                <p className="d-flex text-white align-items-center gap-2">
+                                  
+                                  <strong>{item.selectedCard}</strong>
+                                </p>
+                                <Card className="mb-5" sx={cardw}>
+                                  <CardOverflow className="p-2" sx={cardImg}>
+                                    <img
+                                      src={item.addImage}
+                                      loading="lazy"
+                                      alt=""
+                                      style={imgCard2}
+                                    />
+                                  </CardOverflow>
 
-                              <CardContent>
-                                <div>
-                                  <p style={{ fontSize: "12px" }}>
-                                    BookMyShow Present : Wander For Free - Your
-                                    Passport to limitless Adventures.
-                                  </p>
-                                </div>
-                                <div
-                                  className="d-flex  align-items-center justify-content-between"
-                                  style={{ marginTop: "-16px" }}
-                                >
-                                  <div>Free</div>
-                                  <div>
-                                    {" "}
-                                    <Button
-                                      style={{
-                                        position: "relative",
-                                        fontStyle: "normal",
-                                        color: "white",
-                                        background: "rgb(255 0 127)",
-                                      }}
-                                      size="sm"
+                                  <CardContent>
+                                    <div>
+                                      <p style={{ fontSize: "12px" }}>
+                                        {item.description}
+                                      </p>
+                                    </div>
+                                    <div
+                                      className="d-flex align-items-center justify-content-between"
+                                      style={{ marginTop: "-10px" }}
                                     >
-                                      <div
-                                        className="fw-bold px-1"
-                                        style={{
-                                          fontSize: "13px",
-                                          WebkitBackgroundClip: "text",
-                                          display: "inline-block",
-                                        }}
-                                      >
-                                        #GOOP5476
+                                      <div>Rs.{item.price}/person</div>
+                                      <div>
+                                        <Button
+                                          style={{
+                                            position: "relative",
+                                            fontStyle: "normal",
+                                            color: "white",
+                                            background: "rgb(255 0 127)",
+                                          }}
+                                          size="sm"
+                                        >
+                                          <div
+                                            className="fw-bold px-1"
+                                            style={{
+                                              fontSize: "13px",
+                                              WebkitBackgroundClip: "text",
+                                              display: "inline-block",
+                                            }}
+                                          >
+                                            #GID8347
+                                          </div>
+                                        </Button>
                                       </div>
-                                    </Button>
-                                  </div>
-                                </div>
-                              </CardContent>
-                            </Card>
-                          </Stack>
-                        </Step>
-                        <Step
-                          active
-                          completed
-                          orientation="vertical"
-                          indicator={
-                            <StepIndicator>
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                fill="currentColor"
-                                className="bi bi-record-circle"
-                                viewBox="0 0 16 16"
-                              >
-                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-                                <path d="M11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                              </svg>
-                            </StepIndicator>
-                          }
-                        >
-                          <Typography>
-                            <Button
-                              style={{
-                                position: "relative",
-                                fontStyle: "normal",
-                                border: "1px solid white",
-                                color: "white",
-                                background: "rgb(69 70 76)",
-                              }}
-                              size="sm"
-                            >
-                              <div
-                                className="fw-bold"
-                                style={{
-                                  fontSize: "13px",
-                                  WebkitBackgroundClip: "text",
-                                  display: "inline-block",
-                                }}
-                              >
-                                4:00 PM
-                              </div>
-                            </Button>
-                          </Typography>
-
-                          <Stack spacing={1}>
-                            <p className="d-flex text-white  align-items-center gap-2">
-                              Explore Attraction at Kufri Fun World
-                            </p>
-                            <Card className="mb-5" sx={cardw}>
-                              <CardOverflow className="p-2" sx={cardImg}>
-                                <img
-                                  src="https://images.unsplash.com/photo-1613278137247-0bf3fff95fe2?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzd8fHRveSUyMHdvcmxkfGVufDB8fDB8fHww"
-                                  loading="lazy"
-                                  alt=""
-                                  style={imgCard2}
-                                />
-                              </CardOverflow>
-
-                              <CardContent>
-                                <div>
-                                  <p style={{ fontSize: "12px" }}>
-                                    Experince Fun world Magic with Paytm Tickets
-                                    - Enjoy 15% off on Tickets
-                                  </p>
-                                </div>
-                                <div
-                                  className="d-flex  align-items-center justify-content-between"
-                                  style={{ marginTop: "-16px" }}
-                                >
-                                  <div>Rs.1399/person</div>
-                                  <div>
-                                    {" "}
-                                    <Button
-                                      style={{
-                                        position: "relative",
-                                        fontStyle: "normal",
-                                        color: "white",
-                                        background: "rgb(255 0 127)",
-                                      }}
-                                      size="sm"
-                                    >
-                                      <div
-                                        className="fw-bold px-1"
-                                        style={{
-                                          fontSize: "13px",
-                                          WebkitBackgroundClip: "text",
-                                          display: "inline-block",
-                                        }}
-                                      >
-                                        #HFOL9877
-                                      </div>
-                                    </Button>
-                                  </div>
-                                </div>
-                              </CardContent>
-                            </Card>
-                          </Stack>
-                        </Step>
+                                    </div>
+                                  </CardContent>
+                                </Card>
+                              </Stack>
+                            </Step>
+                          ))}
                       </Stepper>
                     </div>
                   )}
-                  {selectedDay === "Day3" && (
+                  {/* {selectedDay === "Day3" && (
                     <div className="day3-content container py-2">
                       <Stepper
                         orientation="vertical"
@@ -1482,7 +983,8 @@ function TravelGuidePostPage() {
 
                           <Stack spacing={1}>
                             <p className="d-flex  text-white align-items-center gap-2">
-                              <strong>Explore Attraction </strong> to Manu Temple
+                              <strong>Explore Attraction </strong> to Manu
+                              Temple
                             </p>
                             <Card className="mb-5" sx={cardw}>
                               <CardOverflow className="p-2" sx={cardImg}>
@@ -1497,7 +999,8 @@ function TravelGuidePostPage() {
                               <CardContent>
                                 <div>
                                   <p style={{ fontSize: "12px" }}>
-                                    MagicPin Presents:Wander for free - Your Passport to limitless Adventures.
+                                    MagicPin Presents:Wander for free - Your
+                                    Passport to limitless Adventures.
                                   </p>
                                 </div>
                                 <div
@@ -1819,14 +1322,20 @@ function TravelGuidePostPage() {
                                   alt=""
                                   style={imgCard2}
                                 />
-                               
                               </CardOverflow>
 
                               <CardContent>
-                              <div>
-                                <p style={{fontSize:"12px"}}>Exclusive Flight Offer - Unleash Your WanderList with MakeMyTrip. Get Rs.1500/- off on flight bookings.</p>
-                              </div>
-                                <div className="d-flex  align-items-center justify-content-between" style={{marginTop:"-10px"}}>
+                                <div>
+                                  <p style={{ fontSize: "12px" }}>
+                                    Exclusive Flight Offer - Unleash Your
+                                    WanderList with MakeMyTrip. Get Rs.1500/-
+                                    off on flight bookings.
+                                  </p>
+                                </div>
+                                <div
+                                  className="d-flex  align-items-center justify-content-between"
+                                  style={{ marginTop: "-10px" }}
+                                >
                                   <div>Rs.9780/person</div>
                                   <div>
                                     {" "}
@@ -1835,8 +1344,7 @@ function TravelGuidePostPage() {
                                         position: "relative",
                                         fontStyle: "normal",
                                         color: "white",
-                                        background:
-                                          "rgb(255 0 127)",
+                                        background: "rgb(255 0 127)",
                                       }}
                                       size="sm"
                                     >
@@ -1859,7 +1367,7 @@ function TravelGuidePostPage() {
                         </Step>
                       </Stepper>
                     </div>
-                  )}
+                  )} */}
                 </div>
               )}
             </div>
