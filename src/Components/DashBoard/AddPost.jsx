@@ -21,6 +21,11 @@ function AddPost() {
     videoLink: "",
     tagProducts: "",
     startingPrice: "",
+    img1: "",
+    img2: "",
+    img3: "",
+    img4: "",
+    img5: "",
   });
   const [productData, setproductData] = useState({
     productName: "", // Add any default value if needed
@@ -52,7 +57,6 @@ function AddPost() {
 
       console.log(response.data);
 
-      navigate("/product-profile");
     } catch (error) {
       console.error("Error uploading post:", error);
     }
@@ -280,6 +284,56 @@ function AddPost() {
                   onChange={(e) => handleInputChange(e, "startingPrice")}
                   style={{ ...inputStyles, height: "60px" }}
                   placeholder="Starting Price"
+                  variant="outlined"
+                />
+              </div>
+              <div className="mb-3">
+                <Input
+                  name="img1"
+                  value={postData.img1}
+                  onChange={(e) => handleInputChange(e, "img1")}
+                  style={{ ...inputStyles, height: "60px" }}
+                  placeholder="Product Img 1"
+                  variant="outlined"
+                />
+              </div>
+              <div className="mb-3">
+                <Input
+                  name="img2"
+                  value={postData.img2}
+                  onChange={(e) => handleInputChange(e, "img2")}
+                  style={{ ...inputStyles, height: "60px" }}
+                  placeholder="Product Img 2"
+                  variant="outlined"
+                />
+              </div>
+              <div className="mb-3">
+                <Input
+                  name="img3"
+                  value={postData.img3}
+                  onChange={(e) => handleInputChange(e, "img3")}
+                  style={{ ...inputStyles, height: "60px" }}
+                  placeholder="Product Img 3"
+                  variant="outlined"
+                />
+              </div>
+              <div className="mb-3">
+                <Input
+                  name="img4"
+                  value={postData.img4}
+                  onChange={(e) => handleInputChange(e, "img4")}
+                  style={{ ...inputStyles, height: "60px" }}
+                  placeholder="Product Img 4"
+                  variant="outlined"
+                />
+              </div>
+              <div className="mb-3">
+                <Input
+                  name="img5"
+                  value={postData.img5}
+                  onChange={(e) => handleInputChange(e, "img5")}
+                  style={{ ...inputStyles, height: "60px" }}
+                  placeholder="Product Img 5"
                   variant="outlined"
                 />
               </div>

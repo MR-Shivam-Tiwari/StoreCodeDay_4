@@ -21,6 +21,7 @@ import ProductGuideProfile from "./Components/ExplorePage/ProductGuideProfile";
 import TravelGuideProfile from "./Components/ExplorePage/TravelGuideProfile";
 import TravelGuidePostPage from "./Components/ViewPage/TravelGuidePostPage";
 import { DataProvider } from "./Components/DataContext";
+import PostBuy from "./Components/ExplorePage/PostBuy";
 
 const App = () => {
   const [fetchedData, setFetchedData] = useState([]);
@@ -36,6 +37,10 @@ const App = () => {
           <Route
             path="/product-uploaded-post/:id"
             element={<ProductViewPage />}
+          />
+          <Route
+            path="/post-view/:id"
+            element={<PostBuy />}
           />
 
           <Route path="/travel-profile" element={<TravelGuideProfile />} />

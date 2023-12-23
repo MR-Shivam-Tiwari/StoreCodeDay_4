@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../HomeComponent/Navbar";
 import { Avatar, Button, Input } from "@mui/joy";
+import { Link, useNavigate } from "react-router-dom";
+import { useDataContext } from "../DataContext";
 const imageSrc =
   "https://img.freepik.com/free-photo/full-shot-travel-concept-with-landmarks_23-2149153258.jpg?size=626&ext=jpg&ga=GA1.1.1744357875.1693396610&semt=sph";
 const imageSrc2 =
@@ -12,7 +14,23 @@ const imageSrc4 =
 
 function TravelExplore() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [fetchedData, setFetchedData] = useState([]);
+  // Check if data exists before destructuring
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:3002/api/itinerary/getItineraries"
+        );
+        const data = await response.json();
+        setFetchedData(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
+    fetchData();
+  }, []);
   const backButton = () => {
     window.history.back();
   };
@@ -88,8 +106,8 @@ function TravelExplore() {
   }
 
   const img = {
-    height: "100%",
-    width: "100%",
+    height: "220PX",
+    width: "150PX",
     borderRadius: "10px",
   };
   if (windowWidth <= 467) {
@@ -124,6 +142,24 @@ function TravelExplore() {
     search.width = "170px";
     search.height = "5px";
   }
+  function hasDuplicate(array, item) {
+    return array.some(
+      (existingItem) =>
+        existingItem.videoLink === item.videoLink &&
+        existingItem.postname === item.postname
+    );
+  }
+  const navigate = useNavigate();
+  const { setContextData } = useDataContext();
+  const handleNavigation = (fetchedData) => {
+    setContextData({
+      item: fetchedData,
+    
+    });
+
+    // Trigger navigation
+    navigate(`/travel-guide-post-page`);
+  };
   return (
     <div style={{ backgroundColor: "rgb(3 23 55)" }}>
       <div
@@ -333,181 +369,174 @@ function TravelExplore() {
                     "linear-gradient(to bottom,  rgb(71 72 79) ,rgb(31 31 33)",
                 }}
               >
-                <div className="row">
-                  <div className="col-4">
-                    <div className="p-2 py-3 me-1">
-                      <div>
-                        <img
-                          className="rounded-4"
-                          src="https://images.unsplash.com/photo-1520466809213-7b9a56adcd45?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHdvbWVuJTIwb24lMjB0cmlwfGVufDB8fDB8fHww"
-                          alt=""
-                          style={img}
-                        />
-                      </div>
-                      <div
-                        className=""
-                        style={{ marginTop: "-120px", marginLeft: "50px" }}
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="35"
-                          height="35"
-                          fill="currentColor"
-                          color="white"
-                          class="bi bi-play-circle-fill"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5" />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-8">
-                    <div className="text-center">
-                      <h5 className="pt-3 fw-bold">
-                        <span className="fw-bold mt-2 mb-3 text-white">
-                          MAKE MY TRIP
-                        </span>{" "}
-                      </h5>
-                      <div
-                        className="fw-bold  mb-3 "
-                        style={{
-                          color: "rgb(255 0 127)",
-                          fontSize: "12px",
-                          marginTop: "-9px",
-                        }}
-                      >
-                        MEGA VOYAGE
-                      </div>{" "}
-                      <div
-                        className="d-flex align-items-center justify-content-center "
-                        style={{ marginTop: "-10px" }}
-                      >
-                        <div
-                          className="d-flex py-1 text-white   align-items-center gap-2 justify-content-center "
-                          style={{
-                            fontSize: "13px",
-                            border: "1px solid white",
-                            borderRadius: "8px",
-                            width: "130px",
-                          }}
-                        >
-                          <svg
-                            version="1.1"
-                            id="Layer_1"
-                            xmlns="http://www.w3.org/2000/svg"
-                            x="0px"
-                            width="15"
-                            height="15"
-                            y="0px"
-                            viewBox="0 0 122.14 122.88"
-                            fill="white"
+                {fetchedData
+                  .reduce((uniqueItems, item) => {
+                    if (!hasDuplicate(uniqueItems, item)) {
+                      uniqueItems.push(item);
+                    }
+                    return uniqueItems;
+                  }, [])
+                  .map((item) => (
+                    <div className="row" key={item.id}>
+                      <div className="col-4">
+                        <div className="p-2 py-3 me-1">
+                          <div>
+                            <img
+                              className="rounded-4"
+                              src={item.videoLink}
+                              alt=""
+                              style={img}
+                            />
+                          </div>
+                          <div
+                            className=""
+                            style={{ marginTop: "-120px", marginLeft: "50px" }}
                           >
-                            <g>
-                              <path d="M35.14,0H87c9.65,0,18.43,3.96,24.8,10.32c6.38,6.37,10.34,15.16,10.34,24.82v52.61c0,9.64-3.96,18.42-10.32,24.79 l-0.02,0.02c-6.38,6.37-15.16,10.32-24.79,10.32H35.14c-9.66,0-18.45-3.96-24.82-10.32l-0.24-0.27C3.86,105.95,0,97.27,0,87.74 V35.14c0-9.67,3.95-18.45,10.32-24.82S25.47,0,35.14,0L35.14,0z M91.51,31.02l0.07,0.11h21.6c-0.87-5.68-3.58-10.78-7.48-14.69 C100.9,11.64,94.28,8.66,87,8.66h-8.87L91.51,31.02L91.51,31.02z M81.52,31.13L68.07,8.66H38.57l13.61,22.47H81.52L81.52,31.13z M42.11,31.13L28.95,9.39c-4.81,1.16-9.12,3.65-12.51,7.05c-3.9,3.9-6.6,9.01-7.48,14.69H42.11L42.11,31.13z M113.48,39.79H8.66 v47.96c0,7.17,2.89,13.7,7.56,18.48l0.22,0.21c4.8,4.8,11.43,7.79,18.7,7.79H87c7.28,0,13.9-2.98,18.69-7.77l0.02-0.02 c4.79-4.79,7.77-11.41,7.77-18.69V39.79L113.48,39.79z M50.95,54.95l26.83,17.45c0.43,0.28,0.82,0.64,1.13,1.08 c1.22,1.77,0.77,4.2-1,5.42L51.19,94.67c-0.67,0.55-1.53,0.88-2.48,0.88c-2.16,0-3.91-1.75-3.91-3.91V58.15h0.02 c0-0.77,0.23-1.55,0.7-2.23C46.76,54.15,49.19,53.72,50.95,54.95L50.95,54.95L50.95,54.95z" />
-                            </g>
-                          </svg>
-                          Watch the reel
-                        </div>
-                      </div>
-                      <div
-                        className=" p-1 rounded-1 text-white"
-                        style={smallcard}
-                      >
-                        +2
-                      </div>
-                      <h6
-                        className=" fw-bold text-white "
-                        style={{ fontSize: "13px", marginTop: "-10px" }}
-                      >
-                        Products in this reel
-                      </h6>
-                      <div className="mb-2 ms-2 mt-2">
-                        {" "}
-                        <div
-                          style={{
-                            display: "flex",
-                            gap: "10px",
-                            flexWrap: "wrap",
-                            alignItems: "center",
-                            justifyContent: "center",
-                          }}
-                        >
-                          {/* Original Image */}
-                          <div
-                            style={{
-                              background: `url(${"https://images.unsplash.com/photo-1511527661048-7fe73d85e9a4?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjR8fFdhbmRlcmluZyUyMHBsYWNlfGVufDB8fDB8fHww"})`,
-                              ...Cropimg,
-                            }}
-                          />
-                          <div
-                            style={{
-                              background: `url(${"https://images.unsplash.com/photo-1497262693247-aa258f96c4f5?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fFdhbmRlcmluZyUyMHBsYWNlfGVufDB8fDB8fHww"})`,
-                              ...Cropimg,
-                            }}
-                          />
-                          <div
-                            style={{
-                              background: `url(${"https://images.unsplash.com/photo-1533104816931-20fa691ff6ca?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fFdhbmRlcmluZyUyMHBsYWNlfGVufDB8fDB8fHww"})`,
-                              ...Cropimg,
-                            }}
-                          />
-                          <div
-                            style={{
-                              background: `url(${"https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fFdhbmRlcmluZyUyMHBsYWNlfGVufDB8fDB8fHww"})`,
-                              ...Cropimg,
-                            }}
-                          />
-                          <div
-                            style={{
-                              background: `url(${"https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fFdhbmRlcmluZyUyMHBsYWNlfGVufDB8fDB8fHww"})`,
-                              ...Cropimg,
-                            }}
-                          />
-                        </div>
-                      </div>
-                      <h6 className="text-white" style={{ fontSize: "13px" }}>
-                        5 Trip at ₹699 onwards{" "}
-                      </h6>
-                      <div className="d-flex align-items-center justify-content-center">
-                        <Button
-                          size="sm"
-                          className="rounded-2 px-2"
-                          style={{
-                            position: "relative",
-                            fontStyle: "normal",
-                            backgroundColor: "rgb(255 0 127)",
-                          }}
-                        >
-                          View StoreCodes{" "}
-                          <span>
-                            {" "}
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
-                              width="16"
-                              height="16"
-                              className=""
-                              color="black"
-                              style={{
-                                marginLeft: "5px",
-                                backgroundColor: "white",
-                                borderRadius: "25px",
-                              }}
+                              width="35"
+                              height="35"
                               fill="currentColor"
-                              class="bi bi-arrow-right-circle"
+                              color="white"
+                              class="bi bi-play-circle-fill"
                               viewBox="0 0 16 16"
                             >
-                              <path
-                                fill-rule="evenodd"
-                                d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"
-                              />
+                              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5" />
                             </svg>
-                          </span>
-                        </Button>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-8">
+                        <div className="text-center">
+                          <h5 className="pt-3 fw-bold">
+                            <span className="fw-bold mt-2 mb-3 text-white">
+                              MAKE MY TRIP
+                            </span>{" "}
+                          </h5>
+                          <div
+                            className="fw-bold  mb-3 "
+                            style={{
+                              color: "rgb(255 0 127)",
+                              fontSize: "12px",
+                              marginTop: "-9px",
+                            }}
+                          >
+                            MEGA VOYAGE
+                          </div>{" "}
+                          <div
+                            className="d-flex align-items-center justify-content-center "
+                            style={{ marginTop: "-10px" }}
+                          >
+                            <div
+                              className="d-flex py-1 text-white   align-items-center gap-2 justify-content-center "
+                              style={{
+                                fontSize: "13px",
+                                border: "1px solid white",
+                                borderRadius: "8px",
+                                width: "130px",
+                              }}
+                            >
+                              <svg
+                                version="1.1"
+                                id="Layer_1"
+                                xmlns="http://www.w3.org/2000/svg"
+                                x="0px"
+                                width="15"
+                                height="15"
+                                y="0px"
+                                viewBox="0 0 122.14 122.88"
+                                fill="white"
+                              >
+                                <g>
+                                  <path d="M35.14,0H87c9.65,0,18.43,3.96,24.8,10.32c6.38,6.37,10.34,15.16,10.34,24.82v52.61c0,9.64-3.96,18.42-10.32,24.79 l-0.02,0.02c-6.38,6.37-15.16,10.32-24.79,10.32H35.14c-9.66,0-18.45-3.96-24.82-10.32l-0.24-0.27C3.86,105.95,0,97.27,0,87.74 V35.14c0-9.67,3.95-18.45,10.32-24.82S25.47,0,35.14,0L35.14,0z M91.51,31.02l0.07,0.11h21.6c-0.87-5.68-3.58-10.78-7.48-14.69 C100.9,11.64,94.28,8.66,87,8.66h-8.87L91.51,31.02L91.51,31.02z M81.52,31.13L68.07,8.66H38.57l13.61,22.47H81.52L81.52,31.13z M42.11,31.13L28.95,9.39c-4.81,1.16-9.12,3.65-12.51,7.05c-3.9,3.9-6.6,9.01-7.48,14.69H42.11L42.11,31.13z M113.48,39.79H8.66 v47.96c0,7.17,2.89,13.7,7.56,18.48l0.22,0.21c4.8,4.8,11.43,7.79,18.7,7.79H87c7.28,0,13.9-2.98,18.69-7.77l0.02-0.02 c4.79-4.79,7.77-11.41,7.77-18.69V39.79L113.48,39.79z M50.95,54.95l26.83,17.45c0.43,0.28,0.82,0.64,1.13,1.08 c1.22,1.77,0.77,4.2-1,5.42L51.19,94.67c-0.67,0.55-1.53,0.88-2.48,0.88c-2.16,0-3.91-1.75-3.91-3.91V58.15h0.02 c0-0.77,0.23-1.55,0.7-2.23C46.76,54.15,49.19,53.72,50.95,54.95L50.95,54.95L50.95,54.95z" />
+                                </g>
+                              </svg>
+                              Watch the reel
+                            </div>
+                          </div>
+                          <div
+                            className=" p-1 rounded-1 text-white"
+                            style={smallcard}
+                          >
+                            +2
+                          </div>
+                          <h6
+                            className=" fw-bold text-white "
+                            style={{ fontSize: "13px", marginTop: "-10px" }}
+                          >
+                            Products in this reel
+                          </h6>
+                          <div className="mb-2 ms-2 mt-2">
+                            {" "}
+                            <div
+                              style={{
+                                display: "flex",
+    flexWrap: "wrap", // Allow items to wrap to the next line
+    justifyContent: "center", // Center items horizontally
+    gap:"10px"
+                              }}
+                            >
+                              {fetchedData.map((item) => (
+                                <div
+                                  key={item.id}
+                                  className=""
+                                  style={{
+                                    background: `url(${item.addImage})`,
+                                    ...Cropimg,
+                                    // Add some margin between images
+                                  }}
+                                />
+                              ))}
+                            </div>
+                          </div>
+                          <h6
+                            className="text-white"
+                            style={{ fontSize: "13px" }}
+                          >
+                            5 Trip at ₹{item.fullTripPrice} onwards{" "}
+                          </h6>
+                          <div className="d-flex align-items-center justify-content-center">
+                            <Button
+                            onClick={() => handleNavigation(item)}
+                              size="sm"
+                              className="rounded-2 px-2"
+                              style={{
+                                position: "relative",
+                                fontStyle: "normal",
+                                backgroundColor: "rgb(255 0 127)",
+                              }}
+                            >
+                              View StoreCodes{" "}
+                              <span>
+                                {" "}
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="16"
+                                  height="16"
+                                  className=""
+                                  color="black"
+                                  style={{
+                                    marginLeft: "5px",
+                                    backgroundColor: "white",
+                                    borderRadius: "25px",
+                                  }}
+                                  fill="currentColor"
+                                  class="bi bi-arrow-right-circle"
+                                  viewBox="0 0 16 16"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"
+                                  />
+                                </svg>
+                              </span>
+                            </Button>
+
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
+                  ))}
               </div>{" "}
             </div>
             <div className="col-12 col-lg-6 mb-2">
@@ -526,8 +555,8 @@ function TravelExplore() {
                       <div>
                         <img
                           className="rounded-4"
-                          src="https://images.unsplash.com/photo-1543084951-1650d1468e2d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8M3w0NDc4MTA3fHxlbnwwfHx8fHw%3D"
                           alt=""
+                          src="https://i.giphy.com/aZg5FJVAHdB3G.webp"
                           style={img}
                         />
                       </div>
@@ -623,38 +652,38 @@ function TravelExplore() {
                           {/* Original Image */}
                           <div
                             style={{
-                              background: `url(${"https://img.freepik.com/premium-photo/full-length-handsome-young-man-looking-camera-smiling-while-standing-against-grey-background_425904-39817.jpg?size=626&ext=jpg&ga=GA1.1.1744357875.1693396610&semt=ais"})`,
+                              background: `url(${"https://images.unsplash.com/photo-1511527661048-7fe73d85e9a4?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjR8fFdhbmRlcmluZyUyMHBsYWNlfGVufDB8fDB8fHww"})`,
                               ...Cropimg,
                             }}
                           />
                           <div
                             style={{
-                              background: `url(${"https://img.freepik.com/free-photo/portrait-handsome-smiling-stylish-young-man-model-dressed-blue-shirt-clothes-fashion-man-posing_158538-4976.jpg?size=626&ext=jpg&ga=GA1.1.1744357875.1693396610&semt=ais"})`,
+                              background: `url(${"https://images.unsplash.com/photo-1497262693247-aa258f96c4f5?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fFdhbmRlcmluZyUyMHBsYWNlfGVufDB8fDB8fHww"})`,
                               ...Cropimg,
                             }}
                           />
                           <div
                             style={{
-                              background: `url(${"https://img.freepik.com/free-photo/serious-young-man-standing-isolated-grey_171337-10538.jpg?size=626&ext=jpg&ga=GA1.1.1744357875.1693396610&semt=ais"})`,
+                              background: `url(${"https://images.unsplash.com/photo-1533104816931-20fa691ff6ca?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fFdhbmRlcmluZyUyMHBsYWNlfGVufDB8fDB8fHww"})`,
                               ...Cropimg,
                             }}
                           />
                           <div
                             style={{
-                              background: `url(${"https://img.freepik.com/free-photo/brutal-hipster-handsome-stylish-bearded-man-brown_285396-4629.jpg?size=626&ext=jpg&ga=GA1.1.1744357875.1693396610&semt=ais"})`,
+                              background: `url(${"https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fFdhbmRlcmluZyUyMHBsYWNlfGVufDB8fDB8fHww"})`,
                               ...Cropimg,
                             }}
                           />
                           <div
                             style={{
-                              background: `url(${"https://img.freepik.com/free-photo/portrait-handsome-stylish-hipster-lambersexual-model_158538-18005.jpg?size=626&ext=jpg&ga=GA1.1.1744357875.1693396610&semt=ais"})`,
+                              background: `url(${"https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fFdhbmRlcmluZyUyMHBsYWNlfGVufDB8fDB8fHww"})`,
                               ...Cropimg,
                             }}
                           />
                         </div>
                       </div>
                       <h6 className="text-white" style={{ fontSize: "13px" }}>
-                        5 Trip at ₹699 onwards{" "}
+                        5 Trip at ₹1299 onwards{" "}
                       </h6>
                       <div className="d-flex align-items-center justify-content-center">
                         <Button
@@ -713,8 +742,8 @@ function TravelExplore() {
                       <div>
                         <img
                           className="rounded-4"
-                          src="https://images.unsplash.com/photo-1514315384763-ba401779410f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDR8fHxlbnwwfHx8fHw%3D"
                           alt=""
+                          src="https://i.giphy.com/AErExHJVxRbkm5hPkB.webp"
                           style={img}
                         />
                       </div>
@@ -902,7 +931,7 @@ function TravelExplore() {
                       <div>
                         <img
                           className="rounded-4"
-                          src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjV8fFdhbmRlcmluZyUyMHBsYWNlfGVufDB8fDB8fHww"
+                          src="https://i.giphy.com/1jZvozc11kldsutng6.webp"
                           alt=""
                           style={img}
                         />
@@ -1031,7 +1060,7 @@ function TravelExplore() {
                         </div>
                       </div>
                       <h6 className="text-white" style={{ fontSize: "13px" }}>
-                        5 Trip at ₹699 onwards{" "}
+                        5 Trip at ₹1699 onwards{" "}
                       </h6>
                       <div className="d-flex align-items-center justify-content-center">
                         <Button
