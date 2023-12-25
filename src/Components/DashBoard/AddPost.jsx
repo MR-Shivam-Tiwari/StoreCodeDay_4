@@ -14,7 +14,50 @@ function AddPost() {
   const [isFocused, setIsFocused] = useState(false);
   const [showInputs1, setShowInputs1] = useState(false);
   const [showInputs2, setShowInputs2] = useState(false);
+  const [link, setLink] = useState("");
+  const [generatedStorecode, setGeneratedStorecode] = useState("");
+  const [profileData, setProfileData] = useState({
+    name: "",
+  });
 
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3002/api/user/profile"
+        );
+        setProfileData(response.data || {});
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+      }
+    };
+
+    fetchProfileData();
+  }, []);
+
+
+  const generateStorecode = async (name, link) => {
+    try {
+      const response = await axios.post("http://localhost:3002/api/generate-storecode", {
+        name,
+        link,
+      });
+
+      const { storecode } = response.data;
+
+      setGeneratedStorecode(storecode);
+    } catch (error) {
+      console.error("Error generating Storecode:", error);
+    }
+  };
+
+  const handleGenerateClick = () => {
+    const name = profileData.name.slice(0, 4).toUpperCase();
+    generateStorecode(name, link);
+  };
+  
+
+  
   const [postData, setPostData] = useState({
     category: "", // Add any default value if needed
     postName: "",
@@ -56,7 +99,6 @@ function AddPost() {
       );
 
       console.log(response.data);
-
     } catch (error) {
       console.error("Error uploading post:", error);
     }
@@ -131,6 +173,23 @@ function AddPost() {
     outline: "none", // Remove default focus outline
     boxShadow: isFocused ? "0 0 5px rgba(0, 0, 0, 0.5)" : "none", // Border color when focused
     transition: "box-shadow 0.3s ease", // Smooth transition
+  };
+  const copyToClipboard = () => {
+    // Create a temporary textarea element
+    const textArea = document.createElement("textarea");
+    textArea.value = generatedStorecode;
+
+    // Append the textarea to the document
+    document.body.appendChild(textArea);
+
+    // Select the text in the textarea
+    textArea.select();
+
+    // Execute the "copy" command to copy the text
+    document.execCommand("copy");
+
+    // Remove the textarea from the document
+    document.body.removeChild(textArea);
   };
   return (
     <div>
@@ -269,6 +328,31 @@ function AddPost() {
               </div>
               <div className="mb-3">
                 <Input
+                  type="text"
+                  value={link}
+        onChange={(e) => setLink(e.target.value)}
+                  style={{ ...inputStyles, height: "60px" }}
+                  placeholder="Add Your Shopping Link For Genrate Code"
+                  variant="outlined"
+                />
+                <div className="d-flex gap-2">
+                  <Button
+                    className="mt-2"
+                    variant="outlined"
+                    onClick={handleGenerateClick}
+                  >
+                    Generate Storecode
+                  </Button>
+                  {generatedStorecode && (
+                    <div className=" align-items-center">
+                      <p className="mt-2" style={{marginBottom:"-0px"}}>Storecode: <span className="fw-bold text-danger">{generatedStorecode}</span></p>
+                      <Button fullWidth variant="outlined" onClick={copyToClipboard}>Copy Storecode</Button>
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="mb-3">
+                <Input
                   name="tagProducts"
                   value={postData.tagProducts}
                   onChange={(e) => handleInputChange(e, "tagProducts")}
@@ -373,65 +457,71 @@ function AddPost() {
 
                   {showInputs1 && (
                     <div
-                    className="slide-down-inputs w-100"
-                    style={{
-                      padding: "0.5rem",
-                      border: "double 1px transparent",
-                      borderRadius: "0px 0px 10px 10px",
-                      backgroundImage: isFocused
-                        ? "linear-gradient(white, white), linear-gradient(to right, #ff7e5f, #feb47b)"
-                        : "linear-gradient(white, white), linear-gradient(to right, #dc1fff ,#3471e8)",
-                      backgroundOrigin: "border-box",
-                      backgroundClip: "padding-box, border-box",
-                      outline: "none",
-                      boxShadow: isFocused ? "0 0 5px rgba(0, 0, 0, 0.5)" : "none",
-                      transition: "box-shadow 0.3s ease",
-                    }}
-                  >
-                    <input
-                      className="mt-3"
-                      style={{ ...inputStyles, width: "300px" }}
-                      type="text"
-                      name="productName"
-                      placeholder="Product Name"
-                      value={productData.productName}
-                      onChange={(e) => handleproductInputChange(e, "productName")}
-                    />
-                    <input
-                      style={{ ...inputStyles, width: "300px" }}
-                      type="text"
-                      name="productImageLink"
-                      placeholder="Product Image Link"
-                      value={productData.productImageLink}
-                      onChange={(e) => handleproductInputChange(e, "productImageLink")}
-                    />
-                    <input
-                      style={{ ...inputStyles, width: "300px" }}
-                      type="text"
-                      placeholder="Price"
-                      name="price"
-                      value={productData.price}
-                      onChange={(e) => handleproductInputChange(e, "price")}
-                    />
-                    <Button
-                      className="rounded-3 mb-5"
-                      onClick={handleproductUpload}
+                      className="slide-down-inputs w-100"
                       style={{
-                        background: "linear-gradient(to right, #d475d4, #7399f5)",
+                        padding: "0.5rem",
+                        border: "double 1px transparent",
+                        borderRadius: "0px 0px 10px 10px",
+                        backgroundImage: isFocused
+                          ? "linear-gradient(white, white), linear-gradient(to right, #ff7e5f, #feb47b)"
+                          : "linear-gradient(white, white), linear-gradient(to right, #dc1fff ,#3471e8)",
+                        backgroundOrigin: "border-box",
+                        backgroundClip: "padding-box, border-box",
+                        outline: "none",
+                        boxShadow: isFocused
+                          ? "0 0 5px rgba(0, 0, 0, 0.5)"
+                          : "none",
+                        transition: "box-shadow 0.3s ease",
                       }}
                     >
-                      <div
+                      <input
+                        className="mt-3"
+                        style={{ ...inputStyles, width: "300px" }}
+                        type="text"
+                        name="productName"
+                        placeholder="Product Name"
+                        value={productData.productName}
+                        onChange={(e) =>
+                          handleproductInputChange(e, "productName")
+                        }
+                      />
+                      <input
+                        style={{ ...inputStyles, width: "300px" }}
+                        type="text"
+                        name="productImageLink"
+                        placeholder="Product Image Link"
+                        value={productData.productImageLink}
+                        onChange={(e) =>
+                          handleproductInputChange(e, "productImageLink")
+                        }
+                      />
+                      <input
+                        style={{ ...inputStyles, width: "300px" }}
+                        type="text"
+                        placeholder="Price"
+                        name="price"
+                        value={productData.price}
+                        onChange={(e) => handleproductInputChange(e, "price")}
+                      />
+                      <Button
+                        className="rounded-3 mb-5"
+                        onClick={handleproductUpload}
                         style={{
-                          color: "white",
-                          WebkitBackgroundClip: "text",
-                          display: "inline-block",
+                          background:
+                            "linear-gradient(to right, #d475d4, #7399f5)",
                         }}
                       >
-                        Upload Product
-                      </div>
-                    </Button>
-                  </div>
-                  
+                        <div
+                          style={{
+                            color: "white",
+                            WebkitBackgroundClip: "text",
+                            display: "inline-block",
+                          }}
+                        >
+                          Upload Product
+                        </div>
+                      </Button>
+                    </div>
                   )}
                 </div>
               </div>

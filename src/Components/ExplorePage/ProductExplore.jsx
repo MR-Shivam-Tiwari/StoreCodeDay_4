@@ -173,6 +173,7 @@ function ProductExplore() {
       videoLink: item.videoLink,
       tagProducts: item.tagProducts,
       startingPrice: item.startingPrice,
+      postName: item.postName,
       img1: item.img1,
       img2: item.img2,
       img3: item.img3,

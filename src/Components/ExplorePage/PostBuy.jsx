@@ -13,17 +13,50 @@ import Typography from "@mui/joy/Typography";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import { useLocation, useParams } from "react-router-dom";
 import { useDataContext } from "../DataContext";
+
 import axios from "axios";
+const baseURL = "http://localhost:3002/api";
+
 function PostBuy() {
   const { id } = useParams();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
+  const [link, setLink] = useState("");
+  const [error, setError] = useState(null);
+  const [searchCode, setSearchCode] = useState("");
   const { data, loading } = useDataContext();
-
+  const [redirectLink, setRedirectLink] = useState("");
+  
   // Check if data exists before destructuring
-  const { videoLink = "", tagProducts = "", startingPrice = "" ,img1="" ,img2="", img3="" ,img4="" } = data || {};
+  const { videoLink = "", tagProducts = "", startingPrice = "" ,img1="" ,img2="", img3="" ,img4="",postName="" } = data || {};
  
 
+  const handleSearch = async () => {
+    try {
+      const response = await axios.post("http://localhost:3002/api/get-link", {
+        storecode: tagProducts,
+      });
+
+      const link = response.data.link;
+
+      if (link) {
+        window.open(link, "_blank"); // Open the link in a new tab
+      } else {
+        setError("Storecode not found");
+      }
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+  
+
+  const handleButtonClick = () => {
+    if (link) {
+      window.open(link, "_blank"); // Open the link in a new tab
+    } else {
+      // Handle the case where the link is not available
+      console.error("Link not available for the store code:", tagProducts);
+    }
+  };
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -318,7 +351,7 @@ function PostBuy() {
                               overlay
                               style={cardName}
                             >
-                             {tagProducts.toUpperCase()}
+                             {postName}
                             </h4>
                             <p className="fw-bold " style={{ color: "gray" }}>
                               Rs{startingPrice}.00
@@ -354,6 +387,7 @@ function PostBuy() {
                           className="text-white "
                           color=""
                           style={buttonCard}
+                          onClick={handleSearch}
                         >
                           <div
                             style={{
@@ -361,7 +395,7 @@ function PostBuy() {
                               display: "inline-block",
                             }}
                           >
-                            S1A5899
+                           {tagProducts.toUpperCase()}
                           </div>
                         </Button>
                       </div>
@@ -398,7 +432,7 @@ function PostBuy() {
                               overlay
                               style={cardName}
                             >
-                             {tagProducts.toUpperCase()}
+                             {postName}
                             </h4>
                             <p className="fw-bold " style={{ color: "gray" }}>
                               Rs{startingPrice}.00
@@ -434,6 +468,7 @@ function PostBuy() {
                           className="text-white "
                           color=""
                           style={buttonCard}
+                          onClick={handleSearch}
                         >
                           <div
                             style={{
@@ -441,7 +476,7 @@ function PostBuy() {
                               display: "inline-block",
                             }}
                           >
-                            S1A5899
+                           {tagProducts.toUpperCase()}
                           </div>
                         </Button>
                       </div>
@@ -485,7 +520,7 @@ function PostBuy() {
                               overlay
                               style={cardName}
                             >
-                             {tagProducts.toUpperCase()}
+                             {postName}
                             </h4>
                             <p className="fw-bold " style={{ color: "gray" }}>
                               Rs{startingPrice}.00
@@ -521,6 +556,7 @@ function PostBuy() {
                           className="text-white "
                           color=""
                           style={buttonCard}
+                          onClick={handleSearch}
                         >
                           <div
                             style={{
@@ -528,7 +564,7 @@ function PostBuy() {
                               display: "inline-block",
                             }}
                           >
-                            S1A5899
+                           {tagProducts.toUpperCase()}
                           </div>
                         </Button>
                       </div>

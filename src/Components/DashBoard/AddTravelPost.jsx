@@ -1,6 +1,7 @@
 import { Button, FormLabel, Input } from "@mui/joy";
 import React, { useEffect, useState } from "react";
 import { Select, MenuItem } from "@mui/material";
+import axios from "axios";
 
 const generateUniqueId = () => {
   // Implement your logic to generate a unique ID here
@@ -12,6 +13,27 @@ const generateUniqueId = () => {
 function AddTravelPost() {
   const [itineraries, setItineraries] = useState([]);
   const [dayCounter, setDayCounter] = useState(1);
+  const [link, setLink] = useState("");
+  const [generatedStorecode, setGeneratedStorecode] = useState("");
+  const [profileData, setProfileData] = useState({
+    name: "",
+  });
+
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3002/api/user/profile"
+        );
+        setProfileData(response.data || {});
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+      }
+    };
+
+    fetchProfileData();
+  }, []);
+
   const [newItinerary, setNewItinerary] = useState({
     relatedName: "",
     description: "",
@@ -24,6 +46,42 @@ function AddTravelPost() {
     fullTripPrice: "",
     postName: "",
   });
+  const generateStorecode = async (name, link) => {
+    try {
+      const response = await axios.post("http://localhost:3002/api/generate-storecode", {
+        name,
+        link,
+      });
+
+      const { storecode } = response.data;
+
+      setGeneratedStorecode(storecode);
+    } catch (error) {
+      console.error("Error generating Storecode:", error);
+    }
+  };
+
+  const handleGenerateClick = () => {
+    const name = profileData.name.slice(0, 4).toUpperCase();
+    generateStorecode(name, link);
+  };
+  const copyToClipboard = () => {
+    // Create a temporary textarea element
+    const textArea = document.createElement("textarea");
+    textArea.value = generatedStorecode;
+
+    // Append the textarea to the document
+    document.body.appendChild(textArea);
+
+    // Select the text in the textarea
+    textArea.select();
+
+    // Execute the "copy" command to copy the text
+    document.execCommand("copy");
+
+    // Remove the textarea from the document
+    document.body.removeChild(textArea);
+  };
   const createEmptyItineraryState = () => ({
     relatedName: "",
     description: "",
@@ -252,9 +310,33 @@ function AddTravelPost() {
                       }
                     />
                   </div>
+                  <div className="mb-3">
+                <Input
+                  type="text"
+                  value={link}
+        onChange={(e) => setLink(e.target.value)}
+                  placeholder="Add YourGoogle Map Link For Genrate Code"
+                  variant="outlined"
+                />
+                <div className="d-flex gap-2">
+                  <Button
+                    className="mt-2"
+                    variant="outlined"
+                    onClick={handleGenerateClick}
+                  >
+                    Generate Storecode
+                  </Button>
+                  {generatedStorecode && (
+                    <div className=" align-items-center">
+                      <p className="mt-2" style={{marginBottom:"-0px"}}>Storecode: <span className="fw-bold text-danger">{generatedStorecode}</span></p>
+                      <Button fullWidth variant="outlined" onClick={copyToClipboard}>Copy Storecode</Button>
+                    </div>
+                  )}
+                </div>
+              </div>
                   <div className="mb-2">
                     <Input
-                      placeholder="Google Map Link"
+                      placeholder="StoreCode"
                       variant="outlined"
                       value={itinerary.googleMapLink}
                       onChange={(e) =>
@@ -266,6 +348,7 @@ function AddTravelPost() {
                       }
                     />
                   </div>
+
                   <div className="mb-2">
                     <Input
                       placeholder="Price"

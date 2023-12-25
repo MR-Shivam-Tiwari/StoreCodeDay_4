@@ -15,12 +15,17 @@ import Stack from "@mui/joy/Stack";
 import { stepClasses } from "@mui/joy/Step";
 import { useDataContext } from "../DataContext";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 function TravelGuidePostPage() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [selectedDay, setSelectedDay] = useState("Day1");
   const { id } = useParams();
+  const [link, setLink] = useState("");
+  const [error, setError] = useState(null);
+  const [searchCode, setSearchCode] = useState("");
   const { data, loading } = useDataContext();
+  const [redirectLink, setRedirectLink] = useState("");
   const [fetchedData, setFetchedData] = useState([]);
   // Check if data exists before destructuring
   const { item = "" } = data || {};
@@ -39,9 +44,32 @@ function TravelGuidePostPage() {
 
     fetchData();
   }, []);
+  const Storecode = item.googleMapLink;
+
+
+  const handleSearch = async () => {
+    try {
+      const response = await axios.post("http://localhost:3002/api/get-link", {
+        storecode: Storecode,
+      });
+
+      const link = response.data.link;
+
+      if (link) {
+        window.open(link, "_blank"); // Open the link in a new tab
+      } else {
+        setError("Storecode not found");
+      }
+    } catch (error) {
+      setError(error.message);
+    }
+  };
   const handleButtonClick = (day) => {
     setSelectedDay(day);
   };
+
+
+
   useEffect(() => {
     const handleResize = () => {
       const newWidth = window.innerWidth;
@@ -385,7 +413,7 @@ function TravelGuidePostPage() {
                     Day 1
                   </div>
                 </Button>
-                <Button
+                {/* <Button
                   style={{
                     position: "relative",
                     fontStyle: "normal",
@@ -436,7 +464,7 @@ function TravelGuidePostPage() {
                   >
                     Day 3
                   </div>
-                </Button>
+                </Button> */}
                 {/* <Button
                   style={{
                     position: "relative",
@@ -567,6 +595,7 @@ function TravelGuidePostPage() {
                                       <div>Rs.{item.price}/person</div>
                                       <div>
                                         <Button
+                                         onClick={handleSearch}
                                           style={{
                                             position: "relative",
                                             fontStyle: "normal",
@@ -583,7 +612,7 @@ function TravelGuidePostPage() {
                                               display: "inline-block",
                                             }}
                                           >
-                                            #GID8347
+                                            {Storecode}
                                           </div>
                                         </Button>
                                       </div>
