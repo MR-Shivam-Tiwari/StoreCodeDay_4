@@ -1,22 +1,32 @@
-// DataContext.js
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
-const DataContext = createContext();
+const CombinedContext = createContext();
 
-export const DataProvider = ({ children }) => {
+export const CombinedProvider = ({ children }) => {
+  const [isDarkMode, setIsDarkMode] = useState(
+    localStorage.getItem('isDarkMode') === 'true' ? true : false
+  );
+
   const [data, setData] = useState(null);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode((prevIsDarkMode) => !prevIsDarkMode);
+  };
 
   const setContextData = (newData) => {
     setData(newData);
   };
+  useEffect(() => {
+    localStorage.setItem('isDarkMode', JSON.stringify(isDarkMode));
+  }, [isDarkMode]);
 
   return (
-    <DataContext.Provider value={{ data, setContextData }}>
+    <CombinedContext.Provider value={{ isDarkMode, toggleDarkMode, data, setContextData }}>
       {children}
-    </DataContext.Provider>
+    </CombinedContext.Provider>
   );
 };
 
-export const useDataContext = () => {
-  return useContext(DataContext);
+export const useCombinedContext = () => {
+  return useContext(CombinedContext);
 };

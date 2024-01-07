@@ -3,17 +3,21 @@ import { Button, Input, Option, Stack } from "@mui/joy";
 import Select, { selectClasses } from "@mui/joy/Select";
 import React from "react";
 import { Link } from "react-router-dom";
+import { useCombinedContext } from "../DataContext";
 
 function NewPassword() {
-
+  const { isDarkMode } = useCombinedContext();
   const handleButtonClick = () => {
     window.history.goBack();
   };
 
   return (
+    <div  style={{ backgroundColor: isDarkMode ? "#261450" : "white", height:"100vh" , width:"100%"}}>
+
+    
     <div className="container p-4">
       <div>
-        <Button variant="outlined" color="neutral" onClick={handleButtonClick}>
+        <Button variant="outlined" style={{background:isDarkMode ? "white" : "neutral"}} color="neutral" onClick={handleButtonClick}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="19"
@@ -85,6 +89,7 @@ function NewPassword() {
           </Button>
         </Link>
       </div>
+    </div>
     </div>
   );
 }

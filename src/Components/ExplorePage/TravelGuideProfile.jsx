@@ -10,13 +10,13 @@ import {
   Typography,
 } from "@mui/joy";
 import { useNavigate } from "react-router-dom";
-import { useDataContext } from "../DataContext";
+import { useCombinedContext, useDataContext } from "../DataContext";
 
 function TravelGuideProfile() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [fetchedData, setFetchedData] = useState([]);
   const navigate = useNavigate();
-  const { setContextData } = useDataContext();
+  const { setContextData, isDarkMode } = useCombinedContext();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -136,7 +136,7 @@ function TravelGuideProfile() {
     width: "200px",
     height: "50px",
     lineHeight: "6px",
-    backgroundColor: "#45464c",
+    backgroundColor:"#fe017e",
   };
   if (windowWidth <= 467) {
     videocard2.width = "100px";
@@ -171,14 +171,14 @@ function TravelGuideProfile() {
   }
 
   return (
-    <div>
-      <div style={{ backgroundColor: "rgb(3 23 55)" }}>
+    <div style={{ backgroundColor: isDarkMode ? "#261450" : "white", height:"100%" , width:"100%"}}>
+      <div >
         <div
-          style={{
-            background:
-              "linear-gradient(0deg, #f11c86 3px, rgb(3 23 55) 330px)",
-            boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
-          }}
+          // style={{
+          //   background:
+          //     "linear-gradient(0deg, #f11c86 3px, rgb(3 23 55) 330px)",
+          //   boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
+          // }}
         >
           <div className="text-black container px-2 ">
             <div className="d-flex align-items-center justify-content-between p-1 px-2">
@@ -403,82 +403,55 @@ function TravelGuideProfile() {
                   <div>All</div>
                 </div>
                 <div
-                  className=" rounded-5 text-black px-3 shadow-lg"
-                  style={{ border: "1px solid rgb(255 0 127)" }}
+                  className="rounded-5  px-3 shadow-sm"
+                  style={{
+                    backgroundColor: "rgb(255 0 127)",
+                    border: "1px solid rgb(255 0 127)",
+                  }}
                 >
-                  <span
-                    className=" text-white mt-2 mb-3"
-                    style={{
-                      position: "relative",
-                      fontStyle: "normal",
-                      lineHeight: "-0.3px",
-                    }}
-                  >
-                    Luxury
-                  </span>{" "}
+                  <div>Festive</div>
                 </div>
                 <div
-                  className=" rounded-5 text-black px-3 shadow-lg"
-                  style={{ border: "1px solid rgb(255 0 127)" }}
+                  className="rounded-5  px-3 shadow-sm"
+                  style={{
+                    backgroundColor: "rgb(255 0 127)",
+                    border: "1px solid rgb(255 0 127)",
+                  }}
                 >
-                  {" "}
-                  <span
-                    className=" text-white mt-2 mb-3"
-                    style={{
-                      position: "relative",
-                      fontStyle: "normal",
-                      lineHeight: "-0.3px",
-                    }}
-                  >
-                    Nature
-                  </span>{" "}
+                  <div>Casual</div>
                 </div>
                 <div
-                  className="  rounded-5 text-black px-3 shadow-lg "
-                  style={{ border: "1px solid rgb(255 0 127)" }}
+                  className="rounded-5  px-3 shadow-sm"
+                  style={{
+                    backgroundColor: "rgb(255 0 127)",
+                    border: "1px solid rgb(255 0 127)",
+                  }}
                 >
-                  <span
-                    className=" text-white mt-2 mb-3"
-                    style={{
-                      position: "relative",
-                      fontStyle: "normal",
-                      lineHeight: "-0.3px",
-                    }}
-                  >
-                    Adventure
-                  </span>{" "}
+                  <div>Party</div>
                 </div>
                 <div
-                  className=" rounded-5 text-black px-3 shadow-lg"
-                  style={{ border: "1px solid rgb(255 0 127)" }}
+                  className="rounded-5  px-3 shadow-sm"
+                  style={{
+                    backgroundColor: "rgb(255 0 127)",
+                    border: "1px solid rgb(255 0 127)",
+                  }}
                 >
-                  {" "}
-                  <span
-                    className=" text-white mt-2 mb-3"
-                    style={{
-                      position: "relative",
-                      fontStyle: "normal",
-                      lineHeight: "-0.3px",
-                    }}
-                  >
-                    Hill
-                  </span>{" "}
+                  <div>Summer</div>
                 </div>
                 <div
-                  className=" rounded-5 text-black px-3 shadow-lg"
-                  style={{ border: "1px solid rgb(255 0 127)" }}
+                  className="rounded-5  px-3 shadow-sm"
+                  style={{
+                    backgroundColor: "rgb(255 0 127)",
+                    border: "1px solid rgb(255 0 127)",
+                  }}
                 >
-                  <span
-                    className=" text-white mt-2 mb-3"
-                    style={{
-                      position: "relative",
-                      fontStyle: "normal",
-                      lineHeight: "-0.3px",
-                    }}
-                  >
-                    Winter
-                  </span>{" "}
+                  <div>Winter</div>
                 </div>
+               
+                
+               
+                
+               
                 <style className="">
                   {`
           /* Hide the scrollbar for Chrome, Safari, and Edge */
@@ -507,7 +480,7 @@ function TravelGuideProfile() {
                     return uniqueItems;
                   }, [])
                   .map((item) => (
-                    <div className="col mt-5" key={item.id}>
+                    <div className="col px-5 mt-5" key={item.id}>
                       <div onClick={() => handleNavigation(item)}>
                         <Card component="li" sx={videocard}>
                           <CardCover>

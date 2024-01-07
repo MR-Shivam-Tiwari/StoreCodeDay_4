@@ -13,7 +13,7 @@ import StarIcon from "@mui/icons-material/Star";
 import StepIndicator from "@mui/joy/StepIndicator";
 import Stack from "@mui/joy/Stack";
 import { stepClasses } from "@mui/joy/Step";
-import { useDataContext } from "../DataContext";
+import { useCombinedContext, useDataContext } from "../DataContext";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -24,7 +24,7 @@ function TravelGuidePostPage() {
   const [link, setLink] = useState("");
   const [error, setError] = useState(null);
   const [searchCode, setSearchCode] = useState("");
-  const { data, loading } = useDataContext();
+  const { data, loading ,isDarkMode } = useCombinedContext();
   const [redirectLink, setRedirectLink] = useState("");
   const [fetchedData, setFetchedData] = useState([]);
   // Check if data exists before destructuring
@@ -261,13 +261,15 @@ function TravelGuidePostPage() {
 
   return (
     <div>
-      <div style={{ backgroundColor: "rgb(3 23 55)" }}>
+      <div style={{
+        backgroundColor: isDarkMode ? "#261450" : "white",
+      }}>
         <div
-          style={{
-            background:
-              "linear-gradient(0deg, #f11c86 3px, rgb(3 23 55) 330px)",
-            boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
-          }}
+          // style={{
+          //   background:
+          //     "linear-gradient(0deg, #f11c86 3px, rgb(3 23 55) 330px)",
+          //   boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
+          // }}
         >
           <div className="text-black container px-2 ">
             <div className="d-flex align-items-center justify-content-between p-1 px-2">

@@ -20,13 +20,13 @@ import PasswordChanged from "./Components/Auth/PasswordChanged";
 import ProductGuideProfile from "./Components/ExplorePage/ProductGuideProfile";
 import TravelGuideProfile from "./Components/ExplorePage/TravelGuideProfile";
 import TravelGuidePostPage from "./Components/ViewPage/TravelGuidePostPage";
-import { DataProvider } from "./Components/DataContext";
+import { CombinedProvider } from "./Components/DataContext";
 import PostBuy from "./Components/ExplorePage/PostBuy";
 
 const App = () => {
   const [fetchedData, setFetchedData] = useState([]);
   return (
-    <DataProvider>
+    <CombinedProvider>
       <Router>
         <Routes>
           {/* Define your routes */}
@@ -64,7 +64,7 @@ const App = () => {
           <Route path="/new-password" element={<NewPassword />} />
         </Routes>
       </Router>
-    </DataProvider>
+    </CombinedProvider>
   );
 };
 

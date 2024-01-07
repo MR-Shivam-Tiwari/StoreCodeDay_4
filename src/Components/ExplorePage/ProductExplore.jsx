@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../HomeComponent/Navbar";
 import { Avatar, Button, CardContent, Input } from "@mui/joy";
-import { useDataContext } from "../DataContext";
+import { useCombinedContext, useDataContext } from "../DataContext";
 import { useNavigate } from "react-router-dom";
 const imageSrc =
   "https://img.freepik.com/premium-photo/portrait-beautiful-indian-woman-traditional-clothing-jewelry_947073-11022.jpg?size=626&ext=jpg&ga=GA1.1.1744357875.1693396610&semt=sph";
@@ -16,7 +16,7 @@ function ProductExplore() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [fetchedData, setFetchedData] = useState([]);
   const navigate = useNavigate();
-  const { setContextData } = useDataContext();
+  const { setContextData } = useCombinedContext();
   const [sortBy, setSortBy] = useState('popularity'); // Default sorting by popularity
   const [filteredData, setFilteredData] = useState(fetchedData);
 

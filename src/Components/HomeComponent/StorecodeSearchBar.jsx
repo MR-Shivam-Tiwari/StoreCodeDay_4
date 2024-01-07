@@ -2,7 +2,7 @@ import { Button, Input } from "@mui/joy";
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
-function StorecodeSearchBar() {
+function StorecodeSearchBar({ isDarkMode }) {
   const [link, setLink] = useState("");
   const [generatedCode, setGeneratedCode] = useState("");
   const [searchCode, setSearchCode] = useState("");
@@ -54,7 +54,7 @@ function StorecodeSearchBar() {
 
   const cardStyles = [
     {
-      backgroundColor: "#c8bed9",
+      backgroundColor: isDarkMode ? "#3c1d6d" : "#c8bed9",
       transform: "rotate(-7deg)",
       marginTop: "60px",
       marginBottom: "20px",
@@ -72,14 +72,16 @@ function StorecodeSearchBar() {
       marginTop: "-300px",
       borderRadius: "20px",
       height: "300px",
+      fontSize:"20px"
       //   marginBottom:"-40px"
     },
     {
-      backgroundColor: "#FFF",
-      border: "8px solid #e4deeb ",
+      backgroundColor: isDarkMode ? "#3c1d6d" : "white",
+      border: "6px solid #e4deeb ",
       marginTop: "-282px",
       width: "300px",
       borderRadius: "30px",
+      
     },
   ];
 
@@ -103,16 +105,19 @@ function StorecodeSearchBar() {
                 <div>
                   <p
                     className="mt-4 "
-                    style={{ fontSize: "18px", lineHeight: "5px" }}
+                    style={{ fontSize: "18px", lineHeight: "5px", color: isDarkMode ? "white" : "black" }}
                   >
                     Shop With
                   </p>
-                  <h1 className="fw-bold ">STORECODE</h1>
+                  <h2 className="fw-bold " style={{color: isDarkMode ? "white" : "black"}}>STORECODE</h2>
                 </div>
                 <div className="px-3 mt-5 mb-4">
                   <Input
                     placeholder="      ENTER PRODUCT CODE"
                     variant=""
+                    style={{
+                      backgroundColor: isDarkMode ? "#3c1d6d" : "white",
+                    }}
                     value={searchCode}
                     onChange={(e) => setSearchCode(e.target.value)}
                     inputProps={{
@@ -143,6 +148,9 @@ function StorecodeSearchBar() {
                       "&:focus-within::before": {
                         transform: "scaleX(1)",
                       },
+                      "&::placeholder": {
+                        color: isDarkMode ? "white" : "black",
+                      },
                     }}
                   />
                 </div>
@@ -156,8 +164,10 @@ function StorecodeSearchBar() {
                       height: "55px",
                       lineHeight: "-0.3px",
                       borderRadius: "12px",
-                      background:
-                        "linear-gradient(90deg, #2a84ee 0%, #1f3dca 70%, #1f3dca 100%)",
+
+                      background: `linear-gradient(to right, ${
+                        isDarkMode ? "#b71674" : "  #2d83e7"
+                      } 20%, ${isDarkMode ? "#35265f" : "#1e3ec3"} 100%)`,
                     }}
                     onClick={handleSearch}
                   >
@@ -178,7 +188,9 @@ function StorecodeSearchBar() {
           ))}
         </div>
       </div>
-      <div className="text-danger text-center fw-bold">{error && <p>Error: {error}</p>}</div>
+      <div className="text-danger text-center fw-bold">
+        {error && <p>Error: {error}</p>}
+      </div>
       <div className="container px-4 mb-4">
         <div
           className=""
@@ -192,46 +204,52 @@ function StorecodeSearchBar() {
               className="card text-center "
               style={{
                 borderRadius: "12px",
-                background:
-                  "linear-gradient(120deg, #e9d2ef 0%, #d6dffc 70%, #d6dffc 100%)",
+                background: `linear-gradient(to bottom, ${
+                  isDarkMode ? "#0f358a" : "  #e9d2ef"
+                } 10%, ${isDarkMode ? "#EF175F" : "#d6dffc"} 100%)`,
               }}
             >
-              <h5 className="py-3 fw-bold">Get a code for your link</h5>
+              <h5 className="py-3 fw-bold" style={{color: isDarkMode ? "white" : "black"}}>Get a code for your link</h5>
               <div
                 className="px-4 mb-5"
                 style={{ display: "flex", alignItems: "center" }}
               >
                 <Input
+                style={{backgroundColor: isDarkMode ? "transparent" : "white"}}
                   sx={{
                     border: "1px solid #e49cdf",
-                    borderRadius: "8px 0px 0px 8px ",
+                    borderRadius: "8px 8px 8px 8px ",
                     flex: 1,
                     marginRight: "-2px", // Adjust this value to fine-tune the alignment
                   }}
                   value={link}
+                  endDecorator={
+                    <Button
+                    className=""
+                    onClick={generateCode}
+                    style={{
+                      fontStyle: "normal",
+                      background: `linear-gradient(to bottom, ${
+                        isDarkMode ? "#201a64" : " #cb50a6"
+                      } 20%, ${isDarkMode ? "#211f37" : "#97a9ef"} 100%)`
+                      , borderRadius:isDarkMode ? '25px' : '5px'
+                    }}
+                  >
+                    <div
+                      style={{
+                        color: "white",
+                        WebkitBackgroundClip: "text",
+                        display: "inline-block",
+                      }}
+                    >
+                      Get Code
+                    </div>
+                  </Button>
+                  }
                   onChange={(e) => setLink(e.target.value)}
                   placeholder="Paste your link here.."
                 />
-                <Button
-                  className="rounded-1"
-                  onClick={generateCode}
-                  style={{
-                    position: "relative",
-                    fontStyle: "normal",
-                    background:
-                      "linear-gradient(180deg, #d348a1 0%, #96aaf6 70%, #96aaf6 100%)",
-                  }}
-                >
-                  <div
-                    style={{
-                      color: "white",
-                      WebkitBackgroundClip: "text",
-                      display: "inline-block",
-                    }}
-                  >
-                    Get Code
-                  </div>
-                </Button>
+              
               </div>
               <div className="container px-4 mb-4">
                 {/* Display generated code here */}

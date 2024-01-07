@@ -12,7 +12,7 @@ import {
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
-import { useDataContext } from "../DataContext";
+import { useCombinedContext, useDataContext } from "../DataContext";
 const imageSrc =
   "https://img.freepik.com/premium-photo/portrait-beautiful-indian-woman-traditional-clothing-jewelry_947073-11022.jpg?size=626&ext=jpg&ga=GA1.1.1744357875.1693396610&semt=sph";
 const imageSrc2 =
@@ -25,8 +25,7 @@ const imageSrc4 =
 function ProductGuideProfile() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
-  const { setContextData } = useDataContext();
-
+  const { setContextData,isDarkMode } = useCombinedContext();
   const [profileData, setProfileData] = useState({
     name: "",
     profileImage: "",
@@ -221,7 +220,7 @@ function ProductGuideProfile() {
     width: "200px",
     height: "50px",
     lineHeight: "6px",
-    backgroundColor: "#45464c",
+    backgroundColor: "#fe017e",
   };
   if (windowWidth <= 467) {
     videocard2.width = "100px";
@@ -249,14 +248,14 @@ function ProductGuideProfile() {
   };
   const username = profileData.name.slice(0, 5);
   return (
-    <div>
-      <div style={{ backgroundColor: "rgb(3 23 55)" }}>
+    <div style={{ backgroundColor: isDarkMode ? "#261450" : "white", height:"100%" , width:"100%"}}>
+      <div >
         <div
-          style={{
-            background:
-              "linear-gradient(0deg, #f11c86 3px, rgb(3 23 55) 330px)",
-            boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
-          }}
+          // style={{
+          //   background:
+          //     "linear-gradient(0deg, #f11c86 3px, rgb(3 23 55) 330px)",
+          //   boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
+          // }}
         >
           <div className="text-black container px-2 ">
             <div className="d-flex align-items-center justify-content-between p-1 px-2">
@@ -338,7 +337,7 @@ function ProductGuideProfile() {
                   >
                     Reccommends:&nbsp; <strong>55.3k</strong>
                   </div>
-                  <div className="d-flex align-items-center gap-3 justify-content-center mt-1">
+                  {/* <div className="d-flex align-items-center gap-3 justify-content-center mt-1">
                     <div>
                       <img
                         src="data:image/svg+xml;base64,PHN2ZyBpZD0iU3ZnanNTdmcxMDM2IiB3aWR0aD0iMjU2IiBoZWlnaHQ9IjI1NiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWxuczpzdmdqcz0iaHR0cDovL3N2Z2pzLmNvbS9zdmdqcyI+PGRlZnMgaWQ9IlN2Z2pzRGVmczEwMzciPjwvZGVmcz48ZyBpZD0iU3ZnanNHMTAzOCI+PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCAxNiAxNiIgd2lkdGg9IjI1NiIgaGVpZ2h0PSIyNTYiPjxwYXRoIGZpbGw9InVybCgjYSkiIGQ9Ik04IDBhOCA4IDAgMSAwIDAgMTZBOCA4IDAgMCAwIDggMFoiPjwvcGF0aD48cGF0aCBmaWxsPSIjZmZmZmZmIiBkPSJNMTIuMTYyIDcuMzM4Yy4xNzYuMTIzLjMzOC4yNDUuMzM4LjY3NCAwIC40My0uMjI5LjYwNC0uNDc0LjcyNS4xLjE2My4xMzIuMzYuMDg5LjU0Ni0uMDc3LjM0NC0uMzkyLjYxMS0uNjcyLjY5LjEyMS4xOTQuMTU5LjM4NS4wMTUuNjItLjE4NS4yOTUtLjM0Ni40MDctMS4wNTguNDA3SDcuNWMtLjk4OCAwLTEuNS0uNTQ2LTEuNS0xVjcuNjY1YzAtMS4yMyAxLjQ2Ny0yLjI3NSAxLjQ2Ny0zLjEzTDcuMzYxIDMuNDdjLS4wMDUtLjA2NS4wMDgtLjIyNC4wNTgtLjI3LjA4LS4wNzkuMzAxLS4yLjYzNS0uMi4yMTggMCAuMzYzLjA0MS41MzQuMTIzLjU4MS4yNzcuNzMyLjk3OC43MzIgMS41NDIgMCAuMjcxLS40MTQgMS4wODMtLjQ3IDEuMzY0IDAgMCAuODY3LS4xOTIgMS44NzktLjE5OSAxLjA2MS0uMDA2IDEuNzQ5LjE5IDEuNzQ5Ljg0MiAwIC4yNjEtLjIxOS41MjMtLjMxNi42NjZaTTMuNiA3aC44YS42LjYgMCAwIDEgLjYuNnYzLjhhLjYuNiAwIDAgMS0uNi42aC0uOGEuNi42IDAgMCAxLS42LS42VjcuNmEuNi42IDAgMCAxIC42LS42WiIgY2xhc3M9ImNvbG9yZmZmIHN2Z1NoYXBlIj48L3BhdGg+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJhIiB4MT0iOCIgeDI9IjgiIHkyPSIxNiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIHN0b3AtY29sb3I9IiM4YjhiOGIiIGNsYXNzPSJzdG9wQ29sb3IxOEFGRkYgc3ZnU2hhcGUiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwMDAwMDAiIGNsYXNzPSJzdG9wQ29sb3IwMDYyREYgc3ZnU2hhcGUiPjwvc3RvcD48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48L3N2Zz48L2c+PC9zdmc+"
@@ -357,7 +356,7 @@ function ProductGuideProfile() {
                         class="p-5-5 image_3l786"
                       />
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 <div>
                   <div className="text-start" style={{ lineHeight: "1px" }}>
@@ -452,7 +451,7 @@ function ProductGuideProfile() {
                         </div>
                       </div>
                     </div>
-                    <div>
+                    {/* <div>
                       {" "}
                       <div
                         style={{ fontSize: "10px" }}
@@ -466,7 +465,7 @@ function ProductGuideProfile() {
                           <div style={arrowHeadStyle}></div>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
@@ -488,82 +487,55 @@ function ProductGuideProfile() {
                   <div>All</div>
                 </div>
                 <div
-                  className=" rounded-5 text-black px-3 shadow-lg"
-                  style={{ border: "1px solid rgb(255 0 127)" }}
+                  className="rounded-5  px-3 shadow-sm"
+                  style={{
+                    backgroundColor: "rgb(255 0 127)",
+                    border: "1px solid rgb(255 0 127)",
+                  }}
                 >
-                  <span
-                    className=" text-white mt-2 mb-3"
-                    style={{
-                      position: "relative",
-                      fontStyle: "normal",
-                      lineHeight: "-0.3px",
-                    }}
-                  >
-                    Festive
-                  </span>{" "}
+                  <div>Festive</div>
                 </div>
                 <div
-                  className=" rounded-5 text-black px-3 shadow-lg"
-                  style={{ border: "1px solid rgb(255 0 127)" }}
+                  className="rounded-5  px-3 shadow-sm"
+                  style={{
+                    backgroundColor: "rgb(255 0 127)",
+                    border: "1px solid rgb(255 0 127)",
+                  }}
                 >
-                  {" "}
-                  <span
-                    className=" text-white mt-2 mb-3"
-                    style={{
-                      position: "relative",
-                      fontStyle: "normal",
-                      lineHeight: "-0.3px",
-                    }}
-                  >
-                    Casual
-                  </span>{" "}
+                  <div>Casual</div>
                 </div>
                 <div
-                  className="  rounded-5 text-black px-3 shadow-lg "
-                  style={{ border: "1px solid rgb(255 0 127)" }}
+                  className="rounded-5  px-3 shadow-sm"
+                  style={{
+                    backgroundColor: "rgb(255 0 127)",
+                    border: "1px solid rgb(255 0 127)",
+                  }}
                 >
-                  <span
-                    className=" text-white mt-2 mb-3"
-                    style={{
-                      position: "relative",
-                      fontStyle: "normal",
-                      lineHeight: "-0.3px",
-                    }}
-                  >
-                    Party
-                  </span>{" "}
+                  <div>Party</div>
                 </div>
                 <div
-                  className=" rounded-5 text-black px-3 shadow-lg"
-                  style={{ border: "1px solid rgb(255 0 127)" }}
+                  className="rounded-5  px-3 shadow-sm"
+                  style={{
+                    backgroundColor: "rgb(255 0 127)",
+                    border: "1px solid rgb(255 0 127)",
+                  }}
                 >
-                  {" "}
-                  <span
-                    className=" text-white mt-2 mb-3"
-                    style={{
-                      position: "relative",
-                      fontStyle: "normal",
-                      lineHeight: "-0.3px",
-                    }}
-                  >
-                    Summer
-                  </span>{" "}
+                  <div>Summer</div>
                 </div>
                 <div
-                  className=" rounded-5 text-black px-3 shadow-lg"
-                  style={{ border: "1px solid rgb(255 0 127)" }}
+                  className="rounded-5  px-3 shadow-sm"
+                  style={{
+                    backgroundColor: "rgb(255 0 127)",
+                    border: "1px solid rgb(255 0 127)",
+                  }}
                 >
-                  <span
-                    className=" text-white mt-2 mb-3"
-                    style={{
-                      position: "relative",
-                      fontStyle: "normal",
-                      lineHeight: "-0.3px",
-                    }}
-                  >
-                    Winter
-                  </span>{" "}
+                  <div>Winter</div>
                 </div>
+               
+                
+               
+                
+               
                 <style className="">
                   {`
           /* Hide the scrollbar for Chrome, Safari, and Edge */

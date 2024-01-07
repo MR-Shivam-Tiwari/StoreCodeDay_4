@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../HomeComponent/Navbar";
 import { Avatar, Button, Input } from "@mui/joy";
 import { Link, useNavigate } from "react-router-dom";
-import { useDataContext } from "../DataContext";
+import { useCombinedContext, useDataContext } from "../DataContext";
 const imageSrc =
   "https://img.freepik.com/free-photo/full-shot-travel-concept-with-landmarks_23-2149153258.jpg?size=626&ext=jpg&ga=GA1.1.1744357875.1693396610&semt=sph";
 const imageSrc2 =
@@ -150,7 +150,7 @@ function TravelExplore() {
     );
   }
   const navigate = useNavigate();
-  const { setContextData } = useDataContext();
+  const { setContextData } = useCombinedContext();
   const handleNavigation = (fetchedData) => {
     setContextData({
       item: fetchedData,

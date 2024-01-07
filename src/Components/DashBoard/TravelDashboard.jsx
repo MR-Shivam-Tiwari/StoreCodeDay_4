@@ -4,6 +4,7 @@ import Table from "@mui/joy/Table";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDropzone } from "react-dropzone";
+import { useCombinedContext } from "../DataContext";
 
 function createData(sr, post, view, edit) {
   return { sr, post, view, edit };
@@ -23,7 +24,7 @@ function TravelDashboard() {
     instagramLink: "",
     youtubeLink: "",
   });
-
+  const { data, loading ,isDarkMode } = useCombinedContext();
   useEffect(() => {
     // Fetch existing user profile data when the component mounts
     axios
@@ -110,8 +111,11 @@ function TravelDashboard() {
     });
   };
   return (
+    <div className="py-0" style={{
+      backgroundColor: isDarkMode ? "#261450" : "white", height:"200vh"
+    }}>
     <div className="container">
-      <div className="py-2 mt-4 d-flex align-content-center justify-content-center">
+      <div className="py-2  d-flex align-content-center justify-content-center">
         <Button
           size="lg"
           style={{
@@ -126,7 +130,7 @@ function TravelDashboard() {
         </Button>
       </div>
       <div>
-        <h5 className="d-flex align-items-center justify-content-start fw-bold py-3">
+        <h5 className="d-flex align-items-center justify-content-start fw-bold py-3" style={{color: isDarkMode ? "white" : "black"}}>
           Your Profile
         </h5>
         <form onSubmit={handleSubmit}>
@@ -163,7 +167,7 @@ function TravelDashboard() {
           </div>
           <div className="mb-3">
             <div className="d-flex align-items-center justify-content-between mb-2 ">
-              <FormLabel>Name</FormLabel>
+              <FormLabel  style={{color: isDarkMode ? "white" : "black"}}>Name</FormLabel>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -186,7 +190,7 @@ function TravelDashboard() {
           </div>
           <div className="mb-3">
             <div className="d-flex align-items-center justify-content-between mb-2 ">
-              <FormLabel>About</FormLabel>
+              <FormLabel  style={{color: isDarkMode ? "white" : "black"}}>About</FormLabel>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -208,7 +212,7 @@ function TravelDashboard() {
           </div>
           <div className="mb-3">
             <div className="d-flex align-items-center justify-content-between mb-2 ">
-              <FormLabel>Instagram Link</FormLabel>
+              <FormLabel  style={{color: isDarkMode ? "white" : "black"}}>Instagram Link</FormLabel>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -231,7 +235,7 @@ function TravelDashboard() {
           </div>
           <div className="mb-3">
             <div className="d-flex align-items-center justify-content-between mb-2 ">
-              <FormLabel>Youtube Link</FormLabel>
+              <FormLabel  style={{color: isDarkMode ? "white" : "black"}}>Youtube Link</FormLabel>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -266,7 +270,7 @@ function TravelDashboard() {
         </form>
 
         <div>
-          <h4 className="fw-bold mt-4 mb-4">Manage Your Posts</h4>
+          <h4 className="fw-bold mt-4 mb-4"  style={{color: isDarkMode ? "white" : "black"}}>Manage Your Posts</h4>
           <div>
             <div className="  mb-4 px-lg-5 ">
               <Table borderAxis="both" className="table-bordered table-striped">
@@ -283,7 +287,7 @@ function TravelDashboard() {
 
                 <tbody>
                   {rows.map((row) => (
-                    <tr key={row.sr}>
+                    <tr key={row.sr}  style={{background: isDarkMode ? "white" : "", }}>
                       <td className="text-center fw-bold">{row.sr}</td>
                       <td className="text-center fw-bold">{row.post}</td>
                       <td className="text-center fw-bold">{row.view}</td>
@@ -298,6 +302,7 @@ function TravelDashboard() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

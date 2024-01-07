@@ -3,20 +3,22 @@ import { Button, Input, Option, Stack } from "@mui/joy";
 import Select, { selectClasses } from "@mui/joy/Select";
 import React from "react";
 import { Link } from "react-router-dom";
+import { useCombinedContext } from "../DataContext";
 function Forgot() {
-
+  const { isDarkMode } = useCombinedContext();
   const handleButtonClick = () => {
     window.history.goBack();
   };
 
   return (
-    <div>
+    <div style={{ backgroundColor: isDarkMode ? "#261450" : "white",height:"100vh"}}>
       <div>
         <div className="container p-4">
           <div>
             <Button
               variant="outlined"
               color="neutral"
+              style={{background:isDarkMode ? "white" : "neutral"}}
               onClick={handleButtonClick}
             >
               <svg

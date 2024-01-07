@@ -1,7 +1,7 @@
 import { Hidden } from "@mui/material";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 
-function MostSearched() {
+function MostSearched({ isDarkMode }) {
   const [fontSize, setFontSize] = useState("20px");
 
   useEffect(() => {
@@ -72,7 +72,6 @@ function MostSearched() {
     <div className="text-white container px-4 mb-5 ">
       <div
         className="mb-2 px-2 pt-0 text-black"
-        style={{ backgroundColor: "white" }}
       >
         <div className="">
           <div
@@ -94,7 +93,7 @@ function MostSearched() {
             >
               <h5
                 className="fw-bold mb-4"
-                style={{ fontSize, maxWidth: "800px", margin: "0 auto" }}
+                style={{ fontSize, maxWidth: "800px", margin: "0 auto", color: isDarkMode ? "#fff" : "#333"}}
               >
                 Most Searched Storecode Today!
               </h5>

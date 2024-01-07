@@ -4,6 +4,7 @@ import "./Dahboard.css";
 import { Link } from "react-router-dom";
 
 import Table from "@mui/joy/Table";
+import { useCombinedContext } from "../DataContext";
 
 function createData(sr, post, view, edit) {
   return { sr, post, view, edit };
@@ -22,7 +23,7 @@ function Dashboard() {
   const [showFooter, setShowFooter] = useState(true);
   const [showInputs, setShowInputs] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
-
+  const { data, loading ,isDarkMode } = useCombinedContext();
   const handleFocus = () => {
     setIsFocused(true);
   };
@@ -77,7 +78,9 @@ function Dashboard() {
   };
 
   return (
-    <div>
+    <div style={{
+      backgroundColor: isDarkMode ? "#261450" : "white", height:"100vh"
+    }}>
       <div>
         {/* Header Content Goes Here */}
         <div>
@@ -304,7 +307,7 @@ function Dashboard() {
                     className="me-1 "
                     color="gray"
                     fill="currentColor"
-                    className="bi bi-plus-lg"
+                    // className="bi bi-plus-lg"
                     viewBox="0 0 16 16"
                   >
                     <path

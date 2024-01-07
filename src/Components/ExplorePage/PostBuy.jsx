@@ -12,9 +12,9 @@ import Link from "@mui/joy/Link";
 import Typography from "@mui/joy/Typography";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import { useLocation, useParams } from "react-router-dom";
-import { useDataContext } from "../DataContext";
 
 import axios from "axios";
+import { useCombinedContext } from "../DataContext";
 const baseURL = "http://localhost:3002/api";
 
 function PostBuy() {
@@ -23,7 +23,7 @@ function PostBuy() {
   const [link, setLink] = useState("");
   const [error, setError] = useState(null);
   const [searchCode, setSearchCode] = useState("");
-  const { data, loading } = useDataContext();
+  const { data, loading } = useCombinedContext();
   const [redirectLink, setRedirectLink] = useState("");
   
   // Check if data exists before destructuring

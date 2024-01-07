@@ -2,6 +2,7 @@ import { Button, FormLabel, Input } from "@mui/joy";
 import React, { useEffect, useState } from "react";
 import { Select, MenuItem } from "@mui/material";
 import axios from "axios";
+import { useCombinedContext } from "../DataContext";
 
 const generateUniqueId = () => {
   // Implement your logic to generate a unique ID here
@@ -18,7 +19,7 @@ function AddTravelPost() {
   const [profileData, setProfileData] = useState({
     name: "",
   });
-
+  const { data, loading ,isDarkMode } = useCombinedContext();
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
@@ -33,19 +34,16 @@ function AddTravelPost() {
 
     fetchProfileData();
   }, []);
+  useEffect(() => {
+    // Trigger store code generation when the link changes, but with a delay
+    const timeoutId = setTimeout(() => {
+      handleGenerateStorecode();
+    }, 2000); // 2000 milliseconds (2 seconds)
 
-  const [newItinerary, setNewItinerary] = useState({
-    relatedName: "",
-    description: "",
-    time: "",
-    addImage: "",
-    googleMapLink: "",
-    price: "",
-    selectedCard: "",
-    videoLink: "",
-    fullTripPrice: "",
-    postName: "",
-  });
+    // Clear the timeout on each link change to avoid unnecessary triggers
+    return () => clearTimeout(timeoutId);
+  }, [link]);
+
   const generateStorecode = async (name, link) => {
     try {
       const response = await axios.post("http://localhost:3002/api/generate-storecode", {
@@ -56,15 +54,34 @@ function AddTravelPost() {
       const { storecode } = response.data;
 
       setGeneratedStorecode(storecode);
+
+      // Automatically set the generated store code in the tagProducts input field
+      setNewItinerary((prevData) => ({
+        ...prevData,
+        tagProducts: storecode,
+      }));
     } catch (error) {
       console.error("Error generating Storecode:", error);
     }
   };
-
-  const handleGenerateClick = () => {
+  const handleGenerateStorecode = () => {
     const name = profileData.name.slice(0, 4).toUpperCase();
+
     generateStorecode(name, link);
   };
+  const [newItinerary, setNewItinerary] = useState({
+    relatedName: "",
+    description: "",
+    time: "",
+    addImage: "",
+    googleMapLink: {generatedStorecode},
+    price: "",
+    selectedCard: "",
+    videoLink: "",
+    fullTripPrice: "",
+    postName: "",
+  });
+ 
   const copyToClipboard = () => {
     // Create a temporary textarea element
     const textArea = document.createElement("textarea");
@@ -188,6 +205,10 @@ function AddTravelPost() {
   
 
   return (
+    <div style={{
+      backgroundColor: isDarkMode ? "#261450" : "white", height:"200vh"
+    }}>
+
     <div className="container">
     <div className="mb-2 ">
   <FormLabel className="mb-2">Post Name</FormLabel>
@@ -310,44 +331,17 @@ function AddTravelPost() {
                       }
                     />
                   </div>
-                  <div className="mb-3">
+                   <div className="mb-3">
                 <Input
                   type="text"
                   value={link}
-        onChange={(e) => setLink(e.target.value)}
-                  placeholder="Add YourGoogle Map Link For Genrate Code"
+                  onChange={(e) => setLink(e.target.value)}
+                  placeholder="Add Your Shopping Link For Generate Code"
                   variant="outlined"
                 />
-                <div className="d-flex gap-2">
-                  <Button
-                    className="mt-2"
-                    variant="outlined"
-                    onClick={handleGenerateClick}
-                  >
-                    Generate Storecode
-                  </Button>
-                  {generatedStorecode && (
-                    <div className=" align-items-center">
-                      <p className="mt-2" style={{marginBottom:"-0px"}}>Storecode: <span className="fw-bold text-danger">{generatedStorecode}</span></p>
-                      <Button fullWidth variant="outlined" onClick={copyToClipboard}>Copy Storecode</Button>
-                    </div>
-                  )}
-                </div>
+               
               </div>
-                  <div className="mb-2">
-                    <Input
-                      placeholder="StoreCode"
-                      variant="outlined"
-                      value={itinerary.googleMapLink}
-                      onChange={(e) =>
-                        handleInputChange(
-                          itinerary.id,
-                          "googleMapLink",
-                          e.target.value
-                        )
-                      }
-                    />
-                  </div>
+                  
 
                   <div className="mb-2">
                     <Input
@@ -424,6 +418,7 @@ function AddTravelPost() {
           </Button>
         </div>
       </div>
+    </div>
     </div>
   );
 }

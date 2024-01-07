@@ -12,14 +12,14 @@ import Link from "@mui/joy/Link";
 import Typography from "@mui/joy/Typography";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import { useLocation, useParams } from "react-router-dom";
-import { useDataContext } from "../DataContext";
+import { useCombinedContext, useDataContext } from "../DataContext";
 import axios from "axios";
 
 function ProductViewPage() {
   const { id } = useParams();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  const { data, loading } = useDataContext();
+  const { data, loading } = useCombinedContext();
 
   // Check if data exists before destructuring
   const { videoLink = "", tagProducts = "", startingPrice = "" } = data || {};
@@ -120,7 +120,7 @@ function ProductViewPage() {
     top: "75%   ",
     left: "105px",
     borderRadius: "15px",
-    backgroundColor: "gray",
+    backgroundColor: "#ef175f",
     lineHeight: "5px",
     padding: "10px",
     border: "2px solid white ",
@@ -264,7 +264,7 @@ function ProductViewPage() {
   }
   return (
     <div className="container ">
-      <div style={div1}>
+      <div >
         <div
           style={{
             display: "flex",
@@ -288,12 +288,12 @@ function ProductViewPage() {
               </svg>
             </div>
           </div>
-          <div className="shadow-lg text-center" style={smallCardStyle}>
+          <div className="d-flex align-items-center gap-2 py-2 px-4 shadow-lg text-center" style={smallCardStyle}>
             <div>
-              <h4 className="fw-bold">{tagProducts.toUpperCase()}</h4>
+              <h4 className="fw-bold text-white">{tagProducts.toUpperCase()}</h4>
             </div>
             <div>
-              <p className="fw-bold">@ ₹{startingPrice}/-</p>
+              <h4 className="fw-bold text-white">@ ₹{startingPrice}/-</h4>
             </div>
           </div>
         </div>

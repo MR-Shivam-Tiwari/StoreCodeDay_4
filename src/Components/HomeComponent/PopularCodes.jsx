@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import CardOverflow from "@mui/joy/CardOverflow";
 import AspectRatio from "@mui/joy/AspectRatio";
 
-function PopularCodes() {
+function PopularCodes({isDarkMode}) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -89,13 +89,12 @@ function PopularCodes() {
   }
 
   return (
-    <div className="container">
+    <div className="container py-3 rounded-3 mb-3" style={{background:isDarkMode ? "black" : " white"}}>
       <div className="mb-5">
-        <h5 className="fw-bold mb-4">Recent Popular Codes in StoreCodes</h5>
-        <p className="px-3 " style={{fontSize:"15px", color:"gray"}}>Most Viewed Code in recent days are here....</p>
+        <h5 className="fw-bold mb-4 text-center" style={{fontSize:"38px" ,color: isDarkMode ? "white" : "black",}}>Most Popular  in </h5>
       </div>
       <div>
-        <h4 className="fw-bold  " style={{marginBottom:"-40px"}}>Product Guide</h4>
+        <h4 className="fw-bold  " style={{marginBottom:"-40px",color: isDarkMode ? "white" : "black"}}>Product Guide</h4>
         <div className="d-flex align-items-center justify-content-center ">
           <div className="px-2 mt-0 d-flex align-items-center gap-lg-5 gap-3 ">
             <div
@@ -121,7 +120,7 @@ function PopularCodes() {
                   </AspectRatio>
                 </div>
                 <h5 className="fw-bold " style={productName}>Headphones</h5>
-                <p className="fw-bold " style={{ color: "#ea97bc", ...productName }}>
+                <p className="fw-bold " style={{ color: "#EF175F", ...productName }}>
                   SIAD3547
                 </p>
               </div>
@@ -155,7 +154,7 @@ function PopularCodes() {
                   </AspectRatio>
                 </div>
                 <h5 className="fw-bold " style={productName}>Daily wear</h5>
-                <p className="fw-bold " style={{ color: "#ea97bc", ...productName }}>
+                <p className="fw-bold " style={{ color: "#EF175F", ...productName }}>
                   SI879873
                 </p>
               </div>
@@ -190,7 +189,7 @@ function PopularCodes() {
                   </AspectRatio>
                 </div>
                 <h5 className="fw-bold " style={productName}>Meakup Product</h5>
-                <p className="fw-bold " style={{ color: "#ea97bc", ...productName }}>
+                <p className="fw-bold " style={{ color: "#EF175F", ...productName }}>
                   SIAD3547
                 </p>
               </div>
@@ -230,7 +229,7 @@ function PopularCodes() {
         </div>
       </div>
       <div className="mt-3">
-        <h4 className="fw-bold   " style={{marginBottom:"-40px"}}>Travel Guide</h4>
+        <h4 className="fw-bold   " style={{marginBottom:"-40px",color: isDarkMode ? "white" : "black"}}>Travel Guide</h4>
         <div className="d-flex align-items-center justify-content-center ">
           <div className="px-2 mt-0 d-flex align-items-center  gap-lg-5 gap-3 ">
             <div
@@ -256,7 +255,7 @@ function PopularCodes() {
                   </AspectRatio>
                 </div>
                 <h5 className="fw-bold " style={productName}>Headphones</h5>
-                <p className="fw-bold " style={{ color: "#ea97bc", ...productName }}>
+                <p className="fw-bold " style={{ color: "#147CB8", ...productName }}>
                   SIAD3547
                 </p>
               </div>
@@ -290,7 +289,7 @@ function PopularCodes() {
                   </AspectRatio>
                 </div>
                 <h5 className="fw-bold " style={productName}>Daily wear</h5>
-                <p className="fw-bold " style={{ color: "#ea97bc", ...productName }}>
+                <p className="fw-bold " style={{ color: "#147CB8", ...productName }}>
                   SI879873
                 </p>
               </div>
@@ -325,7 +324,7 @@ function PopularCodes() {
                   </AspectRatio>
                 </div>
                 <h5 className="fw-bold " style={productName}>Meakup Product</h5>
-                <p className="fw-bold " style={{ color: "#ea97bc", ...productName }}>
+                <p className="fw-bold " style={{ color: "#147CB8", ...productName }}>
                   SIAD3547
                 </p>
               </div>

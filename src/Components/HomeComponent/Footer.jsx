@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 
-function Footer() {
+function Footer({isDarkMode}) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ function Footer() {
     fontSize: "20px",
     fontWeight: "200",
     marginTop: "10px",
-    color: "#b5b3b3",
+
   };
   if (windowWidth <= 426) {
     HeadLine2.fontSize = "6px";
@@ -42,19 +42,19 @@ function Footer() {
     <div className="text-white container  ">
       <div
         className="border-1"
-        style={{
-          background: "linear-gradient(0deg, #670133 10%, #202124)",
-          padding: "20px",
-          boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
-        }}
+        // style={{
+        //   background: "linear-gradient(0deg, #670133 10%, #202124)",
+        //   padding: "20px",
+        //   boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
+        // }}
       >
         <div>
           <div
-            className=""
-            style={{ border: "2px solid gray", borderRadius: "2px" }}
+            className="text-dark"
+            style={{ border: isDarkMode ? "2px solid white" : "2px solid  gray", borderRadius: "2px" }}
           ></div>
           <div>
-            <div className="d-flex align-items-center justify-content-between gap-2 mt-4">
+            <div className="d-flex align-items-center justify-content-between gap-2 mt-4 " style={{color: isDarkMode ? "white" : "black"}}>
               <div>
                 <div className="fs-6">Product</div>
               </div>
@@ -68,7 +68,7 @@ function Footer() {
                 <div className="fs-6">Social Community</div>
               </div>
             </div>
-            <div className=" d-flex align-items-center justify-content-between ">
+            <div className=" d-flex align-items-center justify-content-between " style={{color: isDarkMode ? "white" : "gray"}}>
               <div>
                 <p style={HeadLine2}>Register </p>
                 <p style={HeadLine2}>Login</p>

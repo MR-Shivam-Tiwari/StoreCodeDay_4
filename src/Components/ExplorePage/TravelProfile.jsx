@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import { Avatar, Card, CardContent, CardCover, Typography } from "@mui/joy";
+import { useCombinedContext } from "../DataContext";
 
 function TravelProfile() {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
+    const { setContextData,isDarkMode } = useCombinedContext();
     useEffect(() => {
       const handleResize = () => {
         const newWidth = window.innerWidth;
@@ -180,9 +181,9 @@ function TravelProfile() {
       cardStyle.padding = "0px";
     }
   return (
-    <div>
+    <div style={{ backgroundColor: isDarkMode ? "#261450" : "white", height:"100%" , width:"100%"}}>
       <div>
-      <div style={{ backgroundColor: "#2f30a4" }}>
+      <div >
         <div className="text-black container  ">
           <div className="card border-0">
             <div className="card border-0">

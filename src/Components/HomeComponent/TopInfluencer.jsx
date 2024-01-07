@@ -56,14 +56,16 @@ function TopInfluencer() {
     name.fontSize = "10px";
   }
   return (
-    <div
-      className=" text-white container  mt-4 "
-      style={{ backgroundColor: "#02043d" }}
-    >
-      <h1 className="fw-bold  py-3">
-        TOP <span style={{ color: "#f202f1" }}>INFLUENCER</span>
+    <div>
+    <h1 className="fw-bold text-center py-3" style={{color:"#6288e9", marginTop:"20px"}}>
+        TOP INFLUENCER
       </h1>
-        <div className=" d-flex align-items-center justify-content-center gap-lg-5  text-black gap-2  p-1  mb-5" style={{marginTop:"-100px"}}>
+    <div
+      className=" text-white container  mt-4 rounded-2 "
+      style={{ backgroundColor: "#b6ecfe" }}
+    >
+      
+        <div className=" d-flex align-items-center justify-content-center gap-lg-5  text-black gap-2  p-1  mb-5" style={{marginTop:"-100px", backgroundColor: ""}}>
           <div className="p-2 bg-white" style={cardStyle}>
             <div>
               <img
@@ -139,6 +141,8 @@ function TopInfluencer() {
           </div>
       </div>
     </div>
+    </div>
+
   );
 }
 

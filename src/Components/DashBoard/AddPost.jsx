@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useCombinedContext } from "../DataContext";
 
 function AddPost() {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ function AddPost() {
   const [profileData, setProfileData] = useState({
     name: "",
   });
-
+  const { data, loading ,isDarkMode } = useCombinedContext();
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
@@ -35,6 +36,15 @@ function AddPost() {
     fetchProfileData();
   }, []);
 
+  useEffect(() => {
+    // Trigger store code generation when the link changes, but with a delay
+    const timeoutId = setTimeout(() => {
+      handleGenerateStorecode();
+    }, 2000); // 2000 milliseconds (2 seconds)
+
+    // Clear the timeout on each link change to avoid unnecessary triggers
+    return () => clearTimeout(timeoutId);
+  }, [link]);
 
   const generateStorecode = async (name, link) => {
     try {
@@ -46,23 +56,27 @@ function AddPost() {
       const { storecode } = response.data;
 
       setGeneratedStorecode(storecode);
+
+      // Automatically set the generated store code in the tagProducts input field
+      setPostData((prevData) => ({
+        ...prevData,
+        tagProducts: storecode,
+      }));
     } catch (error) {
       console.error("Error generating Storecode:", error);
     }
   };
-
-  const handleGenerateClick = () => {
+  const handleGenerateStorecode = () => {
     const name = profileData.name.slice(0, 4).toUpperCase();
+
     generateStorecode(name, link);
   };
-  
 
-  
   const [postData, setPostData] = useState({
     category: "", // Add any default value if needed
     postName: "",
     videoLink: "",
-    tagProducts: "",
+    tagProducts:{generatedStorecode},
     startingPrice: "",
     img1: "",
     img2: "",
@@ -192,7 +206,9 @@ function AddPost() {
     document.body.removeChild(textArea);
   };
   return (
-    <div>
+    <div style={{
+      backgroundColor: isDarkMode ? "#261450" : "white", height:"100%"
+    }}>
       <div>
         {/* Header Content Goes Here */}
         <div>
@@ -330,37 +346,23 @@ function AddPost() {
                 <Input
                   type="text"
                   value={link}
-        onChange={(e) => setLink(e.target.value)}
+                  onChange={(e) => setLink(e.target.value)}
                   style={{ ...inputStyles, height: "60px" }}
-                  placeholder="Add Your Shopping Link For Genrate Code"
+                  placeholder="Add Your Shopping Link For Generate Code"
                   variant="outlined"
                 />
-                <div className="d-flex gap-2">
-                  <Button
-                    className="mt-2"
-                    variant="outlined"
-                    onClick={handleGenerateClick}
-                  >
-                    Generate Storecode
-                  </Button>
-                  {generatedStorecode && (
-                    <div className=" align-items-center">
-                      <p className="mt-2" style={{marginBottom:"-0px"}}>Storecode: <span className="fw-bold text-danger">{generatedStorecode}</span></p>
-                      <Button fullWidth variant="outlined" onClick={copyToClipboard}>Copy Storecode</Button>
-                    </div>
-                  )}
-                </div>
+               
               </div>
-              <div className="mb-3">
+              {/* <div className="mb-3">
                 <Input
                   name="tagProducts"
-                  value={postData.tagProducts}
+                  value={generatedStorecode}
                   onChange={(e) => handleInputChange(e, "tagProducts")}
                   style={{ ...inputStyles, height: "60px" }}
                   placeholder="Tag Products"
                   variant="outlined"
                 />
-              </div>
+              </div> */}
               <div className="mb-3">
                 <Input
                   name="startingPrice"

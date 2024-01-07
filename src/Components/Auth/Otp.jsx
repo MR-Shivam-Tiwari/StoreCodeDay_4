@@ -3,22 +3,24 @@ import { Button, Input, Option, Stack } from "@mui/joy";
 import Select, { selectClasses } from "@mui/joy/Select";
 import React from "react";
 import { Link } from "react-router-dom";
+import { useCombinedContext } from "../DataContext";
 
 function Otp() {
-
+  const { isDarkMode } = useCombinedContext();
 
   const handleButtonClick = () => {
     window.history.back();
   };
 
   return (
-    <div>
+    <div style={{ backgroundColor: isDarkMode ? "#261450" : "white", height:"100vh" , width:"100%"}}>
       <div className="container p-4">
         <div>
           <Button
             variant="outlined"
             color="neutral"
             onClick={handleButtonClick}
+            style={{background:isDarkMode ? "white" : "neutral"}}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -94,7 +96,7 @@ function Otp() {
           </Link>
         </div>
 
-        <div className="text-center " style={{ marginTop: "150px" }}>
+        <div className="text-center " style={{ marginTop: "150px", color: isDarkMode ? "gray" : "black" }}>
           Didn’t received code?
           <span style={{ color: "#35C2C1", fontWeight: "700" }}>
             {" "}
