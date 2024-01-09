@@ -80,9 +80,7 @@ function PostBuy() {
     div1.height = "270px";
   }
   const cardStyle = {
-    position: "relative",
     width: "100%",
-    marginTop: "-30px",
     borderRadius: "25px",
     border: "4px solid white ",
     boxShadow: "0 0 20px rgba(0, 0, 0, 0.5)",
@@ -129,10 +127,10 @@ function PostBuy() {
   }
   const smallCardStyle = {
     position: "absolute",
-    top: "75%   ",
-    left: "105px",
+    top: "73%   ",
+    left: "71%",
     borderRadius: "15px",
-    backgroundColor: "gray",
+    backgroundColor: "#ff017e",
     lineHeight: "5px",
     padding: "10px",
     border: "2px solid white ",
@@ -277,17 +275,17 @@ function PostBuy() {
   return (
     <div>
       <div className="container ">
-        <div style={div1}>
+        <div >
           <div
             style={{
               display: "flex",
-              alignItems: "center",
               height: "100vh",
+              marginTop:"30px"
             }}
           >
             <div style={cardStyle}>
               <img src={videoLink} alt="mage" style={imageStyle} />
-              <div style={overlayStyle}></div>
+              {/* <div style={overlayStyle}></div> */}
               <div style={centerContentStyle}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -301,12 +299,12 @@ function PostBuy() {
                 </svg>
               </div>
             </div>
-            <div className="shadow-lg text-center" style={smallCardStyle}>
+            <div className="shadow-lg text-white d-flex align-items-center justify-content-end gap-2 text-center " style={smallCardStyle}>
               <div>
-                <h4 className="fw-bold">{tagProducts.toUpperCase()}</h4>
+                <h4 className="fw-bold">#StartingFrom</h4>
               </div>
               <div>
-                <p className="fw-bold">@ ₹{startingPrice}/-</p>
+                <h4 className="fw-bold">@ ₹{startingPrice}/-</h4>
               </div>
             </div>
           </div>

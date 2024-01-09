@@ -9,7 +9,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useCombinedContext } from "../DataContext";
 
-function AddPost() {
+function AddPost({isDarkMode}) {
   const navigate = useNavigate();
   const [showFooter, setShowFooter] = useState(true);
   const [isFocused, setIsFocused] = useState(false);
@@ -20,7 +20,7 @@ function AddPost() {
   const [profileData, setProfileData] = useState({
     name: "",
   });
-  const { data, loading ,isDarkMode } = useCombinedContext();
+  const { data, loading  } = useCombinedContext();
   useEffect(() => {
     const fetchProfileData = async () => {
       try {

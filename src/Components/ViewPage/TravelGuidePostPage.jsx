@@ -17,14 +17,14 @@ import { useCombinedContext, useDataContext } from "../DataContext";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-function TravelGuidePostPage() {
+function TravelGuidePostPage({isDarkMode}) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [selectedDay, setSelectedDay] = useState("Day1");
   const { id } = useParams();
   const [link, setLink] = useState("");
   const [error, setError] = useState(null);
   const [searchCode, setSearchCode] = useState("");
-  const { data, loading ,isDarkMode } = useCombinedContext();
+  const { data, loading  } = useCombinedContext();
   const [redirectLink, setRedirectLink] = useState("");
   const [fetchedData, setFetchedData] = useState([]);
   // Check if data exists before destructuring
@@ -342,7 +342,7 @@ function TravelGuidePostPage() {
                     mt={{ xs: 19, sm: 50 }}
                     style={price}
                   >
-                    Rs.499780/person
+                    Rs.{item.fullTripPrice}/person
                   </Typography>
                   <Typography
                     level="body-lg"
@@ -415,7 +415,7 @@ function TravelGuidePostPage() {
                     Day 1
                   </div>
                 </Button>
-                {/* <Button
+                <Button
                   style={{
                     position: "relative",
                     fontStyle: "normal",
@@ -441,6 +441,7 @@ function TravelGuidePostPage() {
                     Day 2
                   </div>
                 </Button>
+                 {/*
                 <Button
                   style={{
                     position: "relative",
@@ -751,7 +752,7 @@ function TravelGuidePostPage() {
                       </Stepper>
                     </div>
                   )}
-                  {selectedDay === "Day3" && (
+                  {/* {selectedDay === "Day3" && (
                     <div className="day3-content container py-2">
                       <Stepper
                         orientation="vertical"
@@ -874,7 +875,7 @@ function TravelGuidePostPage() {
                           ))}
                       </Stepper>
                     </div>
-                  )}
+                  )} */}
                   {/* {selectedDay === "Day4" && (
                     <div className="day4-content container py-2">
                       <Stepper

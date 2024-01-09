@@ -4,8 +4,8 @@ import Select, { selectClasses } from "@mui/joy/Select";
 import React from "react";
 import { Link } from "react-router-dom";
 import { useCombinedContext } from "../DataContext";
-function Forgot() {
-  const { isDarkMode } = useCombinedContext();
+function Forgot({isDarkMode}) {
+
   const handleButtonClick = () => {
     window.history.goBack();
   };

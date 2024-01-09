@@ -12,7 +12,7 @@ const imageSrc3 =
 const imageSrc4 =
   "https://img.freepik.com/free-photo/beautiful-girl-standing-boat-looking-mountains-ratchaprapha-dam-khao-sok-national-park-surat-thani-province-thailand_335224-849.jpg?size=626&ext=jpg&ga=GA1.1.1744357875.1693396610&semt=sph";
 
-function TravelExplore() {
+function TravelExplore({ isDarkMode }) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [fetchedData, setFetchedData] = useState([]);
   // Check if data exists before destructuring
@@ -154,22 +154,26 @@ function TravelExplore() {
   const handleNavigation = (fetchedData) => {
     setContextData({
       item: fetchedData,
-    
     });
 
     // Trigger navigation
     navigate(`/travel-guide-post-page`);
   };
   return (
-    <div style={{ backgroundColor: "rgb(3 23 55)" }}>
+    <div
+      style={{
+        backgroundColor: isDarkMode ? "black" : "white",
+        height: "100vh",
+      }}
+    >
       <div
-        style={{
-          background: "linear-gradient(0deg, #670133 3px, rgb(3 23 55) 330px)",
-          boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
-        }}
+      // style={{
+      //   background: "linear-gradient(0deg, #670133 3px, rgb(3 23 55) 330px)",
+      //   boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
+      // }}
       >
         <div className="text-black container px-2 ">
-          <div className="d-flex align-items-center justify-content-between p-1 px-2">
+          {/* <div className="d-flex align-items-center justify-content-between p-1 px-2">
             <div className="d-flex align-items-center " onClick={backButton}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -218,11 +222,44 @@ function TravelExplore() {
                 <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
               </svg>
             </div>
+          </div> */}
+          <div className=""></div>
+          <div className="d-flex align-items-center gap-3 p-2">
+            <Button
+              className="gap-2 "
+              style={{ background: "black", border: "2px solid white", borderRadius:"15px" }}
+              fullWidth
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                fill="currentColor"
+                class="bi bi-box"
+                viewBox="0 0 16 16"
+              >
+                <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5 8 5.961 14.154 3.5zM15 4.239l-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464z" />
+              </svg>
+              <span style={{ fontSize: "18px" }}>PRODUCT</span>
+            </Button>
+            <Button fullWidth className="gap-2" style={{ border: "2px solid white",borderRadius:"15px" }}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                fill="currentColor"
+                class="bi bi-airplane"
+                viewBox="0 0 16 16"
+              >
+                <path d="M6.428 1.151C6.708.591 7.213 0 8 0s1.292.592 1.572 1.151C9.861 1.73 10 2.431 10 3v3.691l5.17 2.585a1.5 1.5 0 0 1 .83 1.342V12a.5.5 0 0 1-.582.493l-5.507-.918-.375 2.253 1.318 1.318A.5.5 0 0 1 10.5 16h-5a.5.5 0 0 1-.354-.854l1.319-1.318-.376-2.253-5.507.918A.5.5 0 0 1 0 12v-1.382a1.5 1.5 0 0 1 .83-1.342L6 6.691V3c0-.568.14-1.271.428-1.849m.894.448C7.111 2.02 7 2.569 7 3v4a.5.5 0 0 1-.276.447l-5.448 2.724a.5.5 0 0 0-.276.447v.792l5.418-.903a.5.5 0 0 1 .575.41l.5 3a.5.5 0 0 1-.14.437L6.708 15h2.586l-.647-.646a.5.5 0 0 1-.14-.436l.5-3a.5.5 0 0 1 .576-.411L15 11.41v-.792a.5.5 0 0 0-.276-.447L9.276 7.447A.5.5 0 0 1 9 7V3c0-.432-.11-.979-.322-1.401C8.458 1.159 8.213 1 8 1s-.458.158-.678.599" />
+              </svg>
+              <span style={{ fontSize: "18px" }}>TRAVEL</span>
+            </Button>
           </div>
           <div className="px-2 mt-3 p-1 d-flex align-items-center justify-content-between">
             <div>
               <Input
-                style={{ width: "120%" }}
+                style={{ width: "130%" }}
                 className="rounded-3 ms-1"
                 placeholder="Search"
                 startDecorator={
@@ -246,7 +283,7 @@ function TravelExplore() {
                 height="36"
                 className=""
                 fill="currentColor"
-                color="white"
+                style={{ color: isDarkMode ? "white" : "black" }}
                 class="bi bi-funnel"
                 viewBox="0 0 16 16"
               >
@@ -264,87 +301,92 @@ function TravelExplore() {
               <div
                 className="rounded-5  px-3 shadow-sm"
                 style={{
-                  backgroundColor: "rgb(255 0 127)",
-                  border: "1px solid rgb(255 0 127)",
+                  backgroundColor: "#0047ab",
+                  border: "1px solid #0047ab",
                 }}
               >
                 <div>All</div>
               </div>
               <div
                 className=" rounded-5 text-black px-3 shadow-lg"
-                style={{ border: "1px solid rgb(255 0 127)" }}
+                style={{ border: "1px solid #0047ab" }}
               >
                 <span
-                  className=" text-white mt-2 mb-3"
+                  className="  mt-2 mb-3"
                   style={{
                     position: "relative",
                     fontStyle: "normal",
                     lineHeight: "-0.3px",
+                    color: isDarkMode ? "white" : "black",
                   }}
                 >
-                  Festive
+                  Luxery
                 </span>{" "}
               </div>
               <div
                 className=" rounded-5 text-black px-3 shadow-lg"
-                style={{ border: "1px solid rgb(255 0 127)" }}
+                style={{ border: "1px solid #0047ab" }}
               >
                 {" "}
                 <span
-                  className=" text-white mt-2 mb-3"
+                  className="  mt-2 mb-3"
                   style={{
                     position: "relative",
                     fontStyle: "normal",
                     lineHeight: "-0.3px",
+                    color: isDarkMode ? "white" : "black",
                   }}
                 >
-                  Casual
+                  Adventure
                 </span>{" "}
               </div>
               <div
                 className="  rounded-5 text-black px-3 shadow-lg "
-                style={{ border: "1px solid rgb(255 0 127)" }}
+                style={{ border: "1px solid #0047ab" }}
               >
                 <span
-                  className=" text-white mt-2 mb-3"
+                  className="  mt-2 mb-3"
                   style={{
                     position: "relative",
                     fontStyle: "normal",
                     lineHeight: "-0.3px",
+                    color: isDarkMode ? "white" : "black",
                   }}
                 >
-                  Party
+                  Historic
                 </span>{" "}
               </div>
               <div
                 className=" rounded-5 text-black px-3 shadow-lg"
-                style={{ border: "1px solid rgb(255 0 127)" }}
+                style={{ border: "1px solid #0047ab" }}
               >
                 {" "}
                 <span
-                  className=" text-white mt-2 mb-3"
+                  className="  mt-2 mb-3"
                   style={{
                     position: "relative",
                     fontStyle: "normal",
                     lineHeight: "-0.3px",
+                    color: isDarkMode ? "white" : "black",
                   }}
                 >
-                  Summer
+                  Treaser
                 </span>{" "}
               </div>
               <div
                 className=" rounded-5 text-black px-3 shadow-lg"
-                style={{ border: "1px solid rgb(255 0 127)" }}
+                style={{ border: "1px solid #0047ab" }}
               >
                 <span
-                  className=" text-white mt-2 mb-3"
+                  className="  mt-2 mb-3"
                   style={{
                     position: "relative",
                     fontStyle: "normal",
                     lineHeight: "-0.3px",
+                    color: isDarkMode ? "white" : "black",
                   }}
                 >
-                  Winter
+                  Wonder
                 </span>{" "}
               </div>
               <style className="">
@@ -471,9 +513,9 @@ function TravelExplore() {
                             <div
                               style={{
                                 display: "flex",
-    flexWrap: "wrap", // Allow items to wrap to the next line
-    justifyContent: "center", // Center items horizontally
-    gap:"10px"
+                                flexWrap: "wrap", // Allow items to wrap to the next line
+                                justifyContent: "center", // Center items horizontally
+                                gap: "10px",
                               }}
                             >
                               {fetchedData.map((item) => (
@@ -497,7 +539,7 @@ function TravelExplore() {
                           </h6>
                           <div className="d-flex align-items-center justify-content-center">
                             <Button
-                            onClick={() => handleNavigation(item)}
+                              onClick={() => handleNavigation(item)}
                               size="sm"
                               className="rounded-2 px-2"
                               style={{
@@ -531,7 +573,6 @@ function TravelExplore() {
                                 </svg>
                               </span>
                             </Button>
-
                           </div>
                         </div>
                       </div>
@@ -539,7 +580,7 @@ function TravelExplore() {
                   ))}
               </div>{" "}
             </div>
-            <div className="col-12 col-lg-6 mb-2">
+            {/* <div className="col-12 col-lg-6 mb-2">
               <div
                 className="card rounded-4   mb-2 "
                 style={{
@@ -649,7 +690,6 @@ function TravelExplore() {
                             justifyContent: "center",
                           }}
                         >
-                          {/* Original Image */}
                           <div
                             style={{
                               background: `url(${"https://images.unsplash.com/photo-1511527661048-7fe73d85e9a4?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjR8fFdhbmRlcmluZyUyMHBsYWNlfGVufDB8fDB8fHww"})`,
@@ -725,8 +765,8 @@ function TravelExplore() {
                   </div>
                 </div>
               </div>{" "}
-            </div>
-            <div className="col-12 col-lg-6 mb-2">
+            </div> */}
+            {/* <div className="col-12 col-lg-6 mb-2">
               <div
                 className="card rounded-4   mb-2 "
                 style={{
@@ -836,7 +876,6 @@ function TravelExplore() {
                             justifyContent: "center",
                           }}
                         >
-                          {/* Original Image */}
                           <div
                             style={{
                               background: `url(${"https://img.freepik.com/premium-photo/young-elf-woman-isolated-blue-background_1187-380382.jpg?ga=GA1.1.1744357875.1693396610"})`,
@@ -868,7 +907,6 @@ function TravelExplore() {
                             }}
                           />
 
-                          {/* Add more divs for other sections */}
                         </div>
                       </div>
                       <h6 className="text-white" style={{ fontSize: "13px" }}>
@@ -914,8 +952,8 @@ function TravelExplore() {
                   </div>
                 </div>
               </div>{" "}
-            </div>
-            <div className="col-12 col-lg-6 mb-2">
+            </div> */}
+            {/* <div className="col-12 col-lg-6 mb-2">
               <div
                 className="card rounded-4   mb-2 "
                 style={{
@@ -1056,7 +1094,6 @@ function TravelExplore() {
                             }}
                           />
 
-                          {/* Add more divs for other sections */}
                         </div>
                       </div>
                       <h6 className="text-white" style={{ fontSize: "13px" }}>
@@ -1102,7 +1139,7 @@ function TravelExplore() {
                   </div>
                 </div>
               </div>{" "}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

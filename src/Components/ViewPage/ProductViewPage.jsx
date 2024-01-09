@@ -15,7 +15,7 @@ import { useLocation, useParams } from "react-router-dom";
 import { useCombinedContext, useDataContext } from "../DataContext";
 import axios from "axios";
 
-function ProductViewPage() {
+function ProductViewPage({isDarkMode}) {
   const { id } = useParams();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -29,16 +29,17 @@ function ProductViewPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:3002/api/getproducts");
+        const response = await fetch("http://localhost:3002/api/posts/getpost");
+
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
         const data = await response.json();
-        setFetchedData(data.products || []); // Update this line
+        console.log("Fetched data:", data);
+        setFetchedData(data);
       } catch (error) {
         console.error("Error fetching data:", error);
-        // Handle the error, e.g., display an error message to the user
       }
     };
 
@@ -117,8 +118,8 @@ function ProductViewPage() {
   }
   const smallCardStyle = {
     position: "absolute",
-    top: "75%   ",
-    left: "105px",
+    top: "70%   ",
+    left: "175px",
     borderRadius: "15px",
     backgroundColor: "#ef175f",
     lineHeight: "5px",
@@ -259,12 +260,12 @@ function ProductViewPage() {
     gap.gap = "20px";
   }
 
-  if (loading) {
-    return <div>Loading...</div>; // Show a loading indicator
-  }
+  // if (loading) {
+  //   return <div>Loading...</div>; // Show a loading indicator
+  // }
   return (
     <div className="container ">
-      <div >
+      <div>
         <div
           style={{
             display: "flex",
@@ -288,9 +289,14 @@ function ProductViewPage() {
               </svg>
             </div>
           </div>
-          <div className="d-flex align-items-center gap-2 py-2 px-4 shadow-lg text-center" style={smallCardStyle}>
+          <div
+            className="d-flex align-items-center gap-2 py-2 px-4 shadow-lg text-center"
+            style={smallCardStyle}
+          >
             <div>
-              <h4 className="fw-bold text-white">{tagProducts.toUpperCase()}</h4>
+              <h4 className="fw-bold text-white">
+                {tagProducts.toUpperCase()}
+              </h4>
             </div>
             <div>
               <h4 className="fw-bold text-white">@ ₹{startingPrice}/-</h4>
@@ -306,14 +312,14 @@ function ProductViewPage() {
         >
           <div className="mt-3">
             {" "}
-            {fetchedData.length > 0 ? (
+            {fetchedData.length >= 1 ? (
               fetchedData.map((item) => (
                 <div className="col mt-5" key={item.id}>
                   <Card className="mb-5" sx={cardw}>
                     <CardOverflow className="p-2" sx={cardImg}>
                       <img
                         loading="lazy"
-                        src={item.productImageLink}
+                        src={item.img1}
                         alt=""
                         style={imgCard2}
                       />
@@ -342,7 +348,85 @@ function ProductViewPage() {
                             {item.productName}
                           </h4>
                           <p className="fw-bold " style={{ color: "gray" }}>
-                            Rs{item.price}.00
+                            Rs {item.startingPrice}.00
+                          </p>
+                        </div>
+                        <div
+                          className="card  shadow-sm rounded-5"
+                          style={heart}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            color="red"
+                            fill="currentColor"
+                            className="bi bi-heart-fill"
+                            viewBox="0 0 16 16"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </CardContent>
+                    <div
+                      className="d-flex align-items-center justify-content-center"
+                      style={{ marginBottom: "-42px" }}
+                    >
+                      <Button
+                        variant="solid"
+                        className="text-white "
+                        color=""
+                        style={buttonCard}
+                      >
+                        <div
+                          style={{
+                            color: "white",
+                            display: "inline-block",
+                          }}
+                        >
+                          S1A5899
+                        </div>
+                      </Button>
+                    </div>
+                  </Card>
+                  <Card className="mb-5" sx={cardw}>
+                    <CardOverflow className="p-2" sx={cardImg}>
+                      <img
+                        loading="lazy"
+                        src={item.img2}
+                        alt=""
+                        style={imgCard2}
+                      />
+                      <div className="py-0 " style={offper}>
+                        <p
+                          className="text-white fw-bold"
+                          style={{ margin: 0, fontSize: "10px" }}
+                        >
+                          10% off
+                        </p>
+                      </div>
+                    </CardOverflow>
+
+                    <CardContent>
+                      <div className="d-flex align-items-center justify-content-between">
+                        <div>
+                          <h4
+                            className="fw-bold"
+                            href="#product-card"
+                            fontWeight="md"
+                            color="neutral"
+                            textColor="text.primary"
+                            overlay
+                            style={cardName}
+                          >
+                            {item.productName}
+                          </h4>
+                          <p className="fw-bold " style={{ color: "gray" }}>
+                            Rs {item.startingPrice}.00
                           </p>
                         </div>
                         <div

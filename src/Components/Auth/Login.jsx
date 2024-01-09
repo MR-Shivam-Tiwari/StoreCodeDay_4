@@ -6,14 +6,13 @@ import React, { useEffect, useState } from "react";
 import { useCombinedContext } from "../DataContext";
 import { useLocation } from "react-router-dom";
 import logo from "../ViewPage/logo.png";
-function Login() {
+function Login({isDarkMode}) {
   const navigate = useNavigate();
   const [reloadOnMount, setReloadOnMount] = useState(false);
   const [details, setDetails] = useState({
     email: "",
     password: "",
   });
-  const { isDarkMode } = useCombinedContext();
   const handleChange = (e) => {
     setDetails({
       ...details,

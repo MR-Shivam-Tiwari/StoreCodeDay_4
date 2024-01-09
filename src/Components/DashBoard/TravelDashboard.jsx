@@ -15,7 +15,7 @@ const rows = [
   createData("2", "Manali 7 days", 9019, "Edit Post"),
   createData("3", "Italy 3 Days", 9990, "Edit Post"),
 ];
-function TravelDashboard() {
+function TravelDashboard({isDarkMode}) {
   const navigate = useNavigate();
   const [profileData, setProfileData] = useState({
     name: "",
@@ -24,7 +24,7 @@ function TravelDashboard() {
     instagramLink: "",
     youtubeLink: "",
   });
-  const { data, loading ,isDarkMode } = useCombinedContext();
+  const { data, loading } = useCombinedContext();
   useEffect(() => {
     // Fetch existing user profile data when the component mounts
     axios

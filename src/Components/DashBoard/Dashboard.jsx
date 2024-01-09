@@ -19,11 +19,11 @@ const rows = [
   createData("5", "Casual Dress", 8990, "Edit Post"),
 ];
 
-function Dashboard() {
+function Dashboard({isDarkMode}) {
   const [showFooter, setShowFooter] = useState(true);
   const [showInputs, setShowInputs] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
-  const { data, loading ,isDarkMode } = useCombinedContext();
+  const { data, loading  } = useCombinedContext();
   const handleFocus = () => {
     setIsFocused(true);
   };

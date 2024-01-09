@@ -9,14 +9,14 @@ import {
   Input,
   Typography,
 } from "@mui/joy";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCombinedContext, useDataContext } from "../DataContext";
 
-function TravelGuideProfile() {
+function TravelGuideProfile({ isDarkMode }) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [fetchedData, setFetchedData] = useState([]);
   const navigate = useNavigate();
-  const { setContextData, isDarkMode } = useCombinedContext();
+  const { setContextData } = useCombinedContext();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,7 +57,6 @@ function TravelGuideProfile() {
   const handleNavigation = (fetchedData) => {
     setContextData({
       item: fetchedData,
-    
     });
 
     // Trigger navigation
@@ -136,7 +135,7 @@ function TravelGuideProfile() {
     width: "200px",
     height: "50px",
     lineHeight: "6px",
-    backgroundColor:"#fe017e",
+    backgroundColor: "#fe017e",
   };
   if (windowWidth <= 467) {
     videocard2.width = "100px";
@@ -170,18 +169,25 @@ function TravelGuideProfile() {
     );
   }
 
+
   return (
-    <div style={{ backgroundColor: isDarkMode ? "#261450" : "white", height:"100%" , width:"100%"}}>
-      <div >
+    <div
+      style={{
+        backgroundColor: isDarkMode ? "#261450" : "white",
+        height: "100%",
+        width: "100%",
+      }}
+    >
+      <div>
         <div
-          // style={{
-          //   background:
-          //     "linear-gradient(0deg, #f11c86 3px, rgb(3 23 55) 330px)",
-          //   boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
-          // }}
+        // style={{
+        //   background:
+        //     "linear-gradient(0deg, #f11c86 3px, rgb(3 23 55) 330px)",
+        //   boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
+        // }}
         >
-          <div className="text-black container px-2 ">
-            <div className="d-flex align-items-center justify-content-between p-1 px-2">
+          <div className="text-black container p-2 ">
+            {/* <div className="d-flex align-items-center justify-content-between p-1 px-2">
               <div className="d-flex align-items-center " onClick={backButton}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -216,7 +222,8 @@ function TravelGuideProfile() {
                   <span style={{ color: "rgb(255 0 127)" }}>EXPLORE</span>{" "}
                 </h1>
               </div>
-              <div className="d-flex gap-2">
+              <Link to='/travel-dashboard'>
+              <div  className="d-flex gap-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="36"
@@ -229,7 +236,8 @@ function TravelGuideProfile() {
                   <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
                 </svg>
               </div>
-            </div>
+                  </Link>
+            </div> */}
             <div
               className=" rounded-5 p-4 mt-lg-5 mb-lg-5"
               style={{
@@ -258,7 +266,7 @@ function TravelGuideProfile() {
                   >
                     Reccommends:&nbsp; <strong>55.3k</strong>
                   </div>
-                  <div className="d-flex align-items-center gap-3 justify-content-center mt-1">
+                  {/* <div className="d-flex align-items-center gap-3 justify-content-center mt-1">
                     <div>
                       <img
                         src="data:image/svg+xml;base64,PHN2ZyBpZD0iU3ZnanNTdmcxMDM2IiB3aWR0aD0iMjU2IiBoZWlnaHQ9IjI1NiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWxuczpzdmdqcz0iaHR0cDovL3N2Z2pzLmNvbS9zdmdqcyI+PGRlZnMgaWQ9IlN2Z2pzRGVmczEwMzciPjwvZGVmcz48ZyBpZD0iU3ZnanNHMTAzOCI+PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCAxNiAxNiIgd2lkdGg9IjI1NiIgaGVpZ2h0PSIyNTYiPjxwYXRoIGZpbGw9InVybCgjYSkiIGQ9Ik04IDBhOCA4IDAgMSAwIDAgMTZBOCA4IDAgMCAwIDggMFoiPjwvcGF0aD48cGF0aCBmaWxsPSIjZmZmZmZmIiBkPSJNMTIuMTYyIDcuMzM4Yy4xNzYuMTIzLjMzOC4yNDUuMzM4LjY3NCAwIC40My0uMjI5LjYwNC0uNDc0LjcyNS4xLjE2My4xMzIuMzYuMDg5LjU0Ni0uMDc3LjM0NC0uMzkyLjYxMS0uNjcyLjY5LjEyMS4xOTQuMTU5LjM4NS4wMTUuNjItLjE4NS4yOTUtLjM0Ni40MDctMS4wNTguNDA3SDcuNWMtLjk4OCAwLTEuNS0uNTQ2LTEuNS0xVjcuNjY1YzAtMS4yMyAxLjQ2Ny0yLjI3NSAxLjQ2Ny0zLjEzTDcuMzYxIDMuNDdjLS4wMDUtLjA2NS4wMDgtLjIyNC4wNTgtLjI3LjA4LS4wNzkuMzAxLS4yLjYzNS0uMi4yMTggMCAuMzYzLjA0MS41MzQuMTIzLjU4MS4yNzcuNzMyLjk3OC43MzIgMS41NDIgMCAuMjcxLS40MTQgMS4wODMtLjQ3IDEuMzY0IDAgMCAuODY3LS4xOTIgMS44NzktLjE5OSAxLjA2MS0uMDA2IDEuNzQ5LjE5IDEuNzQ5Ljg0MiAwIC4yNjEtLjIxOS41MjMtLjMxNi42NjZaTTMuNiA3aC44YS42LjYgMCAwIDEgLjYuNnYzLjhhLjYuNiAwIDAgMS0uNi42aC0uOGEuNi42IDAgMCAxLS42LS42VjcuNmEuNi42IDAgMCAxIC42LS42WiIgY2xhc3M9ImNvbG9yZmZmIHN2Z1NoYXBlIj48L3BhdGg+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJhIiB4MT0iOCIgeDI9IjgiIHkyPSIxNiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIHN0b3AtY29sb3I9IiM4YjhiOGIiIGNsYXNzPSJzdG9wQ29sb3IxOEFGRkYgc3ZnU2hhcGUiPjwvc3RvcD48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwMDAwMDAiIGNsYXNzPSJzdG9wQ29sb3IwMDYyREYgc3ZnU2hhcGUiPjwvc3RvcD48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48L3N2Zz48L2c+PC9zdmc+"
@@ -277,7 +285,7 @@ function TravelGuideProfile() {
                         class="p-5-5 image_3l786"
                       />
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 <div>
                   <div className="text-start" style={{ lineHeight: "1px" }}>
@@ -369,7 +377,7 @@ function TravelGuideProfile() {
                     </div>
                     <div>
                       {" "}
-                      <div
+                      {/* <div
                         style={{ fontSize: "10px" }}
                         className="text-white fw-bold d-flex gap-2 align-items-center"
                       >
@@ -380,7 +388,7 @@ function TravelGuideProfile() {
                         >
                           <div style={arrowHeadStyle}></div>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
@@ -388,80 +396,59 @@ function TravelGuideProfile() {
 
               <div></div>
             </div>
-            <div className="d-flex mt-4 px-2 align-items-center ">
-              <div
-                className="d-flex align-items-center gap-3 ms-1"
-                style={{ overflow: "auto" }}
+
+            <div className="d-flex mt-4 px-2 gap-3 align-items-center ">
+             
+                <Button
+                onClick={()=> {navigate('/add-new-travel-post')}}
+                  fullWidth
+                  className="gap-2 d-flex align-items-center"
+                  style={{
+                    border: "2px solid white",
+                    borderRadius: "15px",
+                    background: "#202022",
+                  }}
+                >
+                  {" "}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="28"
+                    height="28"
+                    fill="currentColor"
+                    class="bi bi-plus-square"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                  </svg>{" "}
+                  <h4 className="mt-1">Create new post</h4>
+                </Button>
+              
+              <Button
+                fullWidth
+                className="gap-2"
+                style={{
+                  border: "2px solid white",
+                  borderRadius: "15px",
+                  background: "#202022",
+                }}
               >
-                <div
-                  className="rounded-5  px-3 shadow-sm"
-                  style={{
-                    backgroundColor: "rgb(255 0 127)",
-                    border: "1px solid rgb(255 0 127)",
-                  }}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="28"
+                  height="28"
+                  fill="currentColor"
+                  class="bi bi-pencil-square"
+                  viewBox="0 0 16 16"
                 >
-                  <div>All</div>
-                </div>
-                <div
-                  className="rounded-5  px-3 shadow-sm"
-                  style={{
-                    backgroundColor: "rgb(255 0 127)",
-                    border: "1px solid rgb(255 0 127)",
-                  }}
-                >
-                  <div>Festive</div>
-                </div>
-                <div
-                  className="rounded-5  px-3 shadow-sm"
-                  style={{
-                    backgroundColor: "rgb(255 0 127)",
-                    border: "1px solid rgb(255 0 127)",
-                  }}
-                >
-                  <div>Casual</div>
-                </div>
-                <div
-                  className="rounded-5  px-3 shadow-sm"
-                  style={{
-                    backgroundColor: "rgb(255 0 127)",
-                    border: "1px solid rgb(255 0 127)",
-                  }}
-                >
-                  <div>Party</div>
-                </div>
-                <div
-                  className="rounded-5  px-3 shadow-sm"
-                  style={{
-                    backgroundColor: "rgb(255 0 127)",
-                    border: "1px solid rgb(255 0 127)",
-                  }}
-                >
-                  <div>Summer</div>
-                </div>
-                <div
-                  className="rounded-5  px-3 shadow-sm"
-                  style={{
-                    backgroundColor: "rgb(255 0 127)",
-                    border: "1px solid rgb(255 0 127)",
-                  }}
-                >
-                  <div>Winter</div>
-                </div>
-               
-                
-               
-                
-               
-                <style className="">
-                  {`
-          /* Hide the scrollbar for Chrome, Safari, and Edge */
-          ::-webkit-scrollbar {
-            width: 0px;
-            background: transparent;
-          }
-        `}
-                </style>
-              </div>
+                  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                  <path
+                    fill-rule="evenodd"
+                    d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"
+                  />
+                </svg>{" "}
+                <h4 className="mt-1">Edit profile</h4>
+              </Button>
             </div>
             <div
               className="rounded-4 mt-3 mt-lg-5 "

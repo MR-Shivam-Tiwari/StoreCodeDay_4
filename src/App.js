@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import Home from "./Components/Home";
 import ProductExplore from "./Components/ExplorePage/ProductExplore";
 import TravelExplore from "./Components/ExplorePage/TravelExplore";
@@ -22,46 +22,62 @@ import TravelGuideProfile from "./Components/ExplorePage/TravelGuideProfile";
 import TravelGuidePostPage from "./Components/ViewPage/TravelGuidePostPage";
 import { CombinedProvider } from "./Components/DataContext";
 import PostBuy from "./Components/ExplorePage/PostBuy";
+import Navbar from "./Components/HomeComponent/Navbar";
+
+// Define routesWithoutNavbar outside the App component
+const routesWithoutNavbar = ["/login", "/register", "/otp", "/password-change", "/forgot-password", "/new-password"];
+
 
 const App = () => {
-  const [fetchedData, setFetchedData] = useState([]);
+  const [isNavbarVisible, setIsNavbarVisible] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(localStorage.getItem("isDarkMode") === "true");
+
+  useEffect(() => {
+    // Define routes without Navbar
+    const routesWithoutNavbar = ["/login", "/register", "/otp", "/password-change", "/forgot-password", "/new-password"];
+    
+    // Get the current route
+    const currentRoute = window.location.pathname;
+
+    // Check if the current route is in the exclusion list
+    setIsNavbarVisible(!routesWithoutNavbar.includes(currentRoute));
+  }, []);
+
+  const handleDarkModeChange = () => {
+    setIsDarkMode((prevDarkMode) => !prevDarkMode);
+    // Optionally, you can save the updated dark mode state to localStorage here
+  };
   return (
     <CombinedProvider>
       <Router>
+      <div>
+          {/* Navbar will only be shown if isNavbarVisible is true */}
+          {isNavbarVisible && (
+            <Navbar isDarkMode={isDarkMode} onDarkModeChange={handleDarkModeChange} />
+          )}
+        </div>
         <Routes>
           {/* Define your routes */}
-          <Route path="/" element={<Home />} />
-          <Route path="/product-guide-page" element={<ProductExplore />} />
-          <Route path="/travel-guide-page" element={<TravelExplore />} />
-          <Route path="/product-profile" element={<ProductGuideProfile />} />
-          <Route
-            path="/product-uploaded-post/:id"
-            element={<ProductViewPage />}
-          />
-          <Route
-            path="/post-view/:id"
-            element={<PostBuy />}
-          />
-
-          <Route path="/travel-profile" element={<TravelGuideProfile />} />
-          {/* <Route path="/travel-uploaded-post" element={<TravelViewPage />} /> */}
-          <Route
-            path="/travel-guide-post-page"
-            element={<TravelGuidePostPage />}
-          />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/travel-dashboard" element={<TravelDashboard />} />
-          <Route path="/add-new-post" element={<AddPost />} />
-          <Route path="/add-new-travel-post" element={<AddTravelPost />} />
+          <Route path="/" element={<Home isDarkMode={isDarkMode} />} />
+          <Route path="/product-explore-page" element={<ProductExplore isDarkMode={isDarkMode} />} />
+          <Route path="/travel-explore-page" element={<TravelExplore isDarkMode={isDarkMode} />} />
+          <Route path="/product-profile" element={<ProductGuideProfile isDarkMode={isDarkMode} />} />
+          <Route path="/product-uploaded-post/:id" element={<ProductViewPage isDarkMode={isDarkMode} />} />
+          <Route path="/post-view/:id" element={<PostBuy isDarkMode={isDarkMode} />} />
+          <Route path="/travel-profile" element={<TravelGuideProfile isDarkMode={isDarkMode} />} />
+          <Route path="/travel-guide-post-page" element={<TravelGuidePostPage isDarkMode={isDarkMode} />} />
+          <Route path="/dashboard" element={<Dashboard isDarkMode={isDarkMode} />} />
+          <Route path="/travel-dashboard" element={<TravelDashboard isDarkMode={isDarkMode} />} />
+          <Route path="/add-new-post" element={<AddPost isDarkMode={isDarkMode} />} />
+          <Route path="/add-new-travel-post" element={<AddTravelPost isDarkMode={isDarkMode} />} />
 
           {/* Auth Part */}
-
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/otp" element={<Otp />} />
-          <Route path="/password-change" element={<PasswordChanged />} />
-          <Route path="/forgot-password" element={<Forgot />} />
-          <Route path="/new-password" element={<NewPassword />} />
+          <Route path="/login" element={<Login isDarkMode={isDarkMode} />} />
+          <Route path="/register" element={<Register isDarkMode={isDarkMode} />} />
+          <Route path="/otp" element={<Otp isDarkMode={isDarkMode} />} />
+          <Route path="/password-change" element={<PasswordChanged isDarkMode={isDarkMode} />} />
+          <Route path="/forgot-password" element={<Forgot isDarkMode={isDarkMode} />} />
+          <Route path="/new-password" element={<NewPassword isDarkMode={isDarkMode} />} />
         </Routes>
       </Router>
     </CombinedProvider>

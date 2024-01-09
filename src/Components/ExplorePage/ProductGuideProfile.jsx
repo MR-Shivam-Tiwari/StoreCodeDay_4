@@ -22,13 +22,13 @@ const imageSrc3 =
 const imageSrc4 =
   "https://img.freepik.com/premium-photo/cute-young-girl-portrait-garden-wearing-des-dress-fashion-photoshoot_658768-286.jpg?size=626&ext=jpg&ga=GA1.1.1744357875.1693396610&semt=sph";
 
-function ProductGuideProfile() {
+function ProductGuideProfile({isDarkMode}) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
-  const { setContextData,isDarkMode } = useCombinedContext();
+  const { setContextData } = useCombinedContext();
   const [profileData, setProfileData] = useState({
     name: "",
-    profileImage: "",
+    profileImage: "", 
     about: "",
     instagramLink: "",
     youtubeLink: "",

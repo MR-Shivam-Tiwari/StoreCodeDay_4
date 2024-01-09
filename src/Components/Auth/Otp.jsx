@@ -5,8 +5,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useCombinedContext } from "../DataContext";
 
-function Otp() {
-  const { isDarkMode } = useCombinedContext();
+function Otp({isDarkMode}) {
+  
 
   const handleButtonClick = () => {
     window.history.back();

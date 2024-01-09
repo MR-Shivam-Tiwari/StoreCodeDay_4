@@ -5,10 +5,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useCombinedContext } from "../DataContext";
-function Register() {
+function Register({isDarkMode}) {
   const navigate = useNavigate();
   const [state, setState] = useState(false);
-  const { isDarkMode } = useCombinedContext();
   const [showPassword, setShowPassword] = useState(false);
   const [details, setDetails] = useState({
     name: "",

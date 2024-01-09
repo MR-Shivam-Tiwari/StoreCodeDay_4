@@ -11,7 +11,7 @@ const generateUniqueId = () => {
   return nanoid();
 };
 
-function AddTravelPost() {
+function AddTravelPost({isDarkMode}) {
   const [itineraries, setItineraries] = useState([]);
   const [dayCounter, setDayCounter] = useState(1);
   const [link, setLink] = useState("");
@@ -19,7 +19,7 @@ function AddTravelPost() {
   const [profileData, setProfileData] = useState({
     name: "",
   });
-  const { data, loading ,isDarkMode } = useCombinedContext();
+  const { data, loading } = useCombinedContext();
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
@@ -74,43 +74,43 @@ function AddTravelPost() {
     description: "",
     time: "",
     addImage: "",
-    googleMapLink: {generatedStorecode},
+    googleMapLink: generatedStorecode,
     price: "",
     selectedCard: "",
     videoLink: "",
     fullTripPrice: "",
     postName: "",
   });
- 
-  const copyToClipboard = () => {
-    // Create a temporary textarea element
-    const textArea = document.createElement("textarea");
-    textArea.value = generatedStorecode;
+  
+  // const copyToClipboard = () => {
+  //   // Create a temporary textarea element
+  //   const textArea = document.createElement("textarea");
+  //   textArea.value = generatedStorecode;
 
-    // Append the textarea to the document
-    document.body.appendChild(textArea);
+  //   // Append the textarea to the document
+  //   document.body.appendChild(textArea);
 
-    // Select the text in the textarea
-    textArea.select();
+  //   // Select the text in the textarea
+  //   textArea.select();
 
-    // Execute the "copy" command to copy the text
-    document.execCommand("copy");
+  //   // Execute the "copy" command to copy the text
+  //   document.execCommand("copy");
 
-    // Remove the textarea from the document
-    document.body.removeChild(textArea);
-  };
-  const createEmptyItineraryState = () => ({
-    relatedName: "",
-    description: "",
-    time: "",
-    addImage: "",
-    googleMapLink: "",
-    price: "",
-    selectedCard: "",
-    videoLink: "",
-    fullTripPrice: "",
-    postName: "",
-  });
+  //   // Remove the textarea from the document
+  //   document.body.removeChild(textArea);
+  // };
+  // const createEmptyItineraryState = () => ({
+  //   relatedName: "",
+  //   description: "",
+  //   time: "",
+  //   addImage: "",
+  //   googleMapLink: "",
+  //   price: "",
+  //   selectedCard: "",
+  //   videoLink: "",
+  //   fullTripPrice: "",
+  //   postName: "",
+  // });
 
   const handleCardClick = (id, selectedValue) => {
     // Implement the logic to handle card selection

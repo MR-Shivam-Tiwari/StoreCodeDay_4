@@ -5,8 +5,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useCombinedContext } from "../DataContext";
 
-function NewPassword() {
-  const { isDarkMode } = useCombinedContext();
+function NewPassword({isDarkMode}) {
   const handleButtonClick = () => {
     window.history.goBack();
   };

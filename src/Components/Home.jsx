@@ -17,7 +17,8 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "@mui/joy";
 import { Avatar } from "antd";
 import { useNavigate  } from "react-router-dom";
-function Home() {
+import { useCombinedContext } from "./DataContext";
+function Home({isDarkMode}) {
   const location = useLocation();
   const navigate = useNavigate();
   const [profileData, setProfileData] = useState({
@@ -47,13 +48,11 @@ function Home() {
   );
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
-  const [isDarkMode, setIsDarkMode] = useState(
-    localStorage.getItem("isDarkMode") === "true" ? true : false
-  );
+  // const { isDarkMode } = useCombinedContext();
 
-  const handleSwitchChange = () => {
-    setIsDarkMode(!isDarkMode);
-  };
+  // const handleSwitchChange = () => {
+  //   setIsDarkMode(!isDarkMode);
+  // };
 
   // Save the dark mode state to localStorage whenever it changes
   useEffect(() => {
@@ -173,6 +172,7 @@ function Home() {
         background: `linear-gradient(to bottom, ${
           isDarkMode ? "#031737" : "#fff"
         } 90%, ${isDarkMode ? "#EF175F" : "#eee"} 100%)`,
+        marginTop:"-20px"
       }}
     >
       <div
@@ -183,145 +183,10 @@ function Home() {
           background: "white",
         }}
       ></div>
-      <div>
-        <div>
-          <div
-            className="text-warning shadow"
-            style={{ backgroundColor: isDarkMode ? "black" : "white" }}
-          >
-            <nav className="navbar navbar-expand-lg">
-              <div className="container d-flex justify-content-between">
-                <div className="d-flex">
-                  <div className="d-flex gap-2">
-                    <Button
-                      variant="soft"
-                      color="none"
-                      className="navbar-toggler px-0 "
-                      type="button"
-                      onClick={toggleMobileMenu}
-                      style={{
-                        display: window.innerWidth <= 767 ? "block" : "none",
-                      }}
-                    >
-                      <span
-                        className="navbar-toggler-icon fs-5"
-                        style={{ color: isDarkMode ? "white" : "black" }}
-                      ></span>
-                    </Button>
-                    <img
-                      src="https://storecode.in/images/logo-nav.png"
-                      alt="logo"
-                      style={{ width: "40px", height: "40px" }}
-                    />
-                  </div>
-                  <ul
-                    className="navbar-nav"
-                    style={{ display: isMobileMenuOpen ? "none" : "flex" }}
-                  >
-                    <li className="nav-item">
-                      <Link
-                        className={`nav-link  ${
-                          location.pathname === "/" && "active"
-                        }`}
-                        to="/"
-                        style={{ color: isDarkMode ? "white" : "black" }}
-                      >
-                        HOME
-                      </Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link
-                        className={`nav-link  ${
-                          location.pathname === "/about" && "active"
-                        }`}
-                        style={{ color: isDarkMode ? "white" : "black" }}
-                        to="/about"
-                      >
-                        About Us
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="d-flex position-relative">
-                  {isLoggedIn ? (
-                    <div className="d-flex align-items-center gap-2">
-                      <FormGroup>
-                        <FormControlLabel
-                          control={
-                            <MaterialUISwitch
-                              sx={{ m: 1 }}
-                              checked={isDarkMode}
-                              onChange={handleSwitchChange}
-                            />
-                          }
-                        />
-                      </FormGroup>
-                      <Link onClick={handlprofileClick} className="nav-link">
-                        <Avatar
-                          size={"large"}
-                          alt={userName}
-                          src={profileData.profileImage}
-                        />
-                      </Link>
-                      {/* Logout button */}
-                      <button
-                        className="nav-link"
-                        style={{
-                          color: "#df439b",
-                          fontWeight: "700",
-                          background: "none",
-                          border: "none",
-                          cursor: "pointer",
-                        }}
-                        onClick={handleLogout}
-                      >
-                        Logout
-                      </button>
-                    </div>
-                  ) : (
-                    <form className="d-flex align-items-center gap-2">
-                      <FormGroup>
-                        <FormControlLabel
-                          control={
-                            <MaterialUISwitch
-                              sx={{ m: 1 }}
-                              checked={isDarkMode}
-                              onChange={handleSwitchChange}
-                            />
-                          }
-                        />
-                      </FormGroup>
-                      <Link
-                        style={{ color: "#518EF8", fontWeight: "700" }}
-                        className={`nav-link`}
-                        to={{
-                          pathname: "/login",
-                        }}
-                        onClick={handleLoginClick}
-                      >
-                        Login
-                      </Link>
-                      <Link
-                        style={{ color: "#df439b", fontWeight: "700" }}
-                        className={`nav-link  ${
-                          location.pathname === "/register" && "active"
-                        }`}
-                        to={{
-                          pathname: "/register",
-                        }}
-                        onClick={handleregisterClick}
-                      >
-                        Register
-                      </Link>
-                    </form>
-                  )}
-                </div>
-              </div>
-            </nav>
-          </div>
-        </div>
+      {/* <div>
+        <Navbar />
       </div>
+       */}
       <div>
         <StorecodeSearchBar isDarkMode={isDarkMode} />
       </div>
@@ -331,7 +196,7 @@ function Home() {
         <PopularCodes isDarkMode={isDarkMode} />
       </div>
       <div
-        className=" w-100 h-100 py-2"
+        className=" w-100 h-100 "
         style={{
           background: isDarkMode ? "black" : "white",
         }}

@@ -76,6 +76,14 @@ function ExploreGuides() {
   if(windowWidth <= 450){
     buttontext.fontSize="13px"   
   }
+  const handleregisterClick = () => {
+    // Reload the entire page when navigating to /login
+    window.location.href = '/product-explore-page';
+  };
+  const handletravelClick = () => {
+    // Reload the entire page when navigating to /login
+    window.location.href = '/travel-explore-page';
+  };
   return (
     <div className=" container px-4 mt-4">
       <div>
@@ -112,7 +120,7 @@ function ExploreGuides() {
                 <div
                   className="px-2 py-0"
                   style={button}
-                  onClick={() => navigate("/product-guide-page")}
+                  onClick={handleregisterClick}
                 >
                   <p
                     className="fw-bold p-1"
@@ -155,7 +163,7 @@ function ExploreGuides() {
                 <div
                   className="px-2 py-0"
                   style={button}
-                  onClick={() => navigate("/travel-guide-page")}
+                  onClick={handletravelClick}
                 >
                   <p className="fw-bold p-1 " style={buttontext}>
                     EXPLORE

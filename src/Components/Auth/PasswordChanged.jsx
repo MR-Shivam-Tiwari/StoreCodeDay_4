@@ -2,8 +2,8 @@ import { Button } from "@mui/joy";
 import React from "react";
 import { Link } from "react-router-dom";
 import { useCombinedContext } from "../DataContext";
-function PasswordChanged() {
-  const { isDarkMode } = useCombinedContext();
+function PasswordChanged({isDarkMode}) {
+ 
   return (
     <div
       style={{

@@ -12,15 +12,14 @@ const imageSrc3 =
 const imageSrc4 =
   "https://img.freepik.com/premium-photo/cute-young-girl-portrait-garden-wearing-des-dress-fashion-photoshoot_658768-286.jpg?size=626&ext=jpg&ga=GA1.1.1744357875.1693396610&semt=sph";
 
-function ProductExplore() {
+function ProductExplore({ isDarkMode }) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [fetchedData, setFetchedData] = useState([]);
   const navigate = useNavigate();
   const { setContextData } = useCombinedContext();
-  const [sortBy, setSortBy] = useState('popularity'); // Default sorting by popularity
+  const [sortBy, setSortBy] = useState("popularity"); // Default sorting by popularity
   const [filteredData, setFilteredData] = useState(fetchedData);
 
-  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -40,21 +39,21 @@ function ProductExplore() {
 
     fetchData();
   }, []); // The emp
-  const handleSort = (sortType) => {
-    setSortBy(sortType);
-    // Implement sorting logic based on sortType (popularity, priceHighToLow, priceLowToHigh, etc.)
-    // Update the filteredData state accordingly
-    // Example: You can use Array.sort() to sort the data array
-    let sortedData = [...fetchedData];
-    if (sortType === 'priceHighToLow') {
-      sortedData.sort((a, b) => b.price - a.price);
-    } else if (sortType === 'priceLowToHigh') {
-      sortedData.sort((a, b) => a.price - b.price);
-    } else if (sortType === 'popularity') {
-      // Add your popularity sorting logic here
-    }
-    setFilteredData(sortedData);
-  };
+  // const handleSort = (sortType) => {
+  //   setSortBy(sortType);
+  //   // Implement sorting logic based on sortType (popularity, priceHighToLow, priceLowToHigh, etc.)
+  //   // Update the filteredData state accordingly
+  //   // Example: You can use Array.sort() to sort the data array
+  //   let sortedData = [...fetchedData];
+  //   if (sortType === 'priceHighToLow') {
+  //     sortedData.sort((a, b) => b.price - a.price);
+  //   } else if (sortType === 'priceLowToHigh') {
+  //     sortedData.sort((a, b) => a.price - b.price);
+  //   } else if (sortType === 'popularity') {
+  //     // Add your popularity sorting logic here
+  //   }
+  //   setFilteredData(sortedData);
+  // };
 
   const backButton = () => {
     window.history.back();
@@ -185,15 +184,20 @@ function ProductExplore() {
   };
 
   return (
-    <div style={{ backgroundColor: "rgb(3 23 55)" }}>
+    <div
+      style={{
+        backgroundColor: isDarkMode ? "black" : "white",
+        height: "100vh",
+      }}
+    >
       <div
-        style={{
-          background: "linear-gradient(0deg, #670133 3px, rgb(3 23 55) 330px)",
-          boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
-        }}
+      // style={{
+      //   background: "linear-gradient(0deg, #670133 3px, rgb(3 23 55) 330px)",
+      //   boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
+      // }}
       >
         <div className="text-black container px-2 ">
-          <div className="d-flex align-items-center justify-content-between p-1 px-2">
+          {/* <div className="d-flex align-items-center justify-content-between p-1 px-2">
             <div className="d-flex align-items-center " onClick={backButton}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -242,6 +246,46 @@ function ProductExplore() {
                 <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
               </svg>
             </div>
+          </div> */}
+          <div className="d-flex align-items-center gap-3 p-2">
+            <Button
+              className="gap-2 "
+              style={{
+                background: "#ff017e",
+                border: "2px solid white",
+                borderRadius: "15px",
+              }}
+              fullWidth
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                fill="currentColor"
+                class="bi bi-box"
+                viewBox="0 0 16 16"
+              >
+                <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5 8 5.961 14.154 3.5zM15 4.239l-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464z" />
+              </svg>
+              <span style={{ fontSize: "18px" }}>PRODUCT</span>
+            </Button>
+            <Button
+              fullWidth
+              className="gap-2"
+              style={{ border: "2px solid white", borderRadius: "15px", background:"black" }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                fill="currentColor"
+                class="bi bi-airplane"
+                viewBox="0 0 16 16"
+              >
+                <path d="M6.428 1.151C6.708.591 7.213 0 8 0s1.292.592 1.572 1.151C9.861 1.73 10 2.431 10 3v3.691l5.17 2.585a1.5 1.5 0 0 1 .83 1.342V12a.5.5 0 0 1-.582.493l-5.507-.918-.375 2.253 1.318 1.318A.5.5 0 0 1 10.5 16h-5a.5.5 0 0 1-.354-.854l1.319-1.318-.376-2.253-5.507.918A.5.5 0 0 1 0 12v-1.382a1.5 1.5 0 0 1 .83-1.342L6 6.691V3c0-.568.14-1.271.428-1.849m.894.448C7.111 2.02 7 2.569 7 3v4a.5.5 0 0 1-.276.447l-5.448 2.724a.5.5 0 0 0-.276.447v.792l5.418-.903a.5.5 0 0 1 .575.41l.5 3a.5.5 0 0 1-.14.437L6.708 15h2.586l-.647-.646a.5.5 0 0 1-.14-.436l.5-3a.5.5 0 0 1 .576-.411L15 11.41v-.792a.5.5 0 0 0-.276-.447L9.276 7.447A.5.5 0 0 1 9 7V3c0-.432-.11-.979-.322-1.401C8.458 1.159 8.213 1 8 1s-.458.158-.678.599" />
+              </svg>
+              <span style={{ fontSize: "18px" }}>TRAVEL</span>
+            </Button>
           </div>
           <div className="px-2 mt-3 p-1 d-flex align-items-center justify-content-between">
             <div>
@@ -270,7 +314,7 @@ function ProductExplore() {
                 height="36"
                 className=""
                 fill="currentColor"
-                color="white"
+                style={{color: isDarkMode ? "white" : "black"}}
                 class="bi bi-funnel"
                 viewBox="0 0 16 16"
               >
@@ -286,61 +330,63 @@ function ProductExplore() {
               style={{ overflow: "auto" }}
             >
               <div
-               onClick={() => handleSort('popularity')}
+                //  onClick={() => handleSort('popularity')}
                 className="rounded-5  px-3 shadow-sm"
                 style={{
-                  border: "1px solid rgb(255 0 127)",
+                  border: "1px solid rgb(255 0 127)", background:"rgb(255 0 127)"
                 }}
               >
-                <div>Most Popular</div>
+                <div>All</div>
               </div>
               <div
-             
                 className=" rounded-5 text-black px-3 shadow-lg"
                 style={{ border: "1px solid rgb(255 0 127)" }}
               >
                 <span
-                  className=" text-white mt-2 mb-3"
+                  className=" mt-2 mb-3"
                   style={{
                     position: "relative",
                     fontStyle: "normal",
                     lineHeight: "-0.3px",
+                    color: isDarkMode ? "white" : "black"
                   }}
                 >
-                  New Arrivals
+                  Festive
                 </span>{" "}
               </div>
               <div
-               onClick={() => handleSort('priceHighToLow')}
+                //  onClick={() => handleSort('priceHighToLow')}
                 className=" rounded-5 text-black px-3 shadow-lg"
                 style={{ border: "1px solid rgb(255 0 127)" }}
               >
                 {" "}
                 <span
-                  className=" text-white mt-2 mb-3"
+                  className="  mt-2 mb-3"
                   style={{
                     position: "relative",
                     fontStyle: "normal",
                     lineHeight: "-0.3px",
+                    color: isDarkMode ? "white" : "black"
                   }}
                 >
-                  Price (High to Low)
+                  Casual
                 </span>{" "}
               </div>
               <div
-              onClick={() => handleSort('priceLowToHigh')}
+                // onClick={() => handleSort('priceLowToHigh')}
                 className="  rounded-5 text-black px-3 shadow-lg "
                 style={{ border: "1px solid rgb(255 0 127)" }}
               >
                 <span
-                  className=" text-white mt-2 mb-3"
+                  className="  mt-2 mb-3"
                   style={{
                     position: "relative",
                     fontStyle: "normal",
                     lineHeight: "-0.3px",
+                    color: isDarkMode ? "white" : "black"
                   }}
                 >
-                  Price (Low to High)
+                  Occasional
                 </span>{" "}
               </div>
               <div
@@ -349,11 +395,12 @@ function ProductExplore() {
               >
                 {" "}
                 <span
-                  className=" text-white mt-2 mb-3"
+                  className="  mt-2 mb-3"
                   style={{
                     position: "relative",
                     fontStyle: "normal",
                     lineHeight: "-0.3px",
+                    color: isDarkMode ? "white" : "black"
                   }}
                 >
                   Ratings
@@ -364,14 +411,15 @@ function ProductExplore() {
                 style={{ border: "1px solid rgb(255 0 127)" }}
               >
                 <span
-                  className=" text-white mt-2 mb-3"
+                  className="  mt-2 mb-3"
                   style={{
                     position: "relative",
                     fontStyle: "normal",
                     lineHeight: "-0.3px",
+                    color: isDarkMode ? "white" : "black"
                   }}
                 >
-                 Discounts
+                  Discounts
                 </span>{" "}
               </div>
               <style className="">
@@ -389,7 +437,9 @@ function ProductExplore() {
             {[...Array(Math.ceil(fetchedData.length / 2))].map(
               (_, rowIndex) => (
                 <div key={rowIndex} className="row">
-                   {filteredData.slice(rowIndex * 2, rowIndex * 2 + 2).map((item) => (
+                  {fetchedData
+                    .slice(rowIndex * 2, rowIndex * 2 + 2)
+                    .map((item) => (
                       <div key={item._id} className="col-12 col-lg-6 mb-2">
                         <div
                           className="card rounded-4   mb-2 "
@@ -547,7 +597,7 @@ function ProductExplore() {
                                 </h6>
                                 <div className="d-flex align-items-center justify-content-center">
                                   <Button
-                                  onClick={() => handleNavigation(item)}
+                                    onClick={() => handleNavigation(item)}
                                     size="sm"
                                     className="rounded-2 px-2"
                                     style={{
