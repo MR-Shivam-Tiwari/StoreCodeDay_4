@@ -266,7 +266,7 @@ function Navbar({ isDarkMode, onDarkModeChange }) {
                       }
                     />
                   </FormGroup>
-                  <Link onClick={handlprofileClick} className="nav-link">
+                  <Link to='/Product-profile' className="nav-link">
                     <Avatar
                       size={"large"}
                       alt={userName}
@@ -307,7 +307,7 @@ function Navbar({ isDarkMode, onDarkModeChange }) {
                     to={{
                       pathname: "/login",
                     }}
-                    onClick={handleLoginClick}
+                    // onClick={handleLoginClick}
                   >
                     Login
                   </Link>
@@ -319,7 +319,7 @@ function Navbar({ isDarkMode, onDarkModeChange }) {
                     to={{
                       pathname: "/register",
                     }}
-                    onClick={handleregisterClick}
+                    // onClick={handleregisterClick}
                   >
                     Register
                   </Link>
