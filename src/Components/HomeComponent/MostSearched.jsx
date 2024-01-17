@@ -26,6 +26,15 @@ function MostSearched({ isDarkMode }) {
       setActiveImage(index);
     }
   };
+  const [activeImage2, setActiveImage2] = useState(2);
+
+  const handleImageClick2 = (index) => {
+  if (activeImage2 === index) {
+      setActiveImage2(null);
+    } else {
+      setActiveImage2(index);
+    }
+  };
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
@@ -144,9 +153,9 @@ function MostSearched({ isDarkMode }) {
                 src={imageUrl}
                 alt={`imag${index + 1}`}
                 className={`product-img ${
-                  activeImage === index ? "hovered" : ""
+                  activeImage2 === index ? "hovered" : ""
                 }`}
-                onClick={() => handleImageClick(index)}
+                onClick={() => handleImageClick2(index)}
               />
               
             ))}
