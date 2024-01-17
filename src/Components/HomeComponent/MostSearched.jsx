@@ -1,9 +1,31 @@
-import { Hidden } from "@mui/material";
+import { Card, CardContent, Hidden, Typography } from "@mui/material";
 import React, { useEffect, useLayoutEffect, useState } from "react";
-
+import "./MosteSearched.css";
+import CardCover from "@mui/joy/CardCover";
+import product1 from './img/product1.jpg'
+import product2 from "./img/product2.jpg";
+import product3 from "./img/product3.png";
+import product4 from "./img/product4.jpg";
+import product5 from "./img/product5.jpg";
+import travel1 from './img/travel1.jpg'
+import travel2 from './img/travel2.jpg'
+import travel3 from './img/travel3.jpg'
+import travel4 from './img/travel4.jpg'
+import travel5 from './img/travel5.jpg'
 function MostSearched({ isDarkMode }) {
   const [fontSize, setFontSize] = useState("20px");
+  const [images] = useState([product1, product2, product3, product4, product5]);
+  const [images2] = useState([travel1, travel2, travel3, travel4, travel5]);
+  
+  const [activeImage, setActiveImage] = useState(2);
 
+  const handleImageClick = (index) => {
+    if (activeImage === index) {
+      setActiveImage(null);
+    } else {
+      setActiveImage(index);
+    }
+  };
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
@@ -70,12 +92,10 @@ function MostSearched({ isDarkMode }) {
   }
   return (
     <div className="text-white container px-4 mb-5 ">
-      <div
-        className="mb-2 px-2 pt-0 text-black"
-      >
+      <div className="mb-2 px-2 pt-0 text-black">
         <div className="">
           <div
-            className="fw-bold mt-3 mb-2  "
+            className="fw-bold mt-3 mb-2 text-center  "
             style={{
               position: "relative",
               fontSize: "30px",
@@ -92,204 +112,44 @@ function MostSearched({ isDarkMode }) {
               }}
             >
               <h5
-                className="fw-bold mb-4"
-                style={{ fontSize, maxWidth: "800px", margin: "0 auto", color: isDarkMode ? "#fff" : "#333"}}
+                className="fw-bold  mb-4"
+                style={{
+                  fontSize,
+                  maxWidth: "800px",
+                  margin: "0 auto",
+                }}
               >
                 Most Searched Storecode Today!
               </h5>
             </span>
           </div>
-          <div
-            className="d-flex align-items-center justify-content-center "
-            style={{ gap: "70px", position: "relative" }}
-          >
-            <div className="text-center me-1" style={borderStyle2}>
-              <div style={{ position: "relative" }}>
-                <img
-                  src="https://images.unsplash.com/photo-1541260894924-7ff059b93d54?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHByb2R1Y3QlMjBtYW58ZW58MHx8MHx8fDA%3D"
-                  alt="logo"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
-                />
-                <span
-                  style={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
-                    background:
-                      "linear-gradient(90deg, #C63AC0 0%, #518EF8 70%, #2F6CE5 100%)",
-                    WebkitBackgroundClip: "text",
-                    color: "transparent",
-                    display: "inline-block",
-                  }}
-                >
-                  <p className=" text-white fw-bold mb-0" style={textStyle2}>
-                    PRODUCT
-                  </p>
-                </span>
-              </div>
-              <span
-                style={{
-                  background:
-                    "linear-gradient(90deg, #C63AC0 0%, #518EF8 70%, #2F6CE5 100%)",
-                  WebkitBackgroundClip: "text",
-                  color: "transparent",
-                  display: "inline-block",
-                }}
-              >
-                <p className="fw-bold mb-0" style={textStyle}>
-                  SIA5976
-                </p>
-              </span>
-            </div>
-
-            <div className="text-center me-1  " style={borderStyle2}>
-              <div style={{ position: "relative" }}>
-                <img
-                  src="https://plus.unsplash.com/premium_photo-1683318596886-3ba591e65918?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHRyYXZlbCUyMG1hbnxlbnwwfHwwfHx8MA%3D%3D"
-                  alt="logo"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
-                />
-                <span
-                  style={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
-                    background:
-                      "linear-gradient(90deg, #C63AC0 0%, #518EF8 70%, #2F6CE5 100%)",
-                    WebkitBackgroundClip: "text",
-                    color: "transparent",
-                    display: "inline-block",
-                  }}
-                >
-                  <p className=" text-white fw-bold mb-0" style={textStyle2}>
-                    TRAVEL
-                  </p>
-                </span>
-              </div>
-              <span
-                style={{
-                  background:
-                    "linear-gradient(90deg, #C63AC0 0%, #518EF8 70%, #2F6CE5 100%)",
-                  WebkitBackgroundClip: "text",
-                  color: "transparent",
-                  display: "inline-block",
-                }}
-              >
-                <p className="fw-bold mb-0" style={textStyle}>
-                  SIA5976
-                </p>
-              </span>
-            </div>
+          <div className="product d-flex align-items-center justify-content-center ">
+            {images.map((imageUrl, index) => (
+              <img
+                key={index}
+                src={imageUrl}
+                alt={`imag${index + 1}`}
+                className={`product-img ${
+                  activeImage === index ? "hovered" : ""
+                }`}
+                onClick={() => handleImageClick(index)}
+              />
+              
+            ))}
           </div>
-          <div className="px-3  ">
-            <div className="d-flex align-items-center justify-content-center gap-1  ">
-              <div className="text-center me-1 " style={borderStyle}>
-                <img
-                  src="https://images.unsplash.com/photo-1608748010899-18f300247112?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTl8fGZhc2hpb258ZW58MHx8MHx8fDA%3D"
-                  alt="logo"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
-                />
-                <span
-                  style={{
-                    background:
-                      "linear-gradient(90deg, #C63AC0 0%, #518EF8 70%, #2F6CE5 100%)",
-                    WebkitBackgroundClip: "text",
-                    color: "transparent",
-                    display: "inline-block",
-                  }}
-                >
-                  <p className="fw-bold mb-0  " style={textStyle}>
-                    SIA5976
-                  </p>
-                </span>
-              </div>
-              <div className="text-center me-2 " style={borderStyle}>
-                <img
-                  src="https://images.unsplash.com/photo-1609505848912-b7c3b8b4beda?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDB8fGZhc2hpb258ZW58MHx8MHx8fDA%3D"
-                  alt="logo"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
-                />
-                <span
-                  style={{
-                    background:
-                      "linear-gradient(90deg, #C63AC0 0%, #518EF8 70%, #2F6CE5 100%)",
-                    WebkitBackgroundClip: "text",
-                    color: "transparent",
-                    display: "inline-block",
-                  }}
-                >
-                  <p className="fw-bold mb-0 " style={textStyle}>
-                    SIA5899
-                  </p>
-                </span>
-              </div>
-              <div className="text-center ms-2 " style={borderStyle}>
-                <img
-                  src="https://images.unsplash.com/photo-1545389336-cf090694435e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzB8fHRyYXZlbCUyMG1lbnxlbnwwfHwwfHx8MA%3D%3D"
-                  alt="logo"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
-                />
-                <span
-                  style={{
-                    background:
-                      "linear-gradient(90deg, #C63AC0 0%, #518EF8 70%, #2F6CE5 100%)",
-                    WebkitBackgroundClip: "text",
-                    color: "transparent",
-                    display: "inline-block",
-                  }}
-                >
-                  <p className="fw-bold mb-0 " style={textStyle}>
-                    SIA5920
-                  </p>
-                </span>
-              </div>
-              <div className="text-center ms-1 " style={borderStyle}>
-                <img
-                  src="https://images.unsplash.com/photo-1504150558240-0b4fd8946624?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzR8fHRyYXZlbCUyMG1lbiUyMDklM0ExMnxlbnwwfHwwfHx8MA%3D%3D"
-                  alt="logo"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
-                />
-                <span
-                  style={{
-                    background:
-                      "linear-gradient(90deg, #C63AC0 0%, #518EF8 70%, #2F6CE5 100%)",
-                    WebkitBackgroundClip: "text",
-                    color: "transparent",
-                    display: "inline-block",
-                  }}
-                >
-                  <p className="fw-bold mb-0 " style={textStyle}>
-                    SIA5989
-                  </p>
-                </span>
-              </div>
-            </div>
+          <div className="product d-flex align-items-center justify-content-center mt-5">
+            {images2.map((imageUrl, index) => (
+              <img
+                key={index}
+                src={imageUrl}
+                alt={`imag${index + 1}`}
+                className={`product-img ${
+                  activeImage === index ? "hovered" : ""
+                }`}
+                onClick={() => handleImageClick(index)}
+              />
+              
+            ))}
           </div>
         </div>
       </div>

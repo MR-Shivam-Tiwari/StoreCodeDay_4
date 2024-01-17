@@ -192,6 +192,9 @@ function Home({isDarkMode}) {
       </div>
 
       <MostSearched isDarkMode={isDarkMode} />
+      <div className="">
+          <TopInfluencer isDarkMode={isDarkMode} />
+        </div>
       <div>
         <PopularCodes isDarkMode={isDarkMode} />
       </div>
@@ -201,14 +204,12 @@ function Home({isDarkMode}) {
           background: isDarkMode ? "black" : "white",
         }}
       >
+       
         <div className="">
-          <TopInfluencer />
+          <ExploreGuides isDarkMode={isDarkMode} />
         </div>
         <div className="">
-          <ExploreGuides />
-        </div>
-        <div className="">
-          <Benifits />
+          <Benifits  isDarkMode={isDarkMode}/>
         </div>
         <div className="">
           <TestiMonials isDarkMode={isDarkMode} />

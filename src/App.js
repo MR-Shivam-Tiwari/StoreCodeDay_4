@@ -79,6 +79,15 @@ const App = () => {
           <Route path="/forgot-password" element={<Forgot isDarkMode={isDarkMode} />} />
           <Route path="/new-password" element={<NewPassword isDarkMode={isDarkMode} />} />
         </Routes>
+        <style>
+            {`
+          /* Hide the scrollbar for Chrome, Safari, and Edge */
+          ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+          }
+        `}
+          </style>
       </Router>
     </CombinedProvider>
   );

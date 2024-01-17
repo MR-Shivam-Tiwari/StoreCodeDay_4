@@ -5,8 +5,9 @@ import ThirdImg from "./img/sales-promotion.png";
 import { useState } from "react";
 import { useEffect } from "react";
 import styled from "@emotion/styled";
-
-function Benifits() {
+import greenbag from "./bag-coin.png";
+import percent from "./percent.png";
+function Benifits({ isDarkMode }) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -30,18 +31,17 @@ function Benifits() {
   const rhombusStyle = {
     width: "220px",
     height: "220px",
-    backgroundColor: "#FFF",
     transform: "rotate(45deg)",
+    marginBottom: "150px",
     margin: "50px",
-    position: "relative",
+    border: "3px solid #2e3e65",
     borderRadius: "30px",
   };
-  if (windowWidth <= 450) {
-    rhombusStyle.width = "40px";
-    rhombusStyle.height = "40px";
-    rhombusStyle.borderRadius = "10px";
-    rhombusStyle.marginBottom = "60px";
-  }
+  // if (windowWidth <= 450) {
+  //   rhombusStyle.width = "40px";
+  //   rhombusStyle.height = "40px";
+  //   rhombusStyle.borderRadius = "10px";
+  // }
   const BlueCard = {
     backgroundColor: "#023fac",
     width: "50%",
@@ -76,8 +76,8 @@ function Benifits() {
     color: "white",
     position: "relative", // Ensure position relative for positioning the invisible scrollbar overlay
   };
-  if(windowWidth <= 450){
-    containerStyle.marginTop='-50px'
+  if (windowWidth <= 450) {
+    containerStyle.marginTop = "-50px";
   }
   const num = {
     borderRadius: "50%",
@@ -105,130 +105,138 @@ function Benifits() {
   }
 
   const imgstyle = {
-    width: "100%",
     transform: "rotate(-45deg)",
-    margin: "50px",
     position: "relative",
-    marginTop: "-10px",
-    marginLeft: "-15px",
   };
-  if (windowWidth <= 467) {
-    imgstyle.width = "35px";
-    imgstyle.height = "35px";
-    imgstyle.fontSize = "12px";
-    imgstyle.marginBottom = "-55px";
-    imgstyle.marginLeft = "0px";
-  }
+  // if (windowWidth <= 467) {
+  //   imgstyle.width = "35px";
+  //   imgstyle.height = "35px";
+  //   imgstyle.fontSize = "12px";
+  //   imgstyle.marginBottom = "-55px";
+  //   imgstyle.marginLeft = "0px";
+  // }
+  const arrowStyle = {
+    // Arrow stem
+  };
 
+  const arrowHeadStyle = {
+    transform: "rotate(-180deg)",
+    width: 0,
+    height: 0,
+    borderStyle: "solid",
+    borderWidth: "21px 0 21px 60px", // Adjust the size of the arrowhead
+    borderColor: "transparent transparent transparent #2d3f66", // Adjust the color
+  };
+  const arrowHeadStyle2 = {
+    width: 0,
+    height: 0,
+    borderStyle: "solid",
+    borderWidth: "21px 0 21px 60px", // Adjust the size of the arrowhead
+    borderColor: "transparent transparent transparent #2d3f66", // Adjust the color
+  };
   return (
-    <div className="text-white container  mt-4">
-      <div
-        className="text-center card rounded-3 p-2"
-        style={{ backgroundColor: "#252525" }}
-      >
-        <h3 className="fw-bold text-white mt-3 mb-5">
-          1 <span style={{ color: "#8bb4f2" }}>CODE</span> 1{" "}
-          <span style={{ color: "#fe0182" }}>BENEFITS</span>
-        </h3>
+    <div
+      className="text-white container  mt-4"
+      style={{ background: isDarkMode ? "black" : "white" }}
+    >
+      <div className="text-center ">
+        <div className=" text-center">
+          <span
+            className="fw-bold  mt-0"
+            style={{
+              background:
+                "linear-gradient(90deg, #C63AC0 0%, #518EF8 70%, #2F6CE5 100%)",
+              WebkitBackgroundClip: "text",
+              color: "transparent",
+              display: "inline-block",
+            }}
+          >
+            <p className="fw-bold mb-0" style={{ fontSize: "40px" }}>
+              1 CODE 3 BENEFITS
+            </p>
+          </span>
+        </div>
         <div
-          className="d-flex align-items-center  justify-content-center  text-white"
-          style={containerStyle}
+          className=" d-flex align-items-center justify-content-center gap-3  text-white"
+          style={{ marginLeft: "180px" }}
         >
-          <div>
-            <div className="">
+          <div className="box">
+            <div className="d-flex align-items-center gap-5">
               <div style={rhombusStyle}>
-                <div className="card" style={num}>
-                  1
-                </div>
-                <div>
-                  <img src={FirstImage} alt="" style={imgstyle} />
-                </div>
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/2769/2769257.png"
+                  alt=""
+                  style={{ ...imgstyle, width: "190px", marginLeft: "-20px" }}
+                />
               </div>
-              <div className="text-center" style={{ marginLeft: "-20px" }}>
-                <div className="d-flex align-items-center justify-content-center">
-                  <div className="text-white card  " style={BlueCard}>
-                    <h6 style={bluetext}>
-                      Redirects Shoppers to Purchasing Site
-                    </h6>
-                  </div>
-                </div>
-                <div className="mt-3">
-                  <p className="text-white text-center" style={para}>
+              <div className="d-flex  ">
+                <div className="mt-4" style={arrowHeadStyle}></div>
+                <div
+                  className="p-4  text-center "
+                  style={{
+                    background: `linear-gradient(to bottom, #5a2154 , #2d3f66 100%)`,
+                    width: "60%",
+                  }}
+                >
+                  <h2 className=" fw-bold  ">
+                    Redirects shoppers to purchasing site
+                  </h2>
+                  <p className="" style={{ fontSize: "24px", color: "gray" }}>
                     Each unique code guides buyers to the product purchase site
                   </p>
                 </div>
               </div>
             </div>
-          </div>
-          <div>
-            <div className="">
-              <div style={rhombusStyle}>
-                <div className="card" style={num}>
-                  2
+            <div className="d-flex align-items-center gap-5">
+              <div className="d-flex  ">
+                <div
+                  className="p-5  text-center "
+                  style={{
+                    background: `linear-gradient(to bottom, #5a2154 , #2d3f66 100%)`,
+                    width: "60%",
+                  }}
+                >
+                  <h2 className=" fw-bold  ">Commission for guides</h2>
+                  <p className="" style={{ fontSize: "24px", color: "gray" }}>
+                    Guides earn commision when codes are used for shopping
+                  </p>
                 </div>
-                <div>
-                  <img src={SecondImg} alt="" style={imgstyle} />
-                </div>
+                <div className="mt-4" style={arrowHeadStyle2}></div>
               </div>
-              <div className="text-center" style={{ marginLeft: "-25px" }}>
-                <div className="d-flex align-items-center justify-content-center">
-                  <div
-                    className="text-white card  "
-                    style={BlueCard}
-                  >
-                    <h6 style={bluetext}>Commission for Guides</h6>
-                  </div>
-                </div>
-                <div className="mt-3">
-                  <p
-                    className="text-white text-center"
-                    style={para}
-                  >
-                    Guides earn Commissions when codes are used for shopping
+              <div style={{ ...rhombusStyle, marginLeft: "-180px" }}>
+                <img
+                  src={greenbag}
+                  alt=""
+                  style={{ ...imgstyle, width: "220px" }}
+                />
+              </div>
+            </div>
+            <div className="d-flex align-items-center gap-5">
+              <div style={rhombusStyle}>
+                <img
+                  src={percent}
+                  alt=""
+                  style={{ ...imgstyle, width: "220px" }}
+                />
+              </div>
+              <div className="d-flex  ">
+                <div className="mt-4" style={arrowHeadStyle}></div>
+                <div
+                  className="p-4  text-center "
+                  style={{
+                    background: `linear-gradient(to bottom, #5a2154 , #2d3f66 100%)`,
+                    width: "60%",
+                  }}
+                >
+                  <h2 className=" fw-bold mt-4 mb-2 ">Discounts for buyers</h2>
+                  <p className="" style={{ fontSize: "24px", color: "gray" }}>
+                    Buyers enjoy significant discounts when using guide assigned
+                    codes
                   </p>
                 </div>
               </div>
             </div>
           </div>
-          <div>
-            <div className="">
-              <div style={rhombusStyle}>
-                <div className="" style={num}>
-                  3
-                </div>
-                <div>
-                  <img src={ThirdImg} alt="" style={imgstyle} />
-                </div>
-              </div>
-              <div className="text-center" style={{ marginLeft: "-25px" }}>
-                <div className="d-flex align-items-center justify-content-center">
-                  <div
-                    className="text-white card  "
-                    style={BlueCard}
-                  >
-                    <h6  style={bluetext}>Discounts for Buyers</h6>
-                  </div>
-                </div>
-                <div className="mt-3">
-                  <p
-                    className="text-white text-center"
-                    style={para}
-                  >
-                    Buyers get big discounts with Guide-assigned codes
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <style>
-            {`
-          /* Hide the scrollbar for Chrome, Safari, and Edge */
-          ::-webkit-scrollbar {
-            width: 0px;
-            background: transparent;
-          }
-        `}
-          </style>
         </div>
       </div>
     </div>

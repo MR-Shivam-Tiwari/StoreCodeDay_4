@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import CardOverflow from "@mui/joy/CardOverflow";
 import AspectRatio from "@mui/joy/AspectRatio";
 
-function PopularCodes({isDarkMode}) {
+function PopularCodes({ isDarkMode }) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -50,7 +50,7 @@ function PopularCodes({isDarkMode}) {
   if (windowWidth <= 450) {
     cardTravelStyles.width = "100px";
     cardTravelStyles.height = "140px";
-    cardTravelStyles.boxShadow = "2px 4px 14px #5d80b5"
+    cardTravelStyles.boxShadow = "2px 4px 14px #5d80b5";
     cardTravelStyles.borderRadius = "14px";
   }
   const imgStyles = {
@@ -59,7 +59,6 @@ function PopularCodes({isDarkMode}) {
     boxShadow: "2px 1px 10px #464546",
     marginBottom: "20px",
     borderRadius: "20px",
-    
   };
   if (windowWidth <= 450) {
     imgStyles.width = "90px";
@@ -68,33 +67,64 @@ function PopularCodes({isDarkMode}) {
     imgStyles.boxShadow = "1px 1px 5px #464546";
   }
   const pad = {
-    padding:"10px"
-  }
+    padding: "10px",
+  };
   if (windowWidth <= 450) {
     imgStyles.padding = "0px";
     imgStyles.marginLeft = "-5px";
   }
   const productName = {
-    fontSize:"20px"
-  }
+    fontSize: "20px",
+  };
   if (windowWidth <= 450) {
     productName.fontSize = "10px";
   }
   const productview = {
-    fontSize:"15px"
-  }
+    fontSize: "15px",
+  };
   if (windowWidth <= 450) {
     productview.fontSize = "8px";
     productview.marginTop = "-20px";
   }
 
   return (
-    <div className="container py-3 rounded-3 mb-3" style={{background:isDarkMode ? "black" : " white"}}>
-      <div className="mb-5">
-        <h5 className="fw-bold mb-4 text-center" style={{fontSize:"38px" ,color: isDarkMode ? "white" : "black",}}>Most Popular  in </h5>
+    <div
+      className="container py-3 rounded-3 mb-3"
+      style={{ background: isDarkMode ? "black" : " white" }}
+    >
+      <div className="mb-5 text-center">
+      <span
+              style={{
+                background:
+                  "linear-gradient(90deg, #C63AC0 0%, #518EF8 70%, #2F6CE5 100%)",
+                WebkitBackgroundClip: "text",
+                color: "transparent",
+                display: "inline-block",
+              }}
+            >
+              <h5
+                className="fw-bold  mb-4"
+                style={{
+                  maxWidth: "800px",
+                  margin: "0 auto",
+                  fontSize:"45px"
+                }}
+              >
+                 Most Popular in
+              </h5>
+            </span>
+        
       </div>
       <div>
-        <h4 className="fw-bold  " style={{marginBottom:"-40px",color: isDarkMode ? "white" : "black"}}>Product Guide</h4>
+        <h4
+          className="fw-bold  "
+          style={{
+            marginBottom: "-40px",
+            color: isDarkMode ? "white" : "black",
+          }}
+        >
+          Product Guide
+        </h4>
         <div className="d-flex align-items-center justify-content-center ">
           <div className="px-2 mt-0 d-flex align-items-center gap-lg-5 gap-3 ">
             <div
@@ -119,8 +149,13 @@ function PopularCodes({isDarkMode}) {
                     />
                   </AspectRatio>
                 </div>
-                <h5 className="fw-bold " style={productName}>Headphones</h5>
-                <p className="fw-bold " style={{ color: "#EF175F", ...productName }}>
+                <h5 className="fw-bold " style={productName}>
+                  Headphones
+                </h5>
+                <p
+                  className="fw-bold "
+                  style={{ color: "#EF175F", ...productName }}
+                >
                   SIAD3547
                 </p>
               </div>
@@ -128,7 +163,9 @@ function PopularCodes({isDarkMode}) {
                 className="d-flex align-items-center justify-content-end px-3"
                 style={{ marginBottom: "-10px" }}
               >
-                <p className="" style={productview}>2.3k Views</p>
+                <p className="" style={productview}>
+                  2.3k Views
+                </p>
               </div>
             </div>
             <div
@@ -153,8 +190,13 @@ function PopularCodes({isDarkMode}) {
                     />
                   </AspectRatio>
                 </div>
-                <h5 className="fw-bold " style={productName}>Daily wear</h5>
-                <p className="fw-bold " style={{ color: "#EF175F", ...productName }}>
+                <h5 className="fw-bold " style={productName}>
+                  Daily wear
+                </h5>
+                <p
+                  className="fw-bold "
+                  style={{ color: "#EF175F", ...productName }}
+                >
                   SI879873
                 </p>
               </div>
@@ -162,7 +204,9 @@ function PopularCodes({isDarkMode}) {
                 className="d-flex align-items-center justify-content-end px-3"
                 style={{ marginBottom: "-10px" }}
               >
-                <p className="" style={productview}>2.3k Views</p>
+                <p className="" style={productview}>
+                  2.3k Views
+                </p>
               </div>
             </div>
 
@@ -188,8 +232,13 @@ function PopularCodes({isDarkMode}) {
                     />
                   </AspectRatio>
                 </div>
-                <h5 className="fw-bold " style={productName}>Meakup Product</h5>
-                <p className="fw-bold " style={{ color: "#EF175F", ...productName }}>
+                <h5 className="fw-bold " style={productName}>
+                  Meakup Product
+                </h5>
+                <p
+                  className="fw-bold "
+                  style={{ color: "#EF175F", ...productName }}
+                >
                   SIAD3547
                 </p>
               </div>
@@ -197,7 +246,9 @@ function PopularCodes({isDarkMode}) {
                 className="d-flex align-items-center justify-content-end px-3"
                 style={{ marginBottom: "-10px" }}
               >
-                <p className="" style={productview}>2.3k Views</p>
+                <p className="" style={productview}>
+                  2.3k Views
+                </p>
               </div>
             </div>
           </div>
@@ -229,7 +280,15 @@ function PopularCodes({isDarkMode}) {
         </div>
       </div>
       <div className="mt-3">
-        <h4 className="fw-bold   " style={{marginBottom:"-40px",color: isDarkMode ? "white" : "black"}}>Travel Guide</h4>
+        <h4
+          className="fw-bold   "
+          style={{
+            marginBottom: "-40px",
+            color: isDarkMode ? "white" : "black",
+          }}
+        >
+          Travel Guide
+        </h4>
         <div className="d-flex align-items-center justify-content-center ">
           <div className="px-2 mt-0 d-flex align-items-center  gap-lg-5 gap-3 ">
             <div
@@ -254,8 +313,13 @@ function PopularCodes({isDarkMode}) {
                     />
                   </AspectRatio>
                 </div>
-                <h5 className="fw-bold " style={productName}>Headphones</h5>
-                <p className="fw-bold " style={{ color: "#147CB8", ...productName }}>
+                <h5 className="fw-bold " style={productName}>
+                  Headphones
+                </h5>
+                <p
+                  className="fw-bold "
+                  style={{ color: "#147CB8", ...productName }}
+                >
                   SIAD3547
                 </p>
               </div>
@@ -263,7 +327,9 @@ function PopularCodes({isDarkMode}) {
                 className="d-flex align-items-center justify-content-end px-3"
                 style={{ marginBottom: "-10px" }}
               >
-                <p className="" style={productview}>2.3k Views</p>
+                <p className="" style={productview}>
+                  2.3k Views
+                </p>
               </div>
             </div>
             <div
@@ -288,8 +354,13 @@ function PopularCodes({isDarkMode}) {
                     />
                   </AspectRatio>
                 </div>
-                <h5 className="fw-bold " style={productName}>Daily wear</h5>
-                <p className="fw-bold " style={{ color: "#147CB8", ...productName }}>
+                <h5 className="fw-bold " style={productName}>
+                  Daily wear
+                </h5>
+                <p
+                  className="fw-bold "
+                  style={{ color: "#147CB8", ...productName }}
+                >
                   SI879873
                 </p>
               </div>
@@ -297,7 +368,9 @@ function PopularCodes({isDarkMode}) {
                 className="d-flex align-items-center justify-content-end px-3"
                 style={{ marginBottom: "-10px" }}
               >
-                <p className="" style={productview}>2.3k Views</p>
+                <p className="" style={productview}>
+                  2.3k Views
+                </p>
               </div>
             </div>
 
@@ -323,8 +396,13 @@ function PopularCodes({isDarkMode}) {
                     />
                   </AspectRatio>
                 </div>
-                <h5 className="fw-bold " style={productName}>Meakup Product</h5>
-                <p className="fw-bold " style={{ color: "#147CB8", ...productName }}>
+                <h5 className="fw-bold " style={productName}>
+                  Meakup Product
+                </h5>
+                <p
+                  className="fw-bold "
+                  style={{ color: "#147CB8", ...productName }}
+                >
                   SIAD3547
                 </p>
               </div>
@@ -332,7 +410,9 @@ function PopularCodes({isDarkMode}) {
                 className="d-flex align-items-center justify-content-end px-3"
                 style={{ marginBottom: "-10px" }}
               >
-                <p className="" style={productview}>2.3k Views</p>
+                <p className="" style={productview}>
+                  2.3k Views
+                </p>
               </div>
             </div>
           </div>
