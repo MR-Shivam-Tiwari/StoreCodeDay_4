@@ -187,7 +187,7 @@ function ProductExplore({ isDarkMode }) {
     <div
       style={{
         backgroundColor: isDarkMode ? "black" : "white",
-        height: "100vh",
+        height: "100%",
       }}
     >
       <div

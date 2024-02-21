@@ -68,7 +68,7 @@ function ExploreGuides({isDarkMode}) {
     imgSize2.height = "400px";
     imgSize2.marginTop = "100px";
   }
-  const imgtext1 ={ marginLeft: "-97%", marginTop: "-4%" }
+  const imgtext1 ={ marginLeft: "-97%", marginTop: "-15%" }
   if (windowWidth <= 450) {
     imgtext1.marginLeft = "-700px";
     imgtext1.marginTop = "-10%";
@@ -91,7 +91,7 @@ function ExploreGuides({isDarkMode}) {
   if (windowWidth <= 450) {
     button2.width = "100px";
   }
-  const heading ={ color: "#db378c", fontSize: "35px" }
+  const heading ={ color: "#db378c", fontSize: "30px" }
   if (windowWidth <= 450) {
     heading.fontSize = "19px";
     // imgtext1.marginTop = "400px";
@@ -102,7 +102,7 @@ function ExploreGuides({isDarkMode}) {
     height: "22%",
     borderRadius: "15px",
     objectFit: "cover",
-    marginTop: "-8px",
+    marginTop: "-10%",
   }
   if (windowWidth <= 450) {
     productimg.width = "12%";
@@ -113,6 +113,7 @@ function ExploreGuides({isDarkMode}) {
   const productimg2 ={
     width: "60%",
     borderRadius: "15px",
+    marginTop: "-18%",
     height: "170px",
     objectFit: "cover",
   }

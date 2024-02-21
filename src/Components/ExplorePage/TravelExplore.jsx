@@ -163,7 +163,7 @@ function TravelExplore({ isDarkMode }) {
     <div
       style={{
         backgroundColor: isDarkMode ? "black" : "white",
-        height: "100vh",
+        height: "200vh",
       }}
     >
       <div
@@ -227,7 +227,11 @@ function TravelExplore({ isDarkMode }) {
           <div className="d-flex align-items-center gap-3 p-2">
             <Button
               className="gap-2 "
-              style={{ background: "black", border: "2px solid white", borderRadius:"15px" }}
+              style={{
+                background: "black",
+                border: "2px solid white",
+                borderRadius: "15px",
+              }}
               fullWidth
             >
               <svg
@@ -242,7 +246,11 @@ function TravelExplore({ isDarkMode }) {
               </svg>
               <span style={{ fontSize: "18px" }}>PRODUCT</span>
             </Button>
-            <Button fullWidth className="gap-2" style={{ border: "2px solid white",borderRadius:"15px" }}>
+            <Button
+              fullWidth
+              className="gap-2"
+              style={{ border: "2px solid white", borderRadius: "15px" }}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="22"
@@ -419,7 +427,7 @@ function TravelExplore({ isDarkMode }) {
                     return uniqueItems;
                   }, [])
                   .map((item) => (
-                    <div className="row" key={item.id}>
+                    <div className="row mb-3" key={item.id}>
                       <div className="col-4">
                         <div className="p-2 py-3 me-1">
                           <div>

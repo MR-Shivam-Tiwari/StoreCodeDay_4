@@ -5,9 +5,9 @@ import Switch from "@mui/material/Switch";
 import { FormControlLabel, FormGroup } from "@mui/material";
 import axios from "axios";
 import { Link, useLocation } from "react-router-dom";
-import { Button } from "@mui/joy";
+import { Button, DialogTitle, Drawer, ModalClose } from "@mui/joy";
 import { Avatar } from "antd";
-import { useNavigate  } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 function Navbar({ isDarkMode, onDarkModeChange }) {
   const location = useLocation();
   const navigate = useNavigate();
@@ -42,14 +42,9 @@ function Navbar({ isDarkMode, onDarkModeChange }) {
   //   localStorage.getItem("isDarkMode") === "true" ? true : false
   // );
 
- const handleSwitchChange = () => {
+  const handleSwitchChange = () => {
     onDarkModeChange();
   };
-
-
-
-
-
 
   const [isReloading, setReloading] = useState(false);
 
@@ -61,23 +56,10 @@ function Navbar({ isDarkMode, onDarkModeChange }) {
 
     // Apply dark mode styles only when not reloading
     if (!isReloading) {
-      document.documentElement.classList.toggle(
-        "dark-mode",
-        isDarkMode
-      );
+      document.documentElement.classList.toggle("dark-mode", isDarkMode);
     }
   }, [isDarkMode, isReloading]);
 
-
-
-
-
-
-
-
-
-
-  
   // Save the dark mode state to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem("isDarkMode", isDarkMode);
@@ -172,165 +154,210 @@ function Navbar({ isDarkMode, onDarkModeChange }) {
       borderRadius: 20 / 2,
     },
   }));
-  const handleLoginClick = () => {
-    // Reload the entire page when navigating to /login
-    window.location.href = '/login';
-  };
-  const handleregisterClick = () => {
-    // Reload the entire page when navigating to /login
-    window.location.href = '/register';
-  };
-  const handlprofileClick = () => {
-    // Reload the entire page when navigating to /login
-    window.location.href = '/Product-profile';
-  };
-  // useEffect(() => {
-  //   if (location.pathname === '/login') {
-  //     window.location.reload();
-  //   }
-  // }, [location.pathname]);
+  const [open, setOpen] = React.useState(false);
+  const [isHidden, setIsHidden] = useState(false);
 
+  useEffect(() => {
+    const handleResize = () => {
+      // Check the window width and update the isHidden state accordingly
+      setIsHidden(window.innerWidth < 400);
+    };
 
+    // Initial check on component mount
+    handleResize();
+
+    // Add event listener for window resize
+    window.addEventListener('resize', handleResize);
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   return (
     <div>
-    <div>
-      <div
-        className="text-warning shadow"
-        style={{ backgroundColor: isDarkMode ? "black" : "white" }}
-      >
-        <nav className="navbar navbar-expand-lg">
-          <div className="container d-flex justify-content-between">
-            <div className="d-flex">
-              <div className="d-flex gap-2">
-                <Button
-                  variant="soft"
-                  color="none"
-                  className="navbar-toggler px-0 "
-                  type="button"
-                  onClick={toggleMobileMenu}
-                  style={{
-                    display: window.innerWidth <= 767 ? "block" : "none",
-                  }}
-                >
-                  <span
-                    className="navbar-toggler-icon fs-5"
-                    style={{ color: isDarkMode ? "white" : "black" }}
-                  ></span>
-                </Button>
-                <img
-                  src="https://storecode.in/images/logo-nav.png"
-                  alt="logo"
-                  style={{ width: "40px", height: "40px" }}
-                />
-              </div>
-              <ul
-                className="navbar-nav"
-                style={{ display: isMobileMenuOpen ? "none" : "flex" }}
-              >
-                <li className="nav-item">
-                  <Link
-                    className={`nav-link  ${
-                      location.pathname === "/" && "active"
-                    }`}
-                    to="/"
-                    style={{ color: isDarkMode ? "white" : "black" }}
-                  >
-                    HOME
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link
-                    className={`nav-link  ${
-                      location.pathname === "/about" && "active"
-                    }`}
-                    style={{ color: isDarkMode ? "white" : "black" }}
-                    to="/about"
-                  >
-                    About Us
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div className="d-flex position-relative">
-              {isLoggedIn ? (
+      <div>
+        <div
+          className="text-warning shadow"
+          style={{ backgroundColor: isDarkMode ? "black" : "white" }}
+        >
+          <nav className="navbar navbar-expand-lg">
+            <div className="container d-flex justify-content-between">
+              <div className="d-flex align-items-center">
                 <div className="d-flex align-items-center gap-2">
-                  <FormGroup>
-                    <FormControlLabel
-                      control={
-                        <MaterialUISwitch
-                          sx={{ m: 1 }}
-                          checked={isDarkMode}
-                          onChange={handleSwitchChange}
-                        />
-                      }
-                    />
-                  </FormGroup>
-                  <Link to='/Product-profile' className="nav-link">
-                    <Avatar
-                      size={"large"}
-                      alt={userName}
-                      src={profileData.profileImage}
-                    />
-                  </Link>
-                  {/* Logout button */}
-                  <button
-                    className="nav-link"
-                    style={{
-                      color: "#df439b",
-                      fontWeight: "700",
-                      background: "none",
-                      border: "none",
-                      cursor: "pointer",
-                    }}
-                    onClick={handleLogout}
+                  
+                  <Button
+                    variant="soft"
+                    color="none"
+                    className=" px-0 d-lg-none "
+                    type="button"
+                    onClick={() => setOpen(true)}
                   >
-                    Logout
-                  </button>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="40"
+                      height="40"
+                      className="bi bi-list"
+                      viewBox="0 0 16 16"
+                      style={{
+                        fill: isDarkMode ? "white" : "black", // Inverted colors for better readability
+                        fillRule: "evenodd",
+                      }}
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"
+                      />
+                    </svg>
+                  </Button>
+                  <img
+                    src="https://storecode.in/images/logo-nav.png"
+                    alt="logo"
+                    style={{ width: "40px", height: "40px" }}
+                  />
                 </div>
-              ) : (
-                <form className="d-flex align-items-center gap-2">
-                  <FormGroup>
-                    <FormControlLabel
-                      control={
-                        <MaterialUISwitch
-                          sx={{ m: 1 }}
-                          checked={isDarkMode}
-                          onChange={handleSwitchChange}
-                        />
-                      }
-                    />
-                  </FormGroup>
-                  <Link
-                    style={{ color: "#518EF8", fontWeight: "700" }}
-                    className={`nav-link`}
-                    to={{
-                      pathname: "/login",
-                    }}
-                    // onClick={handleLoginClick}
-                  >
-                    Login
-                  </Link>
-                  <Link
-                    style={{ color: "#df439b", fontWeight: "700" }}
-                    className={`nav-link  ${
-                      location.pathname === "/register" && "active"
-                    }`}
-                    to={{
-                      pathname: "/register",
-                    }}
-                    // onClick={handleregisterClick}
-                  >
-                    Register
-                  </Link>
-                </form>
-              )}
+
+                <ul
+                  className="navbar-nav"
+                  style={{ display: isMobileMenuOpen ? "none" : "flex" }}
+                >
+                  <li className="nav-item">
+                    <Link
+                      className={`nav-link  ${
+                        location.pathname === "/" && "active"
+                      }`}
+                      to="/"
+                      style={{ color: isDarkMode ? "white" : "black" }}
+                    >
+                      HOME
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link
+                      className={`nav-link  ${
+                        location.pathname === "/about" && "active"
+                      }`}
+                      style={{ color: isDarkMode ? "white" : "black" }}
+                      to="/about"
+                    >
+                      About Us
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+              <Drawer
+                style={{ width: "100%", backgroundColor: "black" }}
+                open={open}
+                onClose={() => setOpen(false)}
+              >
+                <ModalClose />
+                <DialogTitle>
+                  <div className="text-center m-auto py-5">
+                    <div className="mb-4" onClick={() => setOpen(false)}>
+                      <Link
+                        className={`nav-link  ${
+                          location.pathname === "/" && "active"
+                        }`}
+                        to="/"
+                        style={{ color: "black" }} // Set text color to black
+                      >
+                        HOME
+                      </Link>
+                    </div>
+                    <div onClick={() => setOpen(false)}>
+                      <Link
+                        className={`nav-link  ${
+                          location.pathname === "/about" && "active"
+                        }`}
+                        style={{ color: "black" }} // Set text color to black
+                        to="/about"
+                      >
+                        About Us
+                      </Link>
+                    </div>
+                  </div>
+                </DialogTitle>
+              </Drawer>
+
+              <div className="d-flex position-relative">
+                {isLoggedIn ? (
+                  <div className="d-flex align-items-center gap-2">
+                    <FormGroup>
+                      <FormControlLabel
+                        control={
+                          <MaterialUISwitch
+                            sx={{ m: 1 }}
+                            checked={isDarkMode}
+                            onChange={handleSwitchChange}
+                          />
+                        }
+                      />
+                    </FormGroup>
+                    <Link to="/Product-profile" className="nav-link">
+                      <Avatar
+                        size={"large"}
+                        alt={userName}
+                        src={profileData.profileImage}
+                      />
+                    </Link>
+                    {/* Logout button */}
+                    <button
+                      className="nav-link"
+                      style={{
+                        color: "#df439b",
+                        fontWeight: "700",
+                        background: "none",
+                        border: "none",
+                        cursor: "pointer",
+                      }}
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </button>
+                  </div>
+                ) : (
+                  <form className="d-flex align-items-center gap-2">
+                    <FormGroup>
+                      <FormControlLabel
+                        control={
+                          <MaterialUISwitch
+                            sx={{ m: 1 }}
+                            checked={isDarkMode}
+                            onChange={handleSwitchChange}
+                          />
+                        }
+                      />
+                    </FormGroup>
+                    <Link
+                      style={{ color: "#518EF8", fontWeight: "700" }}
+                      className={`nav-link`}
+                      to={{
+                        pathname: "/login",
+                      }}
+                      // onClick={handleLoginClick}
+                    >
+                      Login
+                    </Link>
+                    <Link
+                      style={{ color: "#df439b", fontWeight: "700" }}
+                      className={`nav-link  ${
+                        location.pathname === "/register" && "active"
+                      }`}
+                      to={{
+                        pathname: "/register",
+                      }}
+                      // onClick={handleregisterClick}
+                    >
+                      Register
+                    </Link>
+                  </form>
+                )}
+              </div>
             </div>
-          </div>
-        </nav>
+          </nav>
+        </div>
       </div>
     </div>
-  </div>
   );
 }
 

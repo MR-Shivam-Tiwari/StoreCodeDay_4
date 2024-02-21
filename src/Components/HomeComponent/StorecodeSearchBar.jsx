@@ -209,7 +209,7 @@ function StorecodeSearchBar({ isDarkMode }) {
                 } 10%, ${isDarkMode ? "#EF175F" : "#d6dffc"} 100%)`,
               }}
             >
-              <h5 className="py-3 fw-bold" style={{color: isDarkMode ? "white" : "black"}}>Get a code for your link</h5>
+              <h5 className="py-3 fw-bold" style={{color: isDarkMode ? "white" : "black"}}>your link</h5>
               <div
                 className="px-4 mb-5"
                 style={{ display: "flex", alignItems: "center" }}

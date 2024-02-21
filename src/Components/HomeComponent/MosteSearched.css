@@ -21,6 +21,16 @@
 .product-img.hovered {
   width: 100%;
 }
+@media (max-width: 400px) {
+  .product-img {
+    width: 40%;
+    height: 120px; /* Auto height for responsiveness */
+  }
+
+  .product-img.hovered {
+    width: 140%;
+  }
+}
 
 @mixin white-gradient {
   background: linear-gradient(
